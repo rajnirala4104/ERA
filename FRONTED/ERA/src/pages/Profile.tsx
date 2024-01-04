@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { useParams } from 'react-router-dom'
 
 export const Profile = () => {
+    const { userName } = useParams()
     return (
-        <div>Profile</div>
+        <Fragment>
+            <div className="container">
+                <h1>{userName}</h1>
+            </div>
+        </Fragment>
     )
 }

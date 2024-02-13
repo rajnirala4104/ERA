@@ -4,7 +4,9 @@ import { Login } from '../components'
 export const SignupAndLogin = () => {
   return (
     <React.Fragment>
-      <Login />
+      <section>
+        <Login />
+      </section>
     </React.Fragment>
   )
 }

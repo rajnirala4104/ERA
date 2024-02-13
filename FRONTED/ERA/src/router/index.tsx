@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Home, Profile, Root, SignupAndLogin } from "../pages";
+import { Profile, Root, SignupAndLogin } from "../pages";
 
 export const _ROUTER = createBrowserRouter([{
     path: '/',

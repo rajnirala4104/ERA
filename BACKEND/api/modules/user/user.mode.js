@@ -14,10 +14,11 @@ const userSchema = Schema({
 
 const User = model('User', userSchema)
 
+module.exports = { User }
+
 
 //user full name
 //uniqe name (user_name)
 // bio
 // profile Pic
 // follwers and following which initial value will be 0,0
-module.exports = { User }

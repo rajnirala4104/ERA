@@ -1,47 +1,45 @@
 const expressAsyncHandler = require("express-async-handler");
 const { User } = require("./user.mode");
 const { StatusCodes } = require('http-status-codes')
+const { generateToken } = require('../../config/generateToken')
 
 const userControllers = {
     registieredUser: expressAsyncHandler(async (req, res) => {
-        console.log(req.body)
         try {
-            console.log("owwowowowow")
             const { name, email, password, profilePic, bio } = req.body;
-            if (!name || !email || !password) {
+
+            if (!name || !email || !password || !bio) {
                 return res.status(StatusCodes.NOT_FOUND).json({
-                    message: "bad request",
-                    status: StatusCodes.BAD_REQUEST,
+                    message: "Please Enter all the Feilds",
                     data: null
                 })
             }
 
-            const userExist = await User.findOne({ email });
-            if (userExist) {
+            const userExists = await User.findOne({ email });
+            if (userExists) {
                 return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: "User already exist",
+                    message: "User is already exists",
                     status: StatusCodes.BAD_REQUEST,
                     data: null
                 })
             }
 
-            const user = await User.create({ name, email, password, bio, profilePic });
+            const user = await User.create({
+                name, email, password, profilePic, bio
+            });
             if (user) {
-                console.log("donedonedonedonedonedoendoendonedonedonedone")
-                res.status(StatusCodes.OK).json({
-                    _id: user._id, name: user.name, email: user.email, profilePic: user.profilePic, token: generateToken(user._id),
+                return res.status(StatusCodes.OK).json({
+                    _id: user._id, name: user.name, email: user.email, profilePic: user.profilePic, bio: user.bio, token: generateToken(user._id),
                 });
             } else {
-                return res.status(StatusCodes.NOT_FOUND).json({
-                    message: "Oops!! something went wrong",
-                    status: StatusCodes.CONFLICT,
-                    data: null
-                })
-
+                res.status(StatusCodes.NOT_FOUND);
+                throw new Error("Oops!! User not Found");
             }
+
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: "INTERNAL SERVER ERROR",
+                message: error,
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
                 data: null
             })
         }

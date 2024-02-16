@@ -8,8 +8,8 @@ const userSchema = Schema({
         unique: true,
     },
     password: { type: String, required: true },
-    userName: { type: String, required: true, lowercase: true },
-    bio: { type: String, require: false, lowercase: true },
+    // userName: { type: String, required: true, lowercase: true },
+    bio: { type: String, required: false, lowercase: true },
     profilePic: {
         type: String,
         default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
@@ -25,4 +25,3 @@ module.exports = { User }
 //uniqe name (user_name)
 // bio
 // profile Pic
-// follwers and following which initial value will be 0,0

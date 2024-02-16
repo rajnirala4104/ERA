@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const { userControllers } = require('./user.controllers')
-const { protect } = require('../../middelware/authUser')
+// const { protect } = require('../../middelware/authUser')
 
 const userRouter = Router()
 userRouter.post('/signup', userControllers.registieredUser)

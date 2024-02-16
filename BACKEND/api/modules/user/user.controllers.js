@@ -4,7 +4,7 @@ const { StatusCodes } = require('http-status-codes')
 const { generateToken } = require('../../config/generateToken')
 
 const userControllers = {
-    registieredUser: expressAsyncHandler(async (req, res) => {
+    userRegistration: expressAsyncHandler(async (req, res) => {
         try {
             const { name, email, password, profilePic, bio } = req.body;
 

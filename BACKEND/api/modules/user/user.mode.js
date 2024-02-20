@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const { hash } = require('bcryptjs')
 
 const userSchema = Schema({
     name: { type: String, required: true, lowercase: true },
@@ -15,6 +16,12 @@ const userSchema = Schema({
         default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
     },
 }, { timestamps: true });
+
+userSchema.pre('save', function (next) {
+    this.password = hash(this.password, 10);
+
+    next();
+})
 
 const User = model('User', userSchema)
 

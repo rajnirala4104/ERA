@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-const { hash } = require('bcryptjs')
+const { hash, genSalt, compare } = require('bcryptjs')
 
 const userSchema = Schema({
     name: { type: String, required: true, lowercase: true },
@@ -17,9 +17,15 @@ const userSchema = Schema({
     },
 }, { timestamps: true });
 
-userSchema.pre('save', function (next) {
-    this.password = hash(this.password, 10);
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    return await compare(enteredPassword, this.password);
+}
 
+userSchema.pre('save', async function (next) {
+    if (this.isModified("password")) {
+        const salt = await genSalt(10);
+        this.password = await hash(this.password, salt);
+    }
     next();
 })
 

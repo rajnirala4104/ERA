@@ -18,15 +18,20 @@ const userSchema = Schema({
 }, { timestamps: true });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
+    console.log(enteredPassword);
     return await compare(enteredPassword, this.password);
 }
 
 userSchema.pre('save', async function (next) {
-    if (this.isModified("password")) {
-        const salt = await genSalt(10);
-        this.password = await hash(this.password, salt);
+    try {
+        if (this.isModified("password")) {
+            const salt = await genSalt(10);
+            this.password = await hash(this.password, salt);
+        }
+        return next();
+    } catch (error) {
+        return next(error)
     }
-    next();
 })
 
 const User = model('User', userSchema)

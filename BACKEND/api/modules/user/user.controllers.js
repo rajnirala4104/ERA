@@ -47,9 +47,12 @@ const userControllers = {
     login: expressAsyncHandler(async (req, res) => {
         const { email, password } = req.body;
         const user = await User.findOne({ email, password })
+        const decryptPassword = await user.matchPassword(password)
+        console.log(decryptPassword)
 
-        if (user && (await User.matchPassword(password))) {
-            res.json({
+        if (user && decryptPassword) {
+
+            return res.status(StatusCodes.OK).json({
                 _id: user._id, name: user.name, email: user.email, password: user.password, pic: user.pic, token: generateToken(user._id),
             });
         } else {

@@ -17,9 +17,10 @@ const userSchema = Schema({
     },
 }, { timestamps: true });
 
+
 userSchema.methods.matchPassword = async function (enteredPassword) {
-    console.log(enteredPassword);
-    return await compare(enteredPassword, this.password);
+    const decryptPassword = await compare(enteredPassword, this.password);
+    return decryptPassword;
 }
 
 userSchema.pre('save', async function (next) {

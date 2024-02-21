@@ -46,19 +46,30 @@ const userControllers = {
     }),
     login: expressAsyncHandler(async (req, res) => {
         const { email, password } = req.body;
-        const user = await User.findOne({ email, password })
-        const decryptPassword = await user.matchPassword(password)
-        console.log(decryptPassword)
 
-        if (user && decryptPassword) {
-
-            return res.status(StatusCodes.OK).json({
-                _id: user._id, name: user.name, email: user.email, password: user.password, pic: user.pic, token: generateToken(user._id),
-            });
-        } else {
+        // Find user by email
+        const user = await User.findOne({ email });
+        if (!user) {
             res.status(401);
             throw new Error("Invalid Email or Password");
         }
+
+        // Compare passwords
+        const isPasswordMatch = await user.matchPassword(password);
+        console.log(isPasswordMatch)
+        if (!isPasswordMatch) {
+            res.status(401);
+            throw new Error("Invalid Email or Password");
+        }
+
+        // Passwords match, generate token and send response
+        return res.status(StatusCodes.OK).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            pic: user.pic,
+            token: generateToken(user._id),
+        });
     })
 }
 

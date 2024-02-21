@@ -3,11 +3,13 @@ const { User } = require("./user.mode");
 const { StatusCodes } = require('http-status-codes')
 const { generateToken } = require('../../config/generateToken')
 
+// controllers object
 const userControllers = {
     userRegistration: expressAsyncHandler(async (req, res) => {
         try {
             const { name, email, password, profilePic, bio } = req.body;
 
+            // checking the values vailid or not
             if (!name || !email || !password || !bio) {
                 return res.status(StatusCodes.NOT_FOUND).json({
                     message: "Please Enter all the Feilds",
@@ -15,7 +17,9 @@ const userControllers = {
                 })
             }
 
+            // Find use by email
             const userExists = await User.findOne({ email });
+            // checking user is already exist
             if (userExists) {
                 return res.status(StatusCodes.BAD_REQUEST).json({
                     message: "User is already exists",
@@ -24,6 +28,7 @@ const userControllers = {
                 })
             }
 
+            // add in our database
             const user = await User.create({
                 name, email, password, profilePic, bio
             });
@@ -33,7 +38,7 @@ const userControllers = {
                 });
             } else {
                 res.status(StatusCodes.NOT_FOUND);
-                throw new Error("Oops!! User not Found");
+                throw new Error("Oops!! something went wrong");
             }
 
         } catch (error) {
@@ -50,7 +55,7 @@ const userControllers = {
         // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
-            res.status(401);
+            res.status(StatusCodes.NOT_FOUND);
             throw new Error("Invalid Email or Password");
         }
 
@@ -58,7 +63,7 @@ const userControllers = {
         const isPasswordMatch = await user.matchPassword(password);
         console.log(isPasswordMatch)
         if (!isPasswordMatch) {
-            res.status(401);
+            res.status(StatusCodes.NOT_FOUND);
             throw new Error("Invalid Email or Password");
         }
 

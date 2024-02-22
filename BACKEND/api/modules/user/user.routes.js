@@ -8,7 +8,7 @@ const userRouter = Router()
 //endpoints and controller
 userRouter.post('/signup', userControllers.userRegistration)
 userRouter.post('/login', userControllers.login)
-userRouter.get('/:userName', async (req, res) => { })
-userRouter.put('/:userName', async (req, res) => { })
+// userRouter.get('?search=', async (req, res) => { })
+userRouter.put('/update/:id', userControllers.updatedUserInfo)
 
 module.exports = { userRouter }

@@ -75,7 +75,38 @@ const userControllers = {
             pic: user.pic,
             token: generateToken(user._id),
         });
-    })
+    }),
+
+    updatedUserInfo: expressAsyncHandler(async (req, res) => {
+        try {
+            const { id } = req.params
+            const { email, name, profilePic, bio } = req.body
+
+            const doesExist = await User.findOne({ _id: id })
+
+            if (!doesExist) {
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    message: "user is not in our database",
+                    data: null
+                })
+            }
+
+            const updateData = await User.findOneAndUpdate({ _id: id }, { $set: { name: name, email: email, profilePic: profilePic, bio: bio } })
+            return res.status(StatusCodes.OK).json({
+                message: "data is updated successfully",
+                data: updateData
+            })
+
+
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "Oops!! somethint went wrong",
+                error: error,
+                data: null
+            })
+        }
+    }),
+
 }
 
 

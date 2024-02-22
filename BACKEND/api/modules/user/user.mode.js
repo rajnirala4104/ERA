@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose')
 const { hash, genSalt, compare } = require('bcryptjs')
 
+// user schema
 const userSchema = Schema({
     name: { type: String, required: true, lowercase: true },
     email: {
@@ -17,11 +18,12 @@ const userSchema = Schema({
     },
 }, { timestamps: true });
 
-
+// checking the passwords
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await compare(enteredPassword, this.password);
 }
 
+// hashing the password
 userSchema.pre('save', async function (next) {
     try {
         if (this.isModified("password")) {
@@ -34,8 +36,10 @@ userSchema.pre('save', async function (next) {
     }
 })
 
+// user model
 const User = model('User', userSchema)
 
+//exporting
 module.exports = { User }
 
 

@@ -134,7 +134,18 @@ const userControllers = {
 
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: "Oops!! we are not able to forgot your password, INTERNA SERVER ERROR",
+                message: "Oops!! we are not able to forgot your password, INTERNAL SERVER ERROR",
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                data: null
+            })
+        }
+    }),
+    searchUser: expressAsyncHandler(async (req, res) => {
+        try {
+
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "Oops!! we are not able to search the user, INTERNAL SERVER ERROR",
                 status: StatusCodes.INTERNAL_SERVER_ERROR,
                 data: null
             })

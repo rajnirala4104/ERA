@@ -6,10 +6,10 @@ const { userControllers } = require('./user.controllers')
 const userRouter = Router()
 
 //endpoints and controller
-userRouter.post('/signup', userControllers.userRegistration)
-userRouter.post('/login', userControllers.login)
-// userRouter.get('?search=', async (req, res) => { })
-userRouter.put('/update/:id', userControllers.updatedUserInfo)
-userRouter.put('/password/:id', userControllers.updatePassword)
+userRouter.post('/signup', userControllers.userRegistration);
+userRouter.post('/login', userControllers.login);
+userRouter.get('/', userControllers.searchUser);
+userRouter.put('/update/:id', userControllers.updatedUserInfo);
+userRouter.put('/password/:id', userControllers.updatePassword);
 
 module.exports = { userRouter }

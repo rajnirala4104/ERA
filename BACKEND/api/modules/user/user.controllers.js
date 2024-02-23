@@ -1,7 +1,8 @@
 const expressAsyncHandler = require("express-async-handler");
 const { User } = require("./user.mode");
 const { StatusCodes } = require('http-status-codes')
-const { generateToken } = require('../../config/generateToken')
+const { generateToken } = require('../../config/generateToken');
+const { genSalt, hash } = require("bcryptjs");
 
 // controllers object
 const userControllers = {
@@ -61,7 +62,6 @@ const userControllers = {
 
         // Compare passwords
         const isPasswordMatch = await user.matchPassword(password);
-        console.log(isPasswordMatch)
         if (!isPasswordMatch) {
             res.status(StatusCodes.NOT_FOUND);
             throw new Error("Invalid Email or Password");
@@ -106,6 +106,40 @@ const userControllers = {
             })
         }
     }),
+
+    updatePassword: expressAsyncHandler(async (req, res) => {
+        try {
+            const { id } = req.params
+            const { password } = req.body
+
+            const doesExist = await User.findOne({ _id: id })
+            if (!doesExist) {
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    message: "use is not in our database",
+                    status: StatusCodes.BAD_REQUEST,
+                    data: null
+                })
+            }
+
+            const salt = await genSalt(10);
+            const newPassword = await hash(password, salt);
+
+            await User.findOneAndUpdate({ _id: id }, { $set: { password: newPassword } })
+
+            return res.status(StatusCodes.OK).json({
+                message: "password is updated successfully",
+                status: StatusCodes.OK,
+                data: doesExist
+            })
+
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "Oops!! we are not able to forgot your password, INTERNA SERVER ERROR",
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                data: null
+            })
+        }
+    })
 
 }
 

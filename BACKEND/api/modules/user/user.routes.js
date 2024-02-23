@@ -10,5 +10,6 @@ userRouter.post('/signup', userControllers.userRegistration)
 userRouter.post('/login', userControllers.login)
 // userRouter.get('?search=', async (req, res) => { })
 userRouter.put('/update/:id', userControllers.updatedUserInfo)
+userRouter.put('/password/:id', userControllers.updatePassword)
 
 module.exports = { userRouter }

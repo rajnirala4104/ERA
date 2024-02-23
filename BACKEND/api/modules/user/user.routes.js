@@ -10,6 +10,6 @@ userRouter.post('/signup', userControllers.userRegistration);
 userRouter.post('/login', userControllers.login);
 userRouter.get('/', userControllers.searchUser);
 userRouter.put('/update/:id', userControllers.updatedUserInfo);
-userRouter.put('/password/:id', userControllers.updatePassword);
+userRouter.put('/password', userControllers.updatePassword);
 
 module.exports = { userRouter }

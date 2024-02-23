@@ -109,13 +109,12 @@ const userControllers = {
 
     updatePassword: expressAsyncHandler(async (req, res) => {
         try {
-            const { id } = req.params
-            const { password } = req.body
+            const { email, password } = req.body
 
-            const doesExist = await User.findOne({ _id: id })
+            const doesExist = await User.findOne({ email: email })
             if (!doesExist) {
                 return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: "use is not in our database",
+                    message: "user is not in our database",
                     status: StatusCodes.BAD_REQUEST,
                     data: null
                 })
@@ -124,7 +123,7 @@ const userControllers = {
             const salt = await genSalt(10);
             const newPassword = await hash(password, salt);
 
-            await User.findOneAndUpdate({ _id: id }, { $set: { password: newPassword } })
+            await User.findOneAndUpdate({ email: email }, { $set: { password: newPassword } })
 
             return res.status(StatusCodes.OK).json({
                 message: "password is updated successfully",

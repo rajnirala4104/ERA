@@ -1,12 +1,14 @@
-import React from 'react'
-import { Login } from '../components'
+import React, { Suspense } from 'react'
+import { LoaderSpinner, Login } from '../components'
 
 export const SignupAndLogin = () => {
   return (
     <React.Fragment>
-      <section>
-        <Login />
-      </section>
+      <Suspense fallback={<LoaderSpinner />}>
+        <section>
+          <Login />
+        </section>
+      </Suspense>
     </React.Fragment>
   )
 }

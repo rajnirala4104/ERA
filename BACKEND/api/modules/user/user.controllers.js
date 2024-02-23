@@ -1,5 +1,5 @@
 const expressAsyncHandler = require("express-async-handler");
-const { User } = require("./user.mode");
+const { User } = require("./user.model");
 const { StatusCodes } = require('http-status-codes')
 const { generateToken } = require('../../config/generateToken');
 const { genSalt, hash } = require("bcryptjs");

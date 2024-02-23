@@ -6,7 +6,7 @@ const { protect } = require('../../middelware/authUser');
 // user router
 const userRouter = Router()
 
-//endpoints and controller
+//endpoints
 userRouter.post('/signup', userControllers.userRegistration);
 userRouter.post('/login', userControllers.login);
 userRouter.get('/', protect, userControllers.searchUser);

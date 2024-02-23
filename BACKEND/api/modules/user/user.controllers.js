@@ -141,6 +141,18 @@ const userControllers = {
     }),
     searchUser: expressAsyncHandler(async (req, res) => {
         try {
+            const keyword = req.query.search
+                ? {
+                    $or: [
+                        { name: { $regex: req.query.search, $options: "i" } },
+                        { email: { $regex: req.query.search, $options: "i" } },
+                    ],
+                }
+                : {};
+            const users = await User.find(keyword)
+                .find({ _id: { $ne: req.user._id } })
+                .select("-password");
+            res.send(users);
 
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

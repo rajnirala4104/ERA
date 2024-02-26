@@ -1,11 +1,12 @@
 import React, { Suspense, useContext } from 'react'
-import { LoaderSpinner, Login } from '../components'
+import { LoaderSpinner, Login, Singup } from '../components'
 import { allImages } from '../assets'
 import { LoginDesignContext } from '../contaxt'
 
 export const SignupAndLogin = () => {
 
-  // const { loginDesign, setLoginDesign } = useContext(LoginDesignContext)
+  const { loginDesign } = useContext(LoginDesignContext)
+  console.log(loginDesign)
 
   return (
     <React.Fragment>
@@ -23,7 +24,7 @@ export const SignupAndLogin = () => {
               <img src={allImages.loginSVG} className='w-[70%] mb-4' alt="era" />
             </div>
             <div className="form w-[50%] h-[100%] border border-red-500">
-              <Login />
+              {loginDesign ? <Login /> : <Singup />}
             </div>
           </div>
         </section>

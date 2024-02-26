@@ -1,4 +1,4 @@
 export interface context {
-    getter: boolean,
-    setter: React.Dispatch<React.SetStateAction<boolean>>
+    loginDesign: boolean,
+    setLoginDesign?: React.Dispatch<React.SetStateAction<boolean>>
 }

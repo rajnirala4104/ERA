@@ -25,7 +25,7 @@ export const SignupAndLogin = () => {
             </div>
             <div className="w-[50%] b h-[90%] flex justify-center items-center flex-col">
               {loginDesign ? <Login /> : <Singup />}
-              <span onClick={() => { }} className='text-blue-500 hover:underline'>Don't have account</span>
+              <span onClick={() => setLoginDesign(!loginDesign)} className='text-blue-500 hover:underline cursor-pointer'>Don't have account</span>
             </div>
           </div>
         </section>

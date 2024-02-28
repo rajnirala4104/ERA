@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { SignupAndLogin } from '.';
 import { Main } from '../components';
 
-export const Home = () => {
+export const Home: React.FC = () => {
 
     const [userExist, setUserExist] = useState<boolean>(false)
 

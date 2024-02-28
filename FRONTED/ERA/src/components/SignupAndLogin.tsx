@@ -20,7 +20,7 @@ export const SignupAndLogin = () => {
                 fontWeight: 400,
                 fontStyle: "normal",
               }} className='text-5xl mt-20  text-[#0c644e] cursor-default'>ERA</h1>
-              <img src={allImages.loginSVG} className='w-[70%] mb-4' alt="era" />
+              <img loading='lazy' src={allImages.loginSVG} className='w-[70%] mb-4' alt="era" />
             </div>
             <div className="w-[50%] h-[87%] flex justify-center items-center flex-col">
               {loginDesign ? <Login /> : <Singup />}

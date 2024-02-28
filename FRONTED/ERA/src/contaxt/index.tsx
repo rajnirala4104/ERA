@@ -1,3 +1,3 @@
 import { createContext } from "react";
 import { context } from "../interfaces";
-export const LoginDesignContext = createContext<context>({ loginDesign: true });
+export const LoginDesignContext = createContext<context>({ loginDesign: true, setLoginDesign: () => false });

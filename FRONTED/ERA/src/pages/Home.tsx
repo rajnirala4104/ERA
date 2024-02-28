@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { SignupAndLogin } from '.';
+import { Main } from '../components';
 
 export const Home = () => {
 
@@ -16,7 +17,7 @@ export const Home = () => {
 
     return (
         <React.Fragment>
-            {userExist ? "" : <SignupAndLogin />}
+            {userExist ? <Main /> : <SignupAndLogin />}
         </React.Fragment>
     )
 }

@@ -1,5 +1,5 @@
 import React, { Suspense, useContext } from 'react'
-import { LoaderSpinner, Login, Singup } from '../components'
+import { LoaderSpinner, Login, Singup } from '.'
 import { allImages } from '../assets'
 import { LoginDesignContext } from '../contaxt'
 

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react'
 import { stateProviderContext, stateProviderProp, user } from '../interfaces'
 
-const stateContext = createContext<stateProviderContext>({})
+const stateContext = createContext<stateProviderContext>({ _user: null, set_user: () => { } })
 
 export const StateProvider: React.FC<stateProviderProp> = ({ children }) => {
 

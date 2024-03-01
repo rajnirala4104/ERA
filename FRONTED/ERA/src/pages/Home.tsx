@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { SignupAndLogin } from '.';
+import React, { Suspense, memo, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { LoaderSpinner } from '../components'
 
-export const Home: React.FC = () => {
+export const Home = memo(() => {
 
     const navigator = useNavigate()
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('userInfo') as string);
-
-        if (user) {
-            navigator('/')
-        }
+        if (!user) navigator('/account');
     }, [])
 
     return (
         <React.Fragment>
-            <SignupAndLogin />
+            <Suspense fallback={<LoaderSpinner />}>
+                <div>Main</div>
+            </Suspense>
         </React.Fragment>
     )
-}
+})

@@ -1,12 +1,19 @@
-import React, { Suspense, useContext } from 'react'
+import React, { Suspense, useContext, useEffect } from 'react'
 import { LoaderSpinner, Login, Singup } from '.'
 import { allImages } from '../assets'
 import { LoginDesignContext } from '../contaxt'
+import { useNavigate } from 'react-router-dom'
 
 export const SignupAndLogin = () => {
 
   const { loginDesign, setLoginDesign } = useContext(LoginDesignContext)
 
+  const navigator = useNavigate()
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('userInfo') as string);
+    if (user) navigator('/');
+  }, [])
   return (
     <React.Fragment>
       <Suspense fallback={<LoaderSpinner />}>

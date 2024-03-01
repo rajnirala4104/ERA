@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { SignupAndLogin } from '.';
-import { Main } from '../components';
 
 export const Home: React.FC = () => {
 
-    const [userExist, setUserExist] = useState<boolean>(false)
+    const navigator = useNavigate()
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('userInfo') as string);
 
         if (user) {
-            setUserExist(!userExist)
-            console.log(user)
+            navigator('/')
         }
     }, [])
 
     return (
         <React.Fragment>
-            {userExist ? <Main /> : <SignupAndLogin />}
+            <SignupAndLogin />
         </React.Fragment>
     )
 }

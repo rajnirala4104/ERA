@@ -12,9 +12,9 @@ export const Login = () => {
       alert("invailid email and password")
     }
     try {
-      console.log("entered in try")
       const { data } = await login({ email: userEmail, password: userPassword })
       localStorage.setItem('userInfo', JSON.stringify(data))
+      window.location.reload()
     } catch (error) {
       alert("something went wrong in submitHandler")
     }

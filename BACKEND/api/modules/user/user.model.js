@@ -11,7 +11,7 @@ const userSchema = Schema({
     },
     password: { type: String, required: true },
     // userName: { type: String, required: true, lowercase: true },
-    bio: { type: String, required: false, lowercase: true },
+    bio: { type: String, required: false, lowercase: true, default: "----bio---" },
     profilePic: {
         type: String,
         default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"

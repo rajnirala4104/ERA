@@ -14,6 +14,7 @@ export const Login = () => {
     try {
       const { data } = await login({ email: userEmail, password: userPassword })
       localStorage.setItem('userInfo', JSON.stringify(data))
+      console.log(data)
       window.location.reload()
     } catch (error) {
       alert("something went wrong in submitHandler")

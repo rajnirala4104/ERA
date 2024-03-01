@@ -72,7 +72,8 @@ const userControllers = {
             _id: user._id,
             name: user.name,
             email: user.email,
-            pic: user.pic,
+            pic: user.profilePic,
+            bio: user.bio,
             token: generateToken(user._id),
         });
     }),

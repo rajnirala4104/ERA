@@ -14,13 +14,16 @@ export const Home = memo(() => {
         setUser([user])
     }, [])
 
-    console.log(user)
 
     return (
         <React.Fragment>
             <Suspense fallback={<LoaderSpinner />}>
                 <div>
-                    {user?.map(singleObject => <span>{singleObject.name}</span>)}
+                    {user?.map(singleObject => (<div>
+                        <img className='rounded-full' src={singleObject.pic} alt="asdf" />
+                        {singleObject.name}
+                    </div>
+                    ))}
                 </div>
             </Suspense>
         </React.Fragment>

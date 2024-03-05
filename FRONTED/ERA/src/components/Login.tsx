@@ -17,7 +17,6 @@ export const Login = () => {
       localStorage.setItem('userInfo', JSON.stringify(data))
       window.location.reload()
     } catch (error) { alert("Oops!! there is an error in code") }
-
   }
 
   return (

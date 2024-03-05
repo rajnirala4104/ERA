@@ -53,8 +53,8 @@ export const Singup = () => {
                         <div className="inputPassword mt-3 border px-2 py-1 border-[#115f4c] rounded-md flex justify-between items-center">
                             <input
                                 name="confirmPassword"
-                                type={hidePassword ? 'password' : ""} className='outline-none text-xl ' placeholder='Confirm Password..' />
-                            <span onClick={() => setHideConfirmPassword(!hideConfirmPassword)} className='w-16 text-center cursor-pointer  bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800'>{hidePassword ? "Show" : "Hide"}</span>
+                                type={hideConfirmPassword ? 'password' : ""} className='outline-none text-xl ' placeholder='Confirm Password..' />
+                            <span onClick={() => setHideConfirmPassword(!hideConfirmPassword)} className='w-16 text-center cursor-pointer  bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800'>{hideConfirmPassword ? "Show" : "Hide"}</span>
                         </div>
                     </div>
                     <div className="btn my-4 ">

@@ -21,7 +21,11 @@ export const Singup = () => {
         }
         try {
             console.log("entered in try")
-            const { data } = await signup({ email: formObject.email as string, name: formObject.name as string, password: formObject.confirmPassword as string })
+            const { data } = await signup({
+                email: formObject.email as string,
+                name: formObject.name as string,
+                password: formObject.confirmPassword as string
+            })
             console.log(data)
             // localStorage.setItem('userInfo', JSON.stringify(data))
             // window.location.reload()

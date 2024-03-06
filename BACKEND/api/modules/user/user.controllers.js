@@ -9,7 +9,7 @@ const userControllers = {
     userRegistration: expressAsyncHandler(async (req, res) => {
         try {
             const { name, email, password, profilePic, bio } = req.body;
-
+            console.log(req.body)
             // checking the values vailid or not
             if (!name || !email || !password || !bio) {
                 return res.status(StatusCodes.NOT_FOUND).json({

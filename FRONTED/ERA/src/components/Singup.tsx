@@ -20,7 +20,6 @@ export const Singup = () => {
             return;
         }
         try {
-            console.log("entered in try")
             const { data } = await signup({
                 email: formObject.email as string,
                 name: formObject.name as string,

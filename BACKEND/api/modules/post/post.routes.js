@@ -1,10 +1,12 @@
 const { Router } = require('express')
-const { StatusCodes } = require('http-status-codes')
+const { postControllers } = require('./post.controllers')
 
 const postRouter = Router()
 
-postRouter.get('/', async (req, res) => res.status(StatusCodes.OK).json({
-    message: "post route is working...",
-}))
+postRouter.get('/', postControllers.getAllPost)
+postRouter.post('/create', async (req, res) => { })
+postRouter.put('/update', async (req, res) => { })
+postRouter.delete('/delete', async (req, res) => { })
+
 
 module.exports = { postRouter }

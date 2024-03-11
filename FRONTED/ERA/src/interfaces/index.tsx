@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 export interface user {
     _id: string,
@@ -22,4 +22,5 @@ export interface stateProviderContext {
 export interface stateProviderProp {
     children: ReactNode
 }
+
 

@@ -7,6 +7,7 @@ export const Login = () => {
 
   const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    console.log(e)
     const formData = new FormData(e.target as any);
     const formObject = Object.fromEntries(formData.entries())
 
@@ -22,7 +23,7 @@ export const Login = () => {
   return (
     <React.Fragment>
       <Suspense fallback={<LoaderSpinner />}>
-        <form onSubmit={(e) => formSubmitHandler(e)} className='h-[100%] flex justify-center items-center flex-col'>
+        <form onKeyDown={(e) => e.key === "Enter" ? formSubmitHandler : ""} onSubmit={(e) => formSubmitHandler(e)} className='h-[100%] flex justify-center items-center flex-col'>
           <div>
             <div className="inputemail my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
               <input name='email' type="email" className='outline-none text-xl' placeholder='Enter your email...' />

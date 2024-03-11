@@ -34,7 +34,7 @@ export const Singup = () => {
     return (
         <React.Fragment>
             <Suspense fallback={<LoaderSpinner />}>
-                <form onSubmit={(e) => subimtHandler(e)} className='h-[100%] flex justify-center items-center flex-col'>
+                <form onKeyDown={(e) => e.key === "Enter" ? subimtHandler : ""} onSubmit={(e) => subimtHandler(e)} className='h-[100%] flex justify-center items-center flex-col'>
                     <div className="inputs">
                         <div className="inputname my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                             <input

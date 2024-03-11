@@ -20,7 +20,7 @@ export const SignupAndLogin = () => {
         <section
           style={{ background: `url(${allImages.loginBg}) center center/cover` }}
           className='w-full h-screen flex justify-center items-center '>
-          <div className='  backdrop-blur-md rounded-lg shadow-[0_00px_60px_-6px_rgba(0,0,0,0.5)] w-[80%] h-[80%] flex justify-between items-center'>
+          <div className='backdrop-blur-md rounded-lg shadow-[0_00px_60px_-6px_rgba(0,0,0,0.5)] w-[80%] h-[80%] flex justify-between items-center'>
             <div className="sideImg  flex flex-col justify-between items-center w-[45%] h-[100%] ">
               <h1 style={{
                 fontFamily: ` "Fjalla One", sans-serif`,

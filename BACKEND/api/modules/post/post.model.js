@@ -5,9 +5,10 @@ const postSchema = Schema({
         type: Types.ObjectId,
         ref: "User"
     },
-    cation: {
+    caption: {
         type: String,
-        lowercase: true
+        lowercase: true,
+        required: false
     },
     content: {
         type: String,
@@ -16,6 +17,7 @@ const postSchema = Schema({
     },
     comment: {
         type: Types.ObjectId,
+        required: false,
         ref: "Comment",
     }
 },

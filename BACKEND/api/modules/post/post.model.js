@@ -1,6 +1,10 @@
 const { Schema, model, Types } = require('mongoose')
 
 const postSchema = Schema({
+    user: {
+        type: Types.ObjectId,
+        ref: "User"
+    },
     cation: {
         type: String,
         lowercase: true
@@ -14,7 +18,9 @@ const postSchema = Schema({
         type: Types.ObjectId,
         ref: "Comment",
     }
-})
+},
+    { timestamps: true }
+)
 
 const Post = model('post', postSchema)
 module.exports = { Post }

@@ -6,7 +6,7 @@ const postRouter = Router()
 
 postRouter.get('/', protect, postControllers.getAllPost)
 postRouter.post('/create', protect, postControllers.createPost)
-postRouter.put('/update/:id', protect, async (req, res) => { })
+postRouter.put('/update/:id', protect, postControllers.updatePost)
 postRouter.delete('/delete', async (req, res) => { })
 
 

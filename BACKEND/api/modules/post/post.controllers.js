@@ -63,6 +63,14 @@ const postControllers = {
             const { id } = req.params;
 
             const post = await Post.find({ _id: id })
+
+            if (!(post[0].user === req.user._id)) {
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    message: "you can update is post",
+                    data: null
+                })
+            }
+
             if (!post) {
                 return res.status(StatusCodes.NOT_FOUND).json({
                     message: "this post not found in our database",
@@ -70,9 +78,7 @@ const postControllers = {
                     data: null
                 })
             }
-
-            const updateQuery = await Post.updateOne({ _id: id }, { caption: caption })
-            console.log(updateQuery)
+            await Post.updateOne({ _id: id }, { caption: caption })
             return res.status(StatusCodes.OK).json({
                 message: "updated successfuly",
                 status: StatusCodes.OK,

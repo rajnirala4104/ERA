@@ -26,7 +26,3 @@ const postSchema = Schema({
 
 const Post = model('post', postSchema)
 module.exports = { Post }
-
-// cation
-// image | video - "content"
-// comment = an other antity 

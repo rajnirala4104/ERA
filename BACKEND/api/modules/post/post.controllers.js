@@ -51,12 +51,40 @@ const postControllers = {
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: "we can't create post right now",
-                error: error,
                 status: StatusCodes.INTERNAL_SERVER_ERROR,
+                error: error,
                 data: null
             })
         }
+    }),
+    updatePost: expressAsyncHandler(async (req, res) => {
+        try {
+            const { caption } = req.body;
+            const { id } = req.params;
+            if (!(await Post.find({ _id: id }))) {
+                return res.status(StatusCodes.NOT_FOUND).json({
+                    message: "this post not found in our database",
+                    status: StatusCodes.NOT_FOUND,
+                    data: null
+                })
+            }
 
+            const updateQuery = await Post.updateOne({ _id: id }, { caption: caption })
+
+            return res.status(StatusCodes.OK).json({
+                message: "updated successfuly",
+                status: StatusCodes.OK,
+                data: updateQuery
+            })
+
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "we can't update post for now",
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                error: error,
+                data: null
+            })
+        }
     })
 }
 

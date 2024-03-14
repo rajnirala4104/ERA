@@ -21,6 +21,26 @@ const postControllers = {
             })
         }
     }),
+
+    getSinglePost: expressAsyncHandler(async (req, res) => {
+        try {
+            const { id } = req.params;
+            const singlePost = await Post.find({ _id: id });
+            return res.status(StatusCodes.OK).json({
+                message: "Single Post",
+                status: StatusCodes.OK,
+                data: singlePost
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "We can't give you a post information",
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                error: error,
+                data: null
+            })
+        }
+    }),
+
     createPost: expressAsyncHandler(async (req, res) => {
         try {
             const { caption, content, comment } = req.body
@@ -64,13 +84,6 @@ const postControllers = {
 
             const post = await Post.find({ _id: id })
 
-            if (!(post[0].user === req.user._id)) {
-                return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: "you can update is post",
-                    data: null
-                })
-            }
-
             if (!post) {
                 return res.status(StatusCodes.NOT_FOUND).json({
                     message: "this post not found in our database",
@@ -78,6 +91,14 @@ const postControllers = {
                     data: null
                 })
             }
+
+            if (post[0].user !== req.user._id) {
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    message: "you can update is post",
+                    data: null
+                })
+            }
+
             await Post.updateOne({ _id: id }, { caption: caption })
             return res.status(StatusCodes.OK).json({
                 message: "updated successfuly",
@@ -93,7 +114,9 @@ const postControllers = {
                 data: null
             })
         }
-    })
+    }),
+
+    deletePost: expressAsyncHandler(async (req, res) => { })
 }
 
 module.exports = { postControllers }

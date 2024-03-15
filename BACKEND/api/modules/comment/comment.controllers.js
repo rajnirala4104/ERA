@@ -1,6 +1,7 @@
 import expressAsyncHandler from "express-async-handler";
 import { StatusCodes } from "http-status-codes";
 import { Post } from "../post/post.model";
+import { Comment } from "./comment.model";
 
 export const commentControllers = {
     getAllTheComments: expressAsyncHandler(async (req, res) => { }),

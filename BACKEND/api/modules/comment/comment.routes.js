@@ -1,9 +1,11 @@
 const { Router } = require('express')
-const { StatusCodes } = require('http-status-codes')
+const { protect } = require('../../middelware/authUser')
+const { commentControllers } = require('./comment.controllers')
 
 const commentRouter = Router()
-commentRouter.get('/', async (req, res) => res.status(StatusCodes.OK).json({
-    message: "comment router is working.."
-}))
+commentRouter.get('/', protect, commentControllers.getAllTheComments);
+commentRouter.get('/:id', protect, commentControllers.getAllTheCommentsOfSinglePost);
+commentRouter.post('/', protect, commentControllers.createComment);
+commentRouter.put('/:id', protect, commentControllers.deleteComment);
 
 module.exports = { commentRouter }

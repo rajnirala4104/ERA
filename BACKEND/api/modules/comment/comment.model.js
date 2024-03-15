@@ -1,6 +1,10 @@
 const { model, Schema, Types } = require('mongoose')
 
 const commentSchema = Schema({
+    post: {
+        type: Types.ObjectId,
+        ref: "Post"
+    },
     user: {
         type: Types.ObjectId,
         ref: 'User'

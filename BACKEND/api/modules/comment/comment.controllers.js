@@ -4,7 +4,23 @@ import { Post } from "../post/post.model";
 import { Comment } from "./comment.model";
 
 export const commentControllers = {
-    getAllTheComments: expressAsyncHandler(async (req, res) => { }),
+    getAllTheComments: expressAsyncHandler(async (req, res) => {
+        try {
+            const response = await Comment.find()
+            return res.status(StatusCodes.OK).json({
+                message: "here all the comments",
+                status: StatusCodes.OK,
+                data: response
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "we can't show you all comments for now",
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                error: error,
+                data: null
+            })
+        }
+    }),
 
     getAllTheCommentsOfSinglePost: expressAsyncHandler(async (req, res) => { }),
 

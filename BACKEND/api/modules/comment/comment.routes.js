@@ -6,6 +6,6 @@ const commentRouter = Router()
 commentRouter.get('/', protect, commentControllers.getAllTheComments);
 commentRouter.get('/:id', protect, commentControllers.getAllTheCommentsOfSinglePost);
 commentRouter.post('/', protect, commentControllers.createComment);
-commentRouter.put('/:id', protect, commentControllers.deleteComment);
+commentRouter.delete('/:id', protect, commentControllers.deleteComment);
 
 module.exports = { commentRouter }

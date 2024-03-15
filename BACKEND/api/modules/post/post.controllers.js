@@ -116,7 +116,24 @@ const postControllers = {
         }
     }),
 
-    deletePost: expressAsyncHandler(async (req, res) => { })
+    deletePost: expressAsyncHandler(async (req, res) => {
+        try {
+            const { id } = req.params;
+            await Post.deletOne({ _id: id });
+            return res.status(StatusCodes.OK).json({
+                messgage: "deleted success fully",
+                status: StatusCodes.OK,
+                data: await Post.find({ _id: id })
+            })
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: "we can't delete post for now",
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                error: error,
+                data: null
+            })
+        }
+    })
 }
 
 module.exports = { postControllers }

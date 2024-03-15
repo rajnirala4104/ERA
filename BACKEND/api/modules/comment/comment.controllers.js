@@ -64,6 +64,31 @@ export const commentControllers = {
     }),
 
     deleteComment: expressAsyncHandler(async (req, res) => {
+        try {
+            const { id } = req.params
+            const commentDoesExist = await Comment.find({ _id: id });
+            if (!commentDoesExist) {
+                return res.status(StatusCodes.NOT_FOUND).json({
+                    message: "comment not found",
+                    status: StatusCodes.NOT_FOUND,
+                    data: null
+                })
+            }
 
+            await Comment.delete({ _id: id });
+            return res.status(StatusCodes.OK).json({
+                message: "comment deleted successfully",
+                status: StatusCodes.OK,
+                data: commentDoesExist
+            })
+
+        } catch (error) {
+            return res.status(StaticRange.INTERNAL_SERVER_ERROR).json({
+                message: "we can't delete comment",
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                error: error,
+                data: null
+            })
+        }
     })
 }

@@ -1,9 +1,9 @@
-import expressAsyncHandler from "express-async-handler";
-import { StatusCodes } from "http-status-codes";
-import { Post } from "../post/post.model";
-import { Comment } from "./comment.model";
+const { StatusCodes } = require("http-status-codes");
+const { Post } = require("../post/post.model");
+const { Comment } = require("./comment.model");
+const expressAsyncHandler = require('express-async-handler')
 
-export const commentControllers = {
+const commentControllers = {
     getAllTheComments: expressAsyncHandler(async (req, res) => {
         try {
             const response = await Comment.find()
@@ -36,7 +36,6 @@ export const commentControllers = {
                     message: "post doesn't exist",
                     status: StatusCodes.BAD_REQUEST,
                     data: null
-
                 })
             }
 
@@ -92,3 +91,5 @@ export const commentControllers = {
         }
     })
 }
+
+module.exports = { commentControllers }

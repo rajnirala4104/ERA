@@ -25,8 +25,10 @@ const commentControllers = {
     getAllTheCommentsOfSinglePost: expressAsyncHandler(async (req, res) => {
         try {
             const { postId } = req.params
-            const allComments = await find();
-            console.log(allComments)
+            const allComments = await Comment.find()
+
+            const post = await Post.find({ _id: postId })
+
 
         } catch (error) {
             res.status(StatusCodes.INTERNAL_SERVER_ERROR)

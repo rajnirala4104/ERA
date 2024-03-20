@@ -17,12 +17,11 @@ const postSchema = Schema({
     },
     comment: {
         type: Types.ObjectId,
-        required: false,
         ref: "Comment",
     }
 },
     { timestamps: true }
 )
 
-const Post = model('post', postSchema)
+const Post = model('Post', postSchema)
 module.exports = { Post }

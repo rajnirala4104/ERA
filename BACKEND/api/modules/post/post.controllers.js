@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes")
 const { Post } = require("./post.model")
 const expressAsyncHandler = require("express-async-handler")
 const { shuffleArray } = require("../../utils/shuffleArray")
+const { Types } = require("mongoose")
 
 const postControllers = {
     getAllPost: expressAsyncHandler(async (req, res) => {
@@ -43,7 +44,7 @@ const postControllers = {
 
     createPost: expressAsyncHandler(async (req, res) => {
         try {
-            const { caption, content, comment } = req.body
+            const { caption, content } = req.body
 
             if (!caption || !content) {
                 return res.status(StatusCodes.BAD_REQUEST).json({
@@ -55,8 +56,7 @@ const postControllers = {
             const postObj = {
                 user: req.user._id,
                 caption: caption,
-                content: content,
-                comment: comment
+                content: content
             }
 
             const postCreateQuery = await Post.create(postObj)
@@ -77,6 +77,7 @@ const postControllers = {
             })
         }
     }),
+
     updatePost: expressAsyncHandler(async (req, res) => {
         try {
             const { caption } = req.body;

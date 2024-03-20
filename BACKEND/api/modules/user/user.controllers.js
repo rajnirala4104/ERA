@@ -52,31 +52,42 @@ const userControllers = {
         }
     }),
     login: expressAsyncHandler(async (req, res) => {
-        const { email, password } = req.body;
+        try {
 
-        // Find user by email
-        const user = await User.findOne({ email });
-        if (!user) {
-            res.status(StatusCodes.NOT_FOUND);
-            throw new Error("Invalid Email or Password");
+            const { email, password } = req.body;
+
+            // Find user by email
+            const user = await User.findOne({ email });
+            if (!user) {
+                res.status(StatusCodes.NOT_FOUND);
+                throw new Error("Invalid Email or Password");
+            }
+
+            // Compare passwords
+            const isPasswordMatch = await user.matchPassword(password);
+            if (!isPasswordMatch) {
+                res.status(StatusCodes.NOT_FOUND);
+                throw new Error("Invalid Email or Password");
+            }
+
+            // Passwords match, generate token and send response
+            return res.status(StatusCodes.OK).json({
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                pic: user.profilePic,
+                bio: user.bio,
+                token: generateToken(user._id),
+            });
+        } catch (error) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: "Invailid email and password",
+                status: StatusCodes.NOT_FOUND,
+                error: error.message,
+                data: null
+            })
+
         }
-
-        // Compare passwords
-        const isPasswordMatch = await user.matchPassword(password);
-        if (!isPasswordMatch) {
-            res.status(StatusCodes.NOT_FOUND);
-            throw new Error("Invalid Email or Password");
-        }
-
-        // Passwords match, generate token and send response
-        return res.status(StatusCodes.OK).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            pic: user.profilePic,
-            bio: user.bio,
-            token: generateToken(user._id),
-        });
     }),
 
     updatedUserInfo: expressAsyncHandler(async (req, res) => {

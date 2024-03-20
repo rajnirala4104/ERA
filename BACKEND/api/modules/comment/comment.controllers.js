@@ -22,7 +22,17 @@ const commentControllers = {
         }
     }),
 
-    getAllTheCommentsOfSinglePost: expressAsyncHandler(async (req, res) => { }),
+    getAllTheCommentsOfSinglePost: expressAsyncHandler(async (req, res) => {
+        try {
+            const { postId } = req.params
+            const allComments = await find();
+            console.log(allComments)
+
+        } catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+            throw new Error(error.message);
+        }
+    }),
 
     createComment: expressAsyncHandler(async (req, res) => {
         try {

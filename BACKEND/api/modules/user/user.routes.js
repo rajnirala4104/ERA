@@ -1,7 +1,6 @@
 const { Router } = require('express')
 const { userControllers } = require('./user.controllers');
-const { protect } = require('../../middelware/authUser');
-// const { protect } = require('../../middelware/authUser')
+// const { protect } = require('../../middelware/authUser');
 
 // user router
 const userRouter = Router()
@@ -9,7 +8,7 @@ const userRouter = Router()
 //endpoints
 userRouter.post('/signup', userControllers.userRegistration);
 userRouter.post('/login', userControllers.login);
-userRouter.get('/', protect, userControllers.searchUser);
+userRouter.get('/', userControllers.searchUser);
 userRouter.put('/update/:id', userControllers.updatedUserInfo);
 userRouter.put('/password', userControllers.updatePassword);
 

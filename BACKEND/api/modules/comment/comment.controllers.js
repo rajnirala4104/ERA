@@ -29,6 +29,20 @@ const commentControllers = {
 
             const post = await Post.find({ _id: postId })
 
+            let comments = [];
+
+            for (let i = 0; i < allComments.length; i++) {
+                const singleCommentObject = allComments[i];
+                if (singleCommentObject.post = post[0]._id) {
+                    comments.push(singleCommentObject)
+                }
+            }
+
+            return res.status(StatusCodes.OK).json({
+                message: "all comments of a prticular post",
+                status: StatusCodes.OK,
+                data: comments
+            })
 
         } catch (error) {
             res.status(StatusCodes.INTERNAL_SERVER_ERROR)

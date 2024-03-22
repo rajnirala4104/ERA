@@ -1,5 +1,6 @@
 const { Schema, model, Types } = require('mongoose')
 
+// post Schema
 const postSchema = Schema({
     user: {
         type: Types.ObjectId,
@@ -23,5 +24,6 @@ const postSchema = Schema({
     { timestamps: true }
 )
 
+// post model
 const Post = model('Post', postSchema)
-module.exports = { Post }
+module.exports = { Post } //exporting the  model

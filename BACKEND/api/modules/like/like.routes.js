@@ -5,7 +5,7 @@ const { protect } = require('../../middelware/authUser')
 const likeRouter = Router();
 
 likeRouter.get('/:postId', protect, likeControllersObject.getAllLikesOfAPerticualarPost);
-likeControllersObject.post('/', protect, likeControllersObject.createLike)
+likeControllersObject.post('/:likeId', protect, likeControllersObject.createLike)
 
 
 module.exports = { likeRouter }

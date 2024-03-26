@@ -7,24 +7,74 @@ const { Post } = require('../post/post.model')
 const likeControllersObject = {
     // function or controller to get the likes of a perticular post
     getAllLikesOfAPerticualarPost: expressAsyncHandler(async (req, res) => {
+        try {
 
+            //getting post id from req.params
+            const { postId } = req.params;
+
+            // mongoose find query
+            const allLikes = await Like.find()
+
+            //mongoose find query to itrate post with condition 
+            const post = await Post.find({ _id: postId })
+
+            //empty array to store all likes of a perticular post
+            const likesOfAPerticualerPost = [];
+
+            for (let i = 0; i < allLikes.length; i++) {
+
+                const singleLikeObject = allLikes[i];
+
+                //checking param's post id and like's post id same of not
+                if (singleLikeObject.post = post[0]._id) {
+                    // if true: push or append the like object to empty like array
+                    likesOfAPerticualerPost.push(singleLikeObject)
+                }
+            }
+
+            //returning response
+            return res.status(StatusCodes.OK).json({
+                message: "all like of a perticual post",
+                status: StatusCodes.OK,
+                data: likesOfAPerticualerPost
+            })
+
+
+        } catch (error) {
+            //error
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+            throw new Error(error.message)
+        }
     }),
 
-    //function of controller to create a new like 
+    //function or controller to create a new like 
     createLike: expressAsyncHandler(async (req, res) => {
         try {
 
-            // getting post id from as parameter
-            const { postId } = req.params
+            // getting post id from user
+            const { postId } = req.body
             // getting logedin user id from req.user
             const logedInUserId = req.user._id
 
+
             //  if post doesn't exist in the database
-            if (!(await Post.find())) {
+            if (!(await Post.find({ _id: postId }))) {
                 return res.status(StatusCodes.NOT_FOUND).json({
                     message: "post doesn't exist",
                     status: StatusCodes.NOT_FOUND,
                     data: null
+                })
+            }
+
+            //mongoose find query for a specific data
+            const likeObject = await Like.find({ user: logedInUserId, post: postId })
+
+            // checking if there is even one object with same user and same post id
+            if (likeObject.length > 0) {
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                    message: "like is already exist",
+                    status: StatusCodes.BAD_REQUEST,
+                    data: likeObject
                 })
             }
 
@@ -70,7 +120,7 @@ const likeControllersObject = {
             }
 
             //mongoose delete query
-            await Like.delete({ _id: likeId })
+            await Like.deleteOne({ _id: likeId })
             return res.status(StatusCodes.OK).json({
                 message: "removed successfully",
                 data: likeObject

@@ -23,6 +23,7 @@ const likeControllersObject = {
 
             for (let i = 0; i < allLikes.length; i++) {
 
+                //getting single like object in a variable
                 const singleLikeObject = allLikes[i];
 
                 //checking param's post id and like's post id same of not

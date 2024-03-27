@@ -33,7 +33,7 @@ const commentControllers = {
 
             const post = await Post.find({ _id: postId }) //mongoose find query
 
-            let comments = [];//a empty array
+            let comments = [];//an empty array
 
             // for loop for accessing all the comments
             for (let i = 0; i < allComments.length; i++) {

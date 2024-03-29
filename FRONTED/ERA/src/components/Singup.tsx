@@ -1,5 +1,6 @@
 import React, { Suspense, useState } from "react";
 import { LoaderSpinner } from ".";
+import { signupData } from "../api/apiInterfaces";
 import { signup } from "../api/services/authenticationApiServices";
 
 export const Singup = () => {
@@ -21,11 +22,14 @@ export const Singup = () => {
          return;
       }
       try {
-         const { data } = await signup({
+         console.log("entering in try");
+         const finalData: signupData = {
             email: formObject.email as string,
             name: formObject.name as string,
             password: formObject.confirmPassword as string,
-         });
+         };
+         console.log(finalData);
+         const { data } = await signup(finalData);
          console.log(data);
          // localStorage.setItem('userInfo', JSON.stringify(data))
          // window.location.reload()

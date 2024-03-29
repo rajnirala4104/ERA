@@ -1,10 +1,13 @@
-import { ENDPIONTS } from "../constants";
 import { loginData, signupData } from "../apiInterfaces";
+import { ENDPIONTS } from "../constants";
 import { http } from "../http";
 
 export const signup = (data: signupData) => {
-    console.log(data)
-    return http.post(ENDPIONTS.signup, data)
+    return http.post(ENDPIONTS.signup, data, {
+        headers: {
+            "Content-type": "application/json",
+        },
+    })
 }
 
 export const login = (data: loginData) => {

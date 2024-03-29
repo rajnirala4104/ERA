@@ -102,11 +102,13 @@ const commentControllers = {
    // update comment function of controller
    updateComment: expressAsyncHandler(async (req, res) => {
       try {
+         //getting comment id and content from body
          const { commentId, content } = req.body;
-
+         //getting a single comment from the database using mongoose .fing() query
          const commentObjectFromDatabase = await Comment.find({
             _id: commentId,
          });
+         // if comment is not exist in the database
          if (!commentControllers || commentControllers.length === 0) {
             return res.status(StatusCodes.NOT_FOUND).json({
                message: "comment doesn't exist",
@@ -115,6 +117,7 @@ const commentControllers = {
             });
          }
 
+         //if comment's contents are same
          if (commentObjectFromDatabase[0].content === content) {
             return res.status(StatusCodes.CONFLICT).json({
                message: "content are same",
@@ -123,6 +126,7 @@ const commentControllers = {
             });
          }
 
+         // updating comment by using mongoose .findOneAndUpdate() query
          await Comment.findOneAndUpdate(
             { _id: commentId },
             { content: content }
@@ -134,6 +138,7 @@ const commentControllers = {
             content: content,
          });
       } catch (error) {
+         // error
          res.status(StatusCodes.INTERNAL_SERVER_ERROR);
          throw new Error(error.message);
       }

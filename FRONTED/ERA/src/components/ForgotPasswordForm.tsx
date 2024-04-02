@@ -6,7 +6,14 @@ export const ForgotPasswordForm: React.FC = () => {
 
    const [newPasswordHideOrShow, setNewPasswordHideOrShow] = useState<boolean>(false)
 
-   const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => { };
+   const submitFormHandler = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const formData = new FormData(e.target as HTMLFormElement);
+      const formDataObject = Object.fromEntries(formData.entries());
+
+      console.log(formDataObject);
+
+   };
 
    return (
       <Fragment>
@@ -17,10 +24,10 @@ export const ForgotPasswordForm: React.FC = () => {
                   className=" flex flex-col justify-center items-center  mx-2"
                >
                   <div className="email ">
-                     <input type="text" placeholder="Email.." className="px-2 py-2 w-[16.5rem] outline-none border-2 rounded-md border-black hover:border-[#075e48] focus:border-[#075e48] my-2" />
+                     <input name="email" type="text" placeholder="Email.." className="px-2 py-2 w-[16.5rem] outline-none border-2 rounded-md border-black hover:border-[rgb(7,94,72)] focus:border-[#075e48] my-2" />
                   </div>
                   <div className="newPassword">
-                     <input className="px-2 py-2 w-[16.5rem] outline-none border-2 rounded-md border-black hover:border-[#075e48] focus:border-[#075e48] my-1" type={newPasswordHideOrShow ? "text" : "password"} placeholder="New Passwrod.." />
+                     <input name="userNamePassword" className="px-2 py-2 w-[16.5rem] outline-none border-2 rounded-md border-black hover:border-[#075e48] focus:border-[#075e48] my-1" type={newPasswordHideOrShow ? "text" : "password"} placeholder="New Passwrod.." />
                   </div>
                   <div className="btn my-3">
                      <button className="bg-[#1aeab6] p-2 rounded-md" type="submit">Create New Password</button>

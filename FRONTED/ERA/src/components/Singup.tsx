@@ -22,17 +22,14 @@ export const Singup = () => {
          return;
       }
       try {
-         console.log("entering in try");
          const finalData: signupData = {
             email: formObject.email as string,
             name: formObject.name as string,
             password: formObject.confirmPassword as string,
          };
-         console.log(finalData);
          const { data } = await signup(finalData);
-         console.log(data);
-         // localStorage.setItem('userInfo', JSON.stringify(data))
-         // window.location.reload()
+         localStorage.setItem('userInfo', JSON.stringify(data))
+         window.location.reload()
       } catch (error) {
          alert("we can't create your account right now");
       }

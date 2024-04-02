@@ -8,10 +8,10 @@ const { genSalt, hash } = require("bcryptjs");
 const userControllers = {
     userRegistration: expressAsyncHandler(async (req, res) => {
         try {
-            const { name, email, password, profilePic, bio } = req.body;
+            const { name, email, password, profilePic } = req.body;
 
             // checking the values vailid or not
-            if (!name || !email || !password || !bio) {
+            if (!name || !email || !password) {
                 return res.status(StatusCodes.NOT_FOUND).json({
                     message: "Please Enter all the Feilds",
                     data: null
@@ -32,11 +32,11 @@ const userControllers = {
 
             // add in our database
             const user = await User.create({
-                name, email, password, profilePic, bio
+                name, email, password, profilePic
             });
             if (user) {
                 return res.status(StatusCodes.OK).json({
-                    _id: user._id, name: user.name, email: user.email, profilePic: user.profilePic, bio: user.bio, token: generateToken(user._id),
+                    _id: user._id, name: user.name, email: user.email, profilePic: user.profilePic, token: generateToken(user._id),
                 });
             } else {
                 res.status(StatusCodes.NOT_FOUND);

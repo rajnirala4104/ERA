@@ -1,4 +1,5 @@
 import React, { Suspense, useState } from "react";
+import { Link } from "react-router-dom";
 import { LoaderSpinner } from ".";
 import { login } from "../api/services/authenticationApiServices";
 
@@ -58,9 +59,12 @@ export const Login = () => {
                            {hidePassword ? "Show" : "Hide"}
                         </span>
                      </div>
-                     <span className="text-blue-500 hover:text-blue-600 cursor-pointer hover:underline">
+                     <Link
+                        to="/password"
+                        className="text-blue-500 hover:text-blue-600 cursor-pointer hover:underline"
+                     >
                         Forgot password
-                     </span>
+                     </Link>
                   </div>
                </div>
                <div className="btn my-4 ">

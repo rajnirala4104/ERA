@@ -1,4 +1,5 @@
-export * from './Root'
+export * from '../components/SignupAndLogin'
+export * from './ForgotPassword'
 export * from './Home'
 export * from './Profile'
-export * from '../components/SignupAndLogin'
+export * from './Root'

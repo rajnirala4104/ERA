@@ -10,3 +10,8 @@ export interface loginData {
     email?: string,
     password?: string
 }
+
+export interface forgotPasswordsDataInterface {
+    email: string,
+    password: string
+}

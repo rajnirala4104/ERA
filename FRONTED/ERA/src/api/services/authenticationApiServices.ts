@@ -1,4 +1,4 @@
-import { loginData, signupData } from "../apiInterfaces";
+import { forgotPasswordsDataInterface, loginData, signupData } from "../apiInterfaces";
 import { ENDPIONTS } from "../constants";
 import { http } from "../http";
 
@@ -12,4 +12,8 @@ export const signup = (data: signupData) => {
 
 export const login = (data: loginData) => {
     return http.post(ENDPIONTS.login, data)
+}
+
+export const forgotPassword = (data: forgotPasswordsDataInterface) => {
+    return http.put(ENDPIONTS.password, data);
 }

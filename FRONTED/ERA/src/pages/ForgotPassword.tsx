@@ -6,7 +6,7 @@ export const ForgotPassword: React.FC = () => {
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <section className="w-full h-screen flex justify-center items-center p-2 bg-[#1aeab6]">
-               <div className="mainContainer w-[40%] h-[60%] bg-white rounded-md flex justify-center items-center">
+               <div className="mainContainer w-[40%] h-[60%] bg-white shadow-lg rounded-md flex justify-center items-center">
                   <ForgotPasswordForm />
                </div>
             </section>

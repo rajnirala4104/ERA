@@ -13,7 +13,7 @@ export const ForgotPasswordForm: React.FC = () => {
       const formData = new FormData(e.target as HTMLFormElement);
       const formDataObject = Object.fromEntries(formData.entries());
       try {
-         const { data } = await forgotPassword({
+         await forgotPassword({
             email: formDataObject.email as string,
             password: formDataObject.password as string
          });
@@ -21,7 +21,7 @@ export const ForgotPasswordForm: React.FC = () => {
          navigator('/')
 
       } catch (error) {
-         alert("We can't update your password for now")
+         alert(error)
       }
    };
 
@@ -37,15 +37,21 @@ export const ForgotPasswordForm: React.FC = () => {
                   <div className="email ">
                      <input name="email" type="text" placeholder="Email.." className="px-2 py-2 w-[18rem] text-xl focus:border-2 outline-none border rounded-md border-black hover:border-[rgb(7,94,72)] focus:border-[#075e48] my-2" />
                   </div>
-                  <div className="newPassword">
-                     <input name="password" className="px-2 py-2 w-[18rem] outline-none text-xl border rounded-md border-black focus:border-2 hover:border-[#075e48] focus:border-[#075e48] my-1" type={newPasswordHideOrShow ? "text" : "password"} placeholder="New Passwrod.." />
+                  <div className="newPassword flex justify-between px-2 w-[18rem] border rounded-md border-black focus:border-2 hover:border-[#075e48] focus:border-[#4fe7c1]">
+                     <input name="password" className="w-[74%] outline-none text-xl" type={newPasswordHideOrShow ? "text" : "password"} placeholder="New Passwrod.." />
+                     <span
+                        onClick={() => setNewPasswordHideOrShow(!newPasswordHideOrShow)}
+                        className="w-16 text-center cursor-pointer my-[7px] bg-black dark:text-white px-2 py-1 text-[15px] rounded-md hover:bg-gray-800"
+                     >
+                        {newPasswordHideOrShow ? "Hide" : "Show"}
+                     </span>
                   </div>
                   <div className="btn my-3">
                      <button className="bg-[#1aeab6] p-2 rounded-md" type="submit">Create New Password</button>
                   </div>
                </form>
                <div className="">
-                  <Link to='/account' className="underline text-blue-500 ">login</Link>
+                  <Link to='/account' className="hover:underline text-blue-500 ">login</Link>
                </div>
             </div>
          </Suspense>

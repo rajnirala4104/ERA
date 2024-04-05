@@ -9,7 +9,6 @@ const postSchema = Schema({
     caption: {
         type: String,
         lowercase: true,
-        required: false
     },
     content: {
         type: String,

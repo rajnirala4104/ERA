@@ -14,7 +14,6 @@ const userSchema = Schema(
       // userName: { type: String, required: true, lowercase: true },
       bio: {
          type: String,
-         required: false,
          lowercase: true,
          default: "----bio---",
       },

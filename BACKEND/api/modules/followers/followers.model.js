@@ -1,6 +1,7 @@
 const { Types, model } = require("mongoose");
 const { Schema } = require("mongoose");
 
+// schema
 const followersSchema = Schema({
 
     // user who is following
@@ -17,5 +18,6 @@ const followersSchema = Schema({
 
 }, { timestamps: true })
 
+// model
 const Followers = model("Followers", followersSchema);
-module.exports = { Followers };
+module.exports = { Followers }; 

@@ -10,7 +10,7 @@ const userControllers = {
         try {
             const { name, email, password, profilePic } = req.body;
 
-            // checking the values vailid or not
+            // checking the values are vailid or not
             if (!name || !email || !password) {
                 return res.status(StatusCodes.NOT_FOUND).json({
                     message: "Please Enter all the Feilds",
@@ -24,7 +24,7 @@ const userControllers = {
             // checking user is already exist
             if (userExists) {
                 return res.status(StatusCodes.BAD_REQUEST).json({
-                    message: "User is already exists",
+                    message: "User is already exist",
                     status: StatusCodes.BAD_REQUEST,
                     data: null
                 })
@@ -40,7 +40,7 @@ const userControllers = {
                 });
             } else {
                 res.status(StatusCodes.NOT_FOUND);
-                throw new Error("Oops!! something went wrong");
+                throw new Error("something went wrong");
             }
 
         } catch (error) {
@@ -113,7 +113,7 @@ const userControllers = {
 
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: "Oops!! somethint went wrong",
+                message: "somethint went wrong",
                 error: error,
                 data: null
             })
@@ -146,7 +146,7 @@ const userControllers = {
 
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: "Oops!! we are not able to forgot your password, INTERNAL SERVER ERROR",
+                message: "INTERNAL SERVER ERROR",
                 status: StatusCodes.INTERNAL_SERVER_ERROR,
                 data: null
             })
@@ -169,13 +169,12 @@ const userControllers = {
 
         } catch (error) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: "Oops!! we are not able to search the user, INTERNAL SERVER ERROR",
+                message: "INTERNAL SERVER ERROR",
                 status: StatusCodes.INTERNAL_SERVER_ERROR,
                 data: null
             })
         }
     })
-
 }
 
 

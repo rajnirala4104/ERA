@@ -11,7 +11,6 @@ const userSchema = Schema(
          unique: true,
       },
       password: { type: String, required: true },
-      // userName: { type: String, required: true, lowercase: true },
       bio: {
          type: String,
          lowercase: true,
@@ -50,7 +49,3 @@ const User = model("User", userSchema);
 //exporting
 module.exports = { User };
 
-//user full name
-//uniqe name (user_name)
-// bio
-// profile Pic

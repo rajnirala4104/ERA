@@ -1,5 +1,6 @@
 const { Schema, model, Types } = require("mongoose");
 
+// like schema
 const likeSchema = Schema({
     user: {
         type: Types.ObjectId,
@@ -11,6 +12,7 @@ const likeSchema = Schema({
     }
 }, { timestamp: true });
 
+// like model
 const Like = model('Like', likeSchema);
 module.exports = { Like };
 

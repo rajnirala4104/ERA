@@ -2,8 +2,10 @@ const { Router } = require("express");
 const { protect } = require("../../middelware/authUser");
 const { followersControllersObject } = require("./followers.controller");
 
+// followers router
 const followerRouter = Router();
 
+// endpoints
 followerRouter.get('/followers', protect, followersControllersObject.gettingAllTheFollwersOfAPerticularUser);
 followerRouter.get('/following', protect, followersControllersObject.gettingAllTheFollowingsOfAPerticularUser);
 followerRouter.post('/create', protect, followersControllersObject.createFollower);

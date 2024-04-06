@@ -1,8 +1,7 @@
 const { model, Schema, Types } = require("mongoose");
 
+//story schema
 const storySchema = Schema({
-
-    // 
     user: {
         type: Types.ObjectId,
         ref: 'User'
@@ -18,5 +17,6 @@ const storySchema = Schema({
 }, { timestamps: true }
 );
 
+//story model
 const Story = model('Story', storySchema);
 module.exports = { Story }

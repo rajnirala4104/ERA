@@ -11,7 +11,7 @@ const followersSchema = Schema({
     },
 
     // user being followed
-    followingUserId: {
+    followedUserId: {
         type: Types.ObjectId,
         ref: "User"
     }

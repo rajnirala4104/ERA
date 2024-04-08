@@ -30,6 +30,19 @@ const followersControllersObject = {
                 })
             }
 
+            const allFollowerObjects = await Followers.find();
+            for (let i = 0; i < allFollowerObjects.length; i++) {
+                const singleFollowerObject = allFollowerObjects[i];
+
+                if (singleFollowerObject.user.toString() === loggedUser.toString() || singleFollowerObject.followedUserId.toString() === followedUserId.toString()) {
+                    return res.status(StatusCodes.FORBIDDEN).json({
+                        message: "follower is already exist",
+                        status: StatusCodes.FORBIDDEN,
+                        data: singleFollowerObject
+                    })
+                }
+            }
+
             // follow object 
             const followObject = { user: loggedUser, followedUserId: followedUserId }
 

@@ -8,7 +8,7 @@ const { genSalt, hash } = require("bcryptjs");
 const userControllers = {
     userRegistration: expressAsyncHandler(async (req, res) => {
         try {
-            const { name, email, password, profilePic } = req.body;
+            const { name, email, password } = req.body;
 
             // checking the values are vailid or not
             if (!name || !email || !password) {
@@ -32,7 +32,7 @@ const userControllers = {
 
             // add in our database
             const user = await User.create({
-                name, email, password, profilePic
+                name, email, password
             });
             if (user) {
                 return res.status(StatusCodes.OK).json({

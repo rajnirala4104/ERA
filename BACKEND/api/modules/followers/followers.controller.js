@@ -14,6 +14,8 @@ const followersControllersObject = {
                 .populate('user followedUserId', '-password')
 
             return res.status(StatusCodes.OK).json({
+                message: "here all the follow object",
+                status: StatusCodes.OK,
                 data: responseJSON
             })
 
@@ -34,6 +36,8 @@ const followersControllersObject = {
                 .populate('user followedUserId', '-password')
 
             return res.status(StatusCodes.OK).json({
+                message: "here all the followers ",
+                status: StatusCodes.OK,
                 data: responseJSON
             })
 
@@ -146,7 +150,28 @@ const followersControllersObject = {
         }
     }),
     // search functionality
-    searchFolower: expressAsyncHandler(async (req, res) => { }),
+    searchFolower: expressAsyncHandler(async (req, res) => {
+        try {
+            // getting search keyword from req.query
+            const keyword = req.query.search
+                ? {
+                    $or: [
+                        { name: { $regex: req.query.search, $options: "i" } },
+                        { email: { $regex: req.query.search, $options: "i" } },
+                    ],
+                }
+                : {};
+            // use that keyword as a condition using mongoose .find() query
+            const users = await Followers.find(keyword)
+                .find({ _id: { $ne: req.user._id } })
+                .select("-password");
+            res.send(users);
+        } catch (error) {
+            // error
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR);
+            throw new Error(error.message)
+        }
+    }),
 
 }
 

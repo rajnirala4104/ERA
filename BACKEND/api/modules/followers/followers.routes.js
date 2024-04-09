@@ -11,6 +11,6 @@ followerRouter.get('/followers/:userId', protect, followersControllersObject.get
 followerRouter.get('/following/:id', protect, followersControllersObject.gettingAllTheFollowingsOfAPerticularUser);
 followerRouter.post('/create', protect, followersControllersObject.createFollower);
 followerRouter.delete('/delete', protect, followersControllersObject.removeFollower);
-followerRouter.get('/serch', protect, followersControllersObject.searchFolower);
+followerRouter.get('/search', protect, followersControllersObject.searchFolower);
 
 module.exports = { followerRouter }

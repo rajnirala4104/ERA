@@ -6,8 +6,9 @@ const { followersControllersObject } = require("./followers.controller");
 const followerRouter = Router();
 
 // endpoints
-followerRouter.get('/followers', protect, followersControllersObject.gettingAllTheFollwersOfAPerticularUser);
-followerRouter.get('/following', protect, followersControllersObject.gettingAllTheFollowingsOfAPerticularUser);
+followerRouter.get('/followers', protect, followersControllersObject.getAllFollowJSONObject)
+followerRouter.get('/followers/:userId', protect, followersControllersObject.gettingAllTheFollwersOfAPerticularUser);
+followerRouter.get('/following/:id', protect, followersControllersObject.gettingAllTheFollowingsOfAPerticularUser);
 followerRouter.post('/create', protect, followersControllersObject.createFollower);
 followerRouter.delete('/delete', protect, followersControllersObject.removeFollower);
 followerRouter.get('/serch', protect, followersControllersObject.searchFolower);

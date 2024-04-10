@@ -136,7 +136,7 @@ const followersControllersObject = {
             }
 
             // mognoose .delete() query
-            await Followers.delete({ user: loggedUserId, followedUserId: followedUserId })
+            await Followers.deleteOne({ user: loggedUserId, followedUserId: followedUserId })
             return res.status(StatusCodes.NOT_FOUND).json({
                 message: "data deleted successfully",
                 status: StatusCodes.NOT_FOUND,
@@ -161,6 +161,8 @@ const followersControllersObject = {
                     ],
                 }
                 : {};
+
+            console.log(keyword)
             // use that keyword as a condition using mongoose .find() query
             const users = await Followers.find(keyword)
                 .find({ _id: { $ne: req.user._id } })

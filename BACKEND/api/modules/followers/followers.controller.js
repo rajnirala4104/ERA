@@ -86,6 +86,7 @@ const followersControllersObject = {
                 })
             }
 
+            //getting all the follower json data from the database
             const allFollowerObjects = await Followers.find();
             for (let i = 0; i < allFollowerObjects.length; i++) {
                 const singleFollowerObject = allFollowerObjects[i];

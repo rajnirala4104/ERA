@@ -8,7 +8,7 @@ const storySchema = Schema({
     },
     imageUrl: {
         type: String,
-        require: true
+        default: 'https://cdn.onlinewebfonts.com/svg/img_98811.png',
     },
     caption: {
         type: String,

@@ -7,12 +7,15 @@ const storyControllersObject = {
     gettingAllStories: expressAsyncHandler(async (req, res) => {
         try {
             //getting all the sotries using mongoose .find() query
-            const allStories = await Story.find();
+            const allStories = await Story.find()
+                .populate('user', '-password');
+
             return res.status(StatusCodes.OK).json({
                 message: "here is all stories",
                 status: StatusCodes.OK,
                 data: allStories
             })
+
         } catch (error) {
             // error
             res.status(StatusCodes.INTERNAL_SERVER_ERROR)

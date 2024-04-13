@@ -13,7 +13,7 @@ export const Navbar: React.FC = () => {
     return (
         <Fragment>
             <div className="sticky bg-[#18eeb8] top-0 shadow-md px-10 h-[4.5rem] flex justify-between items-center ">
-                <div className="userIcon  cursor-pointer p-2">
+                <div className="userIcon  cursor-pointer lg:p-2">
                     {user?.map((singleObject) => (
                         <div className="flex justify-center items-center" key={singleObject._id}>
                             <img
@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                <div className="stories flex justify-center items-center">
+                <div className="hidden stories lg:flex justify-center items-center">
                     <StoriesIcon />
                     <StoriesIcon />
                     <StoriesIcon />

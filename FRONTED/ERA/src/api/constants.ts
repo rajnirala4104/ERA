@@ -7,3 +7,11 @@ export const ENDPIONTS = {
     updateUser: '/user/update/:id',
     password: '/user/password'
 }
+
+export const POST_ENDPOINT = {
+    getAllpost: "/post/",
+    getSinglePost: '/post/:postId',
+    createPost: "/post/create",
+    updatePost: "/post/update",
+    deletePost: "/post/:postId"
+}

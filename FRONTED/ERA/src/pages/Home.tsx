@@ -1,6 +1,6 @@
 import React, { Suspense, memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoaderSpinner, Navbar } from "../components";
+import { LeftSideBar, LoaderSpinner, Navbar, PostContainer, RightSideBar } from "../components";
 
 export const Home = memo(() => {
    const navigator = useNavigate();
@@ -13,8 +13,21 @@ export const Home = memo(() => {
    return (
       <React.Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <div className="bg-[#e1f8f2] h-screen">
-               <Navbar />
+            <div className="bg-[#e1f8f2] h-full">
+               <div>
+                  <Navbar />
+               </div>
+               <div className="homePageContainer flex justify-between border border-red-500 w-full h-full">
+                  <div className="leftSideBar  hidden lg:flex">
+                     <LeftSideBar />
+                  </div>
+                  <div className="centerContentOrPostSection">
+                     <PostContainer />
+                  </div>
+                  <div className="rightSideBar hidden lg:flex">
+                     <RightSideBar />
+                  </div>
+               </div>
             </div>
          </Suspense>
       </React.Fragment>

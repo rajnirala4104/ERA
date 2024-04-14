@@ -23,10 +23,11 @@ export interface stateProviderProp {
     children: ReactNode
 }
 
+
 export interface postInterface {
     caption: string,
     content: string,
-    user: string,
+    user: user,
     createdAt: string,
     updateAt: string,
 }

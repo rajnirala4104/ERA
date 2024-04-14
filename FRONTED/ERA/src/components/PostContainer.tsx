@@ -11,7 +11,6 @@ export const PostContainer: React.FC = () => {
 
         const data = JSON.parse(localStorage.getItem('userInfo') as string)
         const response = await getAllThePosts(data.token)
-        console.log(response.data.data)
         setAllPost(response.data.data)
     }
 
@@ -22,7 +21,7 @@ export const PostContainer: React.FC = () => {
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
-                <div>
+                <div className='border border-black w-[90%] mx-auto'>
                     {allPost.map((singplePostObject, index) => (
                         <Fragment key={index}>
                             <PostCard {...singplePostObject} />

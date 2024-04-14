@@ -8,8 +8,9 @@ const postControllers = {
    // getting all post data function
    getAllPost: expressAsyncHandler(async (req, res) => {
       try {
-         const response = await Post.find(); //mongoose .find query for getting all the data
-
+         //mongoose .find query for getting all the data
+         const response = await Post.find()
+            .populate('user', '-password')
          return res.status(StatusCodes.OK).json({
             message: "here all the post data",
             data: shuffleArray(response), //shuffleArray function to shuffle the response array

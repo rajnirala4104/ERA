@@ -17,14 +17,14 @@ export const Home = memo(() => {
                <div>
                   <Navbar />
                </div>
-               <div className="homePageContainer flex justify-between border border-red-500 w-full h-full">
-                  <div className="leftSideBar  hidden lg:flex">
+               <div className="homePageContainer flex justify-between  w-full h-full">
+                  <div className="leftSideBar  hidden lg:flex lg:w-full">
                      <LeftSideBar />
                   </div>
-                  <div className="centerContentOrPostSection">
+                  <div className="centerContentOrPostSection w-[150%]">
                      <PostContainer />
                   </div>
-                  <div className="rightSideBar hidden lg:flex">
+                  <div className="rightSideBar hidden lg:flex lg:w-full">
                      <RightSideBar />
                   </div>
                </div>

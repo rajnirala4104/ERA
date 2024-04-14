@@ -6,6 +6,7 @@ const { genSalt, hash } = require("bcryptjs");
 
 // controllers object
 const userControllers = {
+
     userRegistration: expressAsyncHandler(async (req, res) => {
         try {
             const { name, email, password } = req.body;

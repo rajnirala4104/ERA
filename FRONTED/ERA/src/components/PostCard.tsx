@@ -1,10 +1,10 @@
-import React, { Fragment, Suspense } from 'react'
+import React, { Fragment, Suspense, memo } from 'react'
 import { postInterface } from '../interfaces'
 import { LoaderSpinner } from './LoaderSpinner'
 import { PostIcons } from './PostIcons'
 import { getDateFromMongoData } from '../utils'
 
-export const PostCard: React.FC<postInterface> = (props) => {
+export const PostCard: React.FC<postInterface> = memo((props) => {
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
@@ -19,16 +19,23 @@ export const PostCard: React.FC<postInterface> = (props) => {
                         </div>
                     </div>
                     <div className="content w-[95%]">
-                        <img className='w-full rounded-md' src={props.content} alt="ERA post" />
+                        {/* ------------------------- thought Post Idia ------------ */}
+                        {props.content.endsWith('.jpg') ?
+                            (<img className='w-full rounded-md' src={props.content} alt="ERA post" />)
+                            : (
+                                <span className='font-mono font-semibold'>"{props.content}"</span>
+                            )}
+
+
                     </div>
-                    <div className="caption w-[95%]">
+                    <div className="caption w-[90%] mt-2 font-semibold ">
                         <p>{props.caption}</p>
                     </div>
-                    <div>
+                    <div className='w-[95%]'>
                         <PostIcons />
                     </div>
                 </div>
             </Suspense>
         </Fragment>
     )
-}
+})

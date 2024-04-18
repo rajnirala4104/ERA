@@ -5,6 +5,7 @@ const { commentRouter } = require('../modules/comment/comment.routes')
 const { likeRouter } = require('../modules/like/like.routes')
 const { storyRouter } = require('../modules/story/story.routes')
 const { followerRouter } = require('../modules/followers/followers.routes')
+const { thoughtPost } = require('../modules/toughtPost/thoughtPost.routes')
 
 const v1Router = Router()
 v1Router.use('/user', userRouter)
@@ -13,5 +14,6 @@ v1Router.use('/comment', commentRouter)
 v1Router.use('/like', likeRouter)
 v1Router.use('/story', storyRouter)
 v1Router.use('/follower', followerRouter)
+v1Router.use('/thoughtPost', thoughtPost)
 
 module.exports = { v1Router }

@@ -94,7 +94,27 @@ const thoughPostControllers = {
         }
     }),
 
-    deleteThoughtPost: expressAsyncHandler(async (req, res) => { })
+    deleteThoughtPost: expressAsyncHandler(async (req, res) => {
+        try {
+            const { thoughtPostId } = req.params;
+            const doesExist = await ThoughtPost.find({ _id: thoughtPostId });
+
+            if (!doesExist) {
+                res.status(StatusCodes.NOT_FOUND)
+                throw new Error("Thought post doesn't exist")
+            }
+
+            await ThoughtPost.delete({ _id: thoughtPostId });
+            return res.status(StatusCodes.FORBIDDEN).json({
+                message: "thoughtPost deleted successfully",
+                status: StatusCodes.FORBIDDEN,
+                data: doesExist
+            })
+        } catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+            throw new Error(error.message)
+        }
+    })
 }
 
 module.exports = { thoughPostControllers }

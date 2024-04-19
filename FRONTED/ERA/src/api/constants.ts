@@ -15,3 +15,10 @@ export const POST_ENDPOINT = {
     updatePost: "/post/update",
     deletePost: "/post/:postId"
 }
+
+export const THOUGHT_POST_ENDPOINTS = {
+    getAll: '/thoughtPost/',
+    getSingle: '/thoughtPost/:thougthPostId',
+    create: '/thoughtPost/create',
+    update: '/thougthPost/:thougthPostId'
+}

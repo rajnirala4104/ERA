@@ -4,7 +4,7 @@ const { ThoughtPost } = require("./thoughtPost.model");
 const thoughPostControllers = {
     getAllTherThouhtPosts: expressAsyncHandler(async (req, res) => {
         try {
-            const data = await ThoughtPost.find({});
+            const data = await ThoughtPost.find().populate('user', '-password')
             return res.status(StatusCodes.OK).json({
                 message: "here all the thought post",
                 status: StatusCodes.OK,

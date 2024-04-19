@@ -25,10 +25,11 @@ export interface stateProviderProp {
 
 
 export interface postInterface {
-    caption: string,
-    content: string,
-    user: user,
-    createdAt: string,
-    updateAt: string,
+    caption?: string,
+    content?: string,
+    user?: user,
+    createdAt?: string,
+    updateAt?: string,
+    thought?: string
 }
 

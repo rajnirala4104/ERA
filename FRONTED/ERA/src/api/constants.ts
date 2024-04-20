@@ -20,5 +20,5 @@ export const THOUGHT_POST_ENDPOINTS = {
     getAll: '/thoughtPost/',
     getSingle: '/thoughtPost/:thougthPostId',
     create: '/thoughtPost/create',
-    update: '/thougthPost/:thougthPostId'
+    update: '/thoughtPost/:thougthPostId'
 }

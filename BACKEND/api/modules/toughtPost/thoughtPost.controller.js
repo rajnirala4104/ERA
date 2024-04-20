@@ -104,7 +104,7 @@ const thoughPostControllers = {
                 throw new Error("Thought post doesn't exist")
             }
 
-            await ThoughtPost.delete({ _id: thoughtPostId });
+            await ThoughtPost.deleteOne({ _id: thoughtPostId });
             return res.status(StatusCodes.FORBIDDEN).json({
                 message: "thoughtPost deleted successfully",
                 status: StatusCodes.FORBIDDEN,

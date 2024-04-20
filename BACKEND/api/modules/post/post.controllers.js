@@ -1,7 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { Post } = require("./post.model");
 const expressAsyncHandler = require("express-async-handler");
-const { shuffleArray } = require("../../utils/shuffleArray");
 
 // post controller object
 const postControllers = {
@@ -13,7 +12,7 @@ const postControllers = {
             .populate('user', '-password')
          return res.status(StatusCodes.OK).json({
             message: "here all the post data",
-            data: shuffleArray(response), //shuffleArray function to shuffle the response array
+            data: response, //shuffleArray function to shuffle the response array
          });
       } catch (error) {
          // error

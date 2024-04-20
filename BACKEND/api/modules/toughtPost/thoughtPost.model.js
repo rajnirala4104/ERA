@@ -9,7 +9,8 @@ const thoughtPostSchema = Schema({
         require: true,
         lowercase: true,
     }
-}, { timespamts: true })
+}, { timestamps: true }
+)
 
 const ThoughtPost = model('ThoughtPost', thoughtPostSchema)
 module.exports = { ThoughtPost }

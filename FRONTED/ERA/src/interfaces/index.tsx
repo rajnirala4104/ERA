@@ -30,6 +30,6 @@ export interface postInterface {
     user?: user,
     createdAt?: string,
     updateAt?: string,
-    thought?: string
+    thought?: string,
 }
 

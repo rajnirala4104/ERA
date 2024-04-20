@@ -4,6 +4,7 @@ import { PostCard } from './PostCard'
 import { getAllThePosts } from '../api/services/postApiServices'
 import { postInterface } from '../interfaces'
 import { getAllThoughtPost } from '../api/services/thoughtPostServices'
+import { shuffleArray } from '../utils'
 
 export const PostContainer: React.FC = () => {
     const [allPost, setAllPost] = useState<postInterface[]>([])
@@ -13,7 +14,7 @@ export const PostContainer: React.FC = () => {
         const postResponse = await getAllThePosts(data.token)
         const thougthPostResponse = await getAllThoughtPost(data.token)
         const newArrayOfMixPosts = postResponse.data.data.concat(thougthPostResponse.data.data)
-        setAllPost(newArrayOfMixPosts)
+        setAllPost(shuffleArray(newArrayOfMixPosts))
 
     }
 

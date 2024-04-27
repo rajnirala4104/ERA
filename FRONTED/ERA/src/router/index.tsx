@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { SignupAndLogin } from "../components";
-import { ForgotPassword, Home, Profile, Root } from "../pages";
+import { ForgotPassword, Home, NotFoundPage, Profile, Root } from "../pages";
 
 export const _ROUTER = createBrowserRouter([
    {
@@ -20,9 +20,13 @@ export const _ROUTER = createBrowserRouter([
             element: <ForgotPassword />,
          },
          {
-            path: "/:userName",
+            path: "/user-profile/:userId",
             element: <Profile />,
          },
+         {
+            path: "/**",
+            element: <NotFoundPage />
+         }
       ],
    },
 ]);

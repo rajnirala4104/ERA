@@ -15,10 +15,8 @@ export const PostContainer: React.FC = () => {
         const thougthPostResponse = await getAllThoughtPost(data.token)
         const newArrayOfMixPosts = postResponse.data.data.concat(thougthPostResponse.data.data)
         setAllPost(shuffleArray(newArrayOfMixPosts))
-
     }
 
-    console.log(allPost)
     useEffect(() => {
         getAllThePost()
     }, [])

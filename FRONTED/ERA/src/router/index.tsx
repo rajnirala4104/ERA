@@ -24,7 +24,7 @@ export const _ROUTER = createBrowserRouter([
             element: <Profile />,
          },
          {
-            path: "/**",
+            path: "/notfounderror/*",
             element: <NotFoundPage />
          }
       ],

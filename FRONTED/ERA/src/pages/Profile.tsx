@@ -1,7 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { user } from '../interfaces';
 import { NotFoundPage } from './NotFoundPage';
+import { LoaderSpinner, UserProfileHeader, UserProfilePostContainer } from '../components';
 
 export const Profile: React.FC = () => {
     const { userId } = useParams()
@@ -11,18 +12,27 @@ export const Profile: React.FC = () => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("userInfo") as string);
+        if (user._id !== userId) {
+            navigator('/notfounderror/asdf')
+        }
         setUser([user]);
     }, []);
 
-    if (user[0]._id !== userId) { <NotFoundPage /> }
 
     return (
         <Fragment>
             <div className="container">
-                {user?.map(singleUserObject => {
+                {user?.map((singleUserObject, index) => {
                     return (
-                        <Fragment>
-
+                        <Fragment key={index}>
+                            <Suspense fallback={<LoaderSpinner />}>
+                                <div>
+                                    <UserProfileHeader {...singleUserObject} />
+                                </div>
+                                <div>
+                                    <UserProfilePostContainer />
+                                </div>
+                            </Suspense>
                         </Fragment>
                     )
                 })}

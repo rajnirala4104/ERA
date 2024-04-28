@@ -6,9 +6,6 @@ const { Followers } = require("./followers.model");
 const followersControllersObject = {
     getAllFollowJSONObject: expressAsyncHandler(async (req, res) => {
         try {
-
-            // getting userId from params
-            const { userId } = req.params
             // getting all follower json from the database using monoose .find() query and with some condition
             const responseJSON = await Followers.find()
                 .populate('user followedUserId', '-password')

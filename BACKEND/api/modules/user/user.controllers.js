@@ -3,6 +3,7 @@ const { User } = require("./user.model");
 const { StatusCodes } = require('http-status-codes')
 const { generateToken } = require('../../config/generateToken');
 const { genSalt, hash } = require("bcryptjs");
+const { Followers } = require('../followers/followers.model')
 
 // controllers object
 const userControllers = {
@@ -175,7 +176,28 @@ const userControllers = {
                 data: null
             })
         }
-    })
+    }),
+    /*
+        getAllTheInformationAboutAPerticularUser: expressAsyncHandler(async (req, res) => {
+            try {
+                const { userId } = req.params;
+                const response = await User.find({ _id: userId })
+                console.log(response)
+                const followersResponse = await Followers.find({})
+                // console.log(followersResponse);
+                followersResponse.forEach(singleObject => {
+                    if (toString(singleObject.user) === userId) {
+                        console.log(singleObject)
+                    }
+                });
+    
+    
+            } catch (error) {
+                res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+                throw new Error(error.message)
+            }
+        })
+        */
 }
 
 

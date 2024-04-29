@@ -23,3 +23,13 @@ export const shuffleArray = (array: any) => {
 
     return array;
 }
+
+export const readMoreAndReadLessFunctionality = (str: string) => {
+
+    if (str.length === 25) str
+
+    else {
+        return str.slice(0, 35) + "...."
+    }
+
+}

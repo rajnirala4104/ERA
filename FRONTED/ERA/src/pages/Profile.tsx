@@ -2,7 +2,7 @@ import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { user } from '../interfaces';
 import { NotFoundPage } from './NotFoundPage';
-import { LoaderSpinner, UserProfileHeader, UserProfilePostContainer } from '../components';
+import { LeftSideBar, LoaderSpinner, UserProfileHeader, UserProfilePostContainer } from '../components';
 
 export const Profile: React.FC = () => {
     const { userId } = useParams()
@@ -21,21 +21,26 @@ export const Profile: React.FC = () => {
 
     return (
         <Fragment>
-            <div className="container">
+            <div className="flex flex-col">
                 {user?.map((singleUserObject, index) => {
                     return (
                         <Fragment key={index}>
                             <Suspense fallback={<LoaderSpinner />}>
-                                <div>
+                                <div >
                                     <UserProfileHeader {...singleUserObject} />
                                 </div>
-                                <div>
+                                <div className='flex '>
+                                    <div className='lg:flex md:flex hidden'>
+
+                                        <LeftSideBar />
+                                    </div>
                                     <UserProfilePostContainer />
                                 </div>
                             </Suspense>
                         </Fragment>
                     )
                 })}
+
             </div>
         </Fragment>
     )

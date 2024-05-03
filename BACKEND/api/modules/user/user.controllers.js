@@ -177,27 +177,23 @@ const userControllers = {
             })
         }
     }),
-    /*
-        getAllTheInformationAboutAPerticularUser: expressAsyncHandler(async (req, res) => {
-            try {
-                const { userId } = req.params;
-                const response = await User.find({ _id: userId })
-                console.log(response)
-                const followersResponse = await Followers.find({})
-                // console.log(followersResponse);
-                followersResponse.forEach(singleObject => {
-                    if (toString(singleObject.user) === userId) {
-                        console.log(singleObject)
-                    }
-                });
-    
-    
-            } catch (error) {
-                res.status(StatusCodes.INTERNAL_SERVER_ERROR)
-                throw new Error(error.message)
-            }
-        })
-        */
+    getAllTheInformationAboutAPerticularUser: expressAsyncHandler(async (req, res) => {
+        try {
+            const { userId } = req.params;
+            const response = await User.find({ _id: userId })
+
+            return res.status(StatusCodes.OK).json({
+                message: "single user information",
+                status: StatusCodes.OK,
+                data: response
+            })
+
+
+        } catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+            throw new Error(error.message)
+        }
+    })
 }
 
 

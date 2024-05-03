@@ -1,8 +1,8 @@
 import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { user } from '../interfaces';
-import { NotFoundPage } from './NotFoundPage';
 import { LeftSideBar, LoaderSpinner, UserProfileHeader, UserProfilePostContainer } from '../components';
+import { getSingleUserInformation } from '../api/services/usersServices';
 
 export const Profile: React.FC = () => {
     const { userId } = useParams()
@@ -10,12 +10,16 @@ export const Profile: React.FC = () => {
 
     const [user, setUser] = useState<user[]>();
 
+    const getUserInformation = async () => {
+        const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
+        const userResponse = await getSingleUserInformation(loggedUser.token, userId as string)
+        setUser(userResponse.data.data)
+        console.log(userResponse.data.data)
+    }
+
+
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("userInfo") as string);
-        if (user._id !== userId) {
-            navigator('/notfounderror/asdf')
-        }
-        setUser([user]);
+        getUserInformation()
     }, []);
 
 

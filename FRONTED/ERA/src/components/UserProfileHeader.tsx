@@ -14,7 +14,6 @@ export const UserProfileHeader: React.FC<user> = (props) => {
                             </div>
                             <span className='mb-2 lg:text-2xl text-xl font-semibold'>{props.name}</span>
                         </div>
-
                     </div>
                     <div className='flex flex-col my-2 mt-2'>
                         <div className='flex justify-evenly w-full'>

@@ -4,7 +4,7 @@ import { user } from '../interfaces';
 import { LeftSideBar, LoaderSpinner, UserProfileHeader, UserProfilePostContainer } from '../components';
 import { getSingleUserInformation } from '../api/services/usersServices';
 
-export const Profile: React.FC = () => {
+const Profile: React.FC = () => {
     const { userId } = useParams()
     const navigator = useNavigate()
 
@@ -49,3 +49,5 @@ export const Profile: React.FC = () => {
         </Fragment>
     )
 }
+
+export default Profile

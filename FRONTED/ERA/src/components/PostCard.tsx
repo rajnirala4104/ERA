@@ -1,10 +1,10 @@
 import React, { Fragment, Suspense, memo } from 'react'
 import { postInterface } from '../interfaces'
 import { LoaderSpinner } from './LoaderSpinner'
-import { PostIcons } from './PostIcons'
+import { PostIcons } from '.'
 import { getDateFromMongoData } from '../utils'
 
-export const PostCard: React.FC<postInterface> = memo((props) => {
+const PostCard: React.FC<postInterface> = memo((props) => {
 
     return (
         <Fragment>
@@ -38,3 +38,5 @@ export const PostCard: React.FC<postInterface> = memo((props) => {
         </Fragment>
     )
 })
+
+export default PostCard

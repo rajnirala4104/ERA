@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LoaderSpinner } from ".";
 import { login } from "../api/services/authenticationApiServices";
 
-export const Login = () => {
+const Login = () => {
    const [hidePassword, setHidePassword] = useState<boolean>(true);
 
    const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,3 +80,5 @@ export const Login = () => {
       </React.Fragment>
    );
 };
+
+export default Login;

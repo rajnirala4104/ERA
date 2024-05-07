@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { CommentIcon, LikeIcon, UnLikeIcon } from '../icons'
 
-export const PostIcons: React.FC = () => {
+const PostIcons: React.FC = () => {
     return (
         <Fragment>
             <div className="iconsContainer flex w-[50%] my-4 justify-between ">
@@ -18,3 +18,5 @@ export const PostIcons: React.FC = () => {
         </Fragment>
     )
 }
+
+export default PostIcons;

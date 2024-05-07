@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-export const SearchNavbarBtn: React.FC = () => {
+const SearchNavbarBtn: React.FC = () => {
     return (
         <Fragment>
             <div className=''>
@@ -11,3 +11,5 @@ export const SearchNavbarBtn: React.FC = () => {
         </Fragment>
     )
 }
+
+export default SearchNavbarBtn;

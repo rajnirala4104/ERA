@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense } from "react";
 import { ForgotPasswordForm, LoaderSpinner } from "../components";
 
-export const ForgotPassword: React.FC = () => {
+const ForgotPassword: React.FC = () => {
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
@@ -14,3 +14,5 @@ export const ForgotPassword: React.FC = () => {
       </Fragment>
    );
 };
+
+export default ForgotPassword;

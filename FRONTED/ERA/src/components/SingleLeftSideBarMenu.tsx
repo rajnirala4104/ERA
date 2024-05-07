@@ -1,17 +1,19 @@
 import React, { Fragment } from 'react'
-import { HomeIcon } from '../icons'
+import { menuInterface } from '../interfaces'
 
-export const SingleLeftSideBarMenu: React.FC = () => {
+const SingleLeftSideBarMenu: React.FC<menuInterface> = (props) => {
     return (
         <Fragment>
             <div className="sinpleMen cursor-pointer hover:bg-slate-700 flex justify-start items-center bg-slate-800 m-2 h-10 rounded-md">
                 <div className='icon'>
-                    <HomeIcon classess="text-2xl mx-2" />
+                    {props.icon}
                 </div>
                 <div className="menuName mx-2 ">
-                    <span>Home</span>
+                    <span>{props.menuName}</span>
                 </div>
             </div>
         </Fragment>
     )
 }
+
+export default SingleLeftSideBarMenu;

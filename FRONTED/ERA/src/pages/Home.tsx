@@ -2,7 +2,8 @@ import React, { Suspense, memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LeftSideBar, LoaderSpinner, Navbar, PostContainer, RightSideBar } from "../components";
 
-export const Home = memo(() => {
+
+const Home = memo(() => {
    const navigator = useNavigate();
 
    useEffect(() => {
@@ -21,7 +22,7 @@ export const Home = memo(() => {
                   <div className="leftSideBar  hidden lg:flex lg:w-full">
                      <LeftSideBar />
                   </div>
-                  <div className="centerContentOrPostSection w-[150%]">
+                  <div className="centerContentOrPostSection w-[150%] ">
                      <PostContainer />
                   </div>
                   <div className="rightSideBar hidden lg:flex lg:w-full">
@@ -33,3 +34,5 @@ export const Home = memo(() => {
       </React.Fragment>
    );
 });
+
+export default Home;

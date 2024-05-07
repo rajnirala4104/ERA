@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { SignupAndLogin } from "../components";
 import { ForgotPassword, Home, NotFoundPage, Profile, Root } from "../pages";
+import SignupAndLogin from "../components/SignupAndLogin";
 
 export const _ROUTER = createBrowserRouter([
    {

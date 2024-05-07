@@ -2,7 +2,7 @@ import React, { Fragment, Suspense } from 'react'
 import { user } from '../interfaces'
 import { LoaderSpinner } from './LoaderSpinner'
 
-export const UserProfileHeader: React.FC<user> = (props) => {
+const UserProfileHeader: React.FC<user> = (props) => {
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
@@ -42,3 +42,5 @@ export const UserProfileHeader: React.FC<user> = (props) => {
         </Fragment>
     )
 }
+
+export default UserProfileHeader;

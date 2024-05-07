@@ -33,3 +33,8 @@ export interface postInterface {
     thought?: string,
 }
 
+export interface menuInterface {
+    icon: React.ReactNode,
+    menuName: string
+}
+

@@ -1,12 +1,14 @@
-import React, { Fragment, Suspense, useEffect, useState } from 'react'
+import React, { Fragment, Suspense, lazy, useEffect, useState } from 'react'
 import { LoaderSpinner } from './LoaderSpinner'
-import { PostCard } from './PostCard'
+const PostCard = lazy(() => import('./PostCard'))
+
 import { getAllThePosts } from '../api/services/postApiServices'
 import { postInterface } from '../interfaces'
 import { getAllThoughtPost } from '../api/services/thoughtPostServices'
 import { shuffleArray } from '../utils'
+import '../css/postContainer.css'
 
-export const PostContainer: React.FC = () => {
+const PostContainer: React.FC = () => {
     const [allPost, setAllPost] = useState<postInterface[]>([])
 
     const getAllThePost = async () => {
@@ -24,7 +26,7 @@ export const PostContainer: React.FC = () => {
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
-                <div className=' w-[90%] mx-auto'>
+                <div className=' w-[90%] mx-auto h-[89vh] overflow-y-auto'>
                     {allPost.map((singplePostObject, index) => (
                         <Fragment key={index}>
                             <PostCard {...singplePostObject} />
@@ -35,3 +37,5 @@ export const PostContainer: React.FC = () => {
         </Fragment>
     )
 }
+
+export default PostContainer;

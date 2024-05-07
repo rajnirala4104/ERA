@@ -3,7 +3,7 @@ import { LoaderSpinner } from ".";
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../api/services/authenticationApiServices";
 
-export const ForgotPasswordForm: React.FC = () => {
+const ForgotPasswordForm: React.FC = () => {
 
    const [newPasswordHideOrShow, setNewPasswordHideOrShow] = useState<boolean>(false)
 
@@ -58,3 +58,5 @@ export const ForgotPasswordForm: React.FC = () => {
       </Fragment>
    );
 };
+
+export default ForgotPasswordForm;

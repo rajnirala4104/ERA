@@ -4,7 +4,7 @@ import { allImages } from '../assets'
 import { LoginDesignContext } from '../contaxt'
 import { useNavigate } from 'react-router-dom'
 
-export const SignupAndLogin = () => {
+const SignupAndLogin = () => {
 
   const { loginDesign, setLoginDesign } = useContext(LoginDesignContext)
 
@@ -39,3 +39,5 @@ export const SignupAndLogin = () => {
     </React.Fragment>
   )
 }
+
+export default SignupAndLogin;

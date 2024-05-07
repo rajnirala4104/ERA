@@ -2,7 +2,7 @@ import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import { LoaderSpinner } from '.'
 import { user } from '../interfaces';
 
-export const StoriesIcon: React.FC = () => {
+const StoriesIcon: React.FC = () => {
     const [user, setUser] = useState<user>();
 
     useEffect(() => {
@@ -23,3 +23,5 @@ export const StoriesIcon: React.FC = () => {
         </Fragment>
     )
 }
+
+export default StoriesIcon;

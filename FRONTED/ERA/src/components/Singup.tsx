@@ -3,7 +3,7 @@ import { LoaderSpinner } from ".";
 import { signupData } from "../api/apiInterfaces";
 import { signup } from "../api/services/authenticationApiServices";
 
-export const Singup = () => {
+const Singup = () => {
    const [hidePassword, setHidePassword] = useState<boolean>(true);
    const [hideConfirmPassword, setHideConfirmPassword] =
       useState<boolean>(true);
@@ -104,3 +104,5 @@ export const Singup = () => {
       </React.Fragment>
    );
 };
+
+export default Singup;

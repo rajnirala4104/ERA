@@ -4,6 +4,7 @@ import { user } from '../interfaces';
 import { LeftSideBar, LoaderSpinner, UserProfileHeader, UserProfilePostContainer } from '../components';
 import { getSingleUserInformation } from '../api/services/usersServices';
 
+
 const Profile: React.FC = () => {
     const { userId } = useParams()
     const navigator = useNavigate()

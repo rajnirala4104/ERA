@@ -1,16 +1,20 @@
-import React, { Fragment, Suspense } from 'react'
+import React, { Fragment, Suspense, useContext } from 'react'
 import { user } from '../interfaces'
 import { LoaderSpinner } from './LoaderSpinner'
+import { ProfilePopupContext } from '../contaxt'
 
 const UserProfileHeader: React.FC<user> = (props) => {
+
+    const { profilePopupOnOff, setProfilePopupOnOff } = useContext(ProfilePopupContext)
+
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
                 <section className='bg-[#18eeb8]  flex justify-cetner items-center'>
                     <div className=' w-[40%] flex justify-center items-center flex-col'>
                         <div className=' flex justify-center items-center flex-col'>
-                            <div className='my-2'>
-                                <img src={props.profilePic} className='rounded-full w-[4rem] h-[7rem] object-cover text-center shadow-lg cursor-pointer lg:w-[7rem]' alt="era user" />
+                            <div onClick={() => setProfilePopupOnOff(!profilePopupOnOff)} className='my-2'>
+                                <img src={props.profilePic} className='rounded-full w-[7rem] h-[7rem] object-cover text-center shadow-lg cursor-pointer' alt="era user" />
                             </div>
                             <span className='mb-2 lg:text-2xl text-xl font-semibold'>{props.name}</span>
                         </div>

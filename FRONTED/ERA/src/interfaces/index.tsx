@@ -14,6 +14,11 @@ export interface loginDesinContext {
     setLoginDesign: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+export interface profilePopupOnOffContextInterface {
+    profilePopupOnOff: boolean,
+    setProfilePopupOnOff: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export interface stateProviderContext {
     _user?: user | null,
     set_user: React.Dispatch<React.SetStateAction<user | undefined>>

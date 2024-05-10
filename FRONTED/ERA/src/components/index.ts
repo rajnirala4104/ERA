@@ -16,3 +16,4 @@ export const UserProfilePostContainer = lazy(() => import('./UserProfilePostCont
 export const SingleLeftSideBarMenu = lazy(() => import('./SingleLeftSideBarMenu'));
 export const SearchNavbarBtn = lazy(() => import('./SearchNavbarBtn'))
 export const StoriesIcon = lazy(() => import('./StoriesIcon'))
+export const ProfilePopup = lazy(() => import('./ProfilePopup'))

@@ -35,6 +35,7 @@ export interface postInterface {
 
 export interface menuInterface {
     icon: React.ReactNode,
-    menuName: string
+    menuName: string,
+    path: string
 }
 

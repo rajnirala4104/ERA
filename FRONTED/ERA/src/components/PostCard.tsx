@@ -3,16 +3,19 @@ import { postInterface } from '../interfaces'
 import { LoaderSpinner } from './LoaderSpinner'
 import { PostIcons } from '.'
 import { getDateFromMongoData } from '../utils'
+import { useNavigate } from 'react-router-dom'
 
 const PostCard: React.FC<postInterface> = memo((props) => {
+
+    const navigator = useNavigate()
 
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
                 <div className="postCard mx-3 my-6  flex flex-col justify-center items-center rounded-lg shadow-lg bg-white">
                     <div className="userInfo w-[95%] my-2 flex justify-between items-center ">
-                        <div className='flex justify-center items-center'>
-                            <img className='w-[2rem] rounded-full' src={props.user?.profilePic} alt="" />
+                        <div onClick={() => navigator(`/user-profile/${props.user?._id}`)} className='flex cursor-pointer justify-center items-center'>
+                            <img className='w-[2rem] h-[2rem] rounded-full' src={props.user?.profilePic} alt="" />
                             <span className='mx-2 font-bold'>{props.user?.name}</span>
                         </div>
                         <div>

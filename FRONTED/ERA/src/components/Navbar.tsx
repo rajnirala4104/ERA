@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
                         {user?.map((singleObject) => (
                             <Link to={`/user-profile/${singleObject._id}`} className="flex justify-center items-center" key={singleObject._id}>
                                 <img
-                                    className="rounded-full w-12"
+                                    className="rounded-full w-[3rem] h-[3rem] object-cover"
                                     src={singleObject.profilePic}
                                     alt="asdf"
                                 />

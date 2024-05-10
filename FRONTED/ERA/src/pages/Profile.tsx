@@ -33,12 +33,13 @@ const Profile: React.FC = () => {
                                 <div >
                                     <UserProfileHeader {...singleUserObject} />
                                 </div>
-                                <div className='flex '>
-                                    <div className='lg:flex md:flex hidden'>
-
+                                <div className='flex border border-red-500 w-full h-[74vh] justify-between '>
+                                    <div className='lg:flex md:flex hidden w-[28%]'>
                                         <LeftSideBar />
                                     </div>
-                                    <UserProfilePostContainer />
+                                    <div className='border border-red-500 w-[72%]'>
+                                        <UserProfilePostContainer />
+                                    </div>
                                 </div>
                             </Suspense>
                         </Fragment>

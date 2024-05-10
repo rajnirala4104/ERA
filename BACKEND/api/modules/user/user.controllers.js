@@ -69,7 +69,7 @@ const userControllers = {
             const isPasswordMatch = await user.matchPassword(password);
             if (!isPasswordMatch) {
                 res.status(StatusCodes.NOT_FOUND);
-                throw new Error("Invalid Email or Password");
+                throw new Error("Invalid Email and Password");
             }
 
             // Passwords match, generate token and send response

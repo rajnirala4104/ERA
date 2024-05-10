@@ -1,13 +1,14 @@
-import React, { Fragment, Suspense, useEffect, useState } from 'react'
+import React, { Fragment, Suspense, useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { user } from '../interfaces';
-import { LeftSideBar, LoaderSpinner, UserProfileHeader, UserProfilePostContainer } from '../components';
+import { LeftSideBar, LoaderSpinner, ProfilePopup, UserProfileHeader, UserProfilePostContainer } from '../components';
 import { getSingleUserInformation } from '../api/services/usersServices';
+import { ProfilePopupContext } from '../contaxt';
 
 
 const Profile: React.FC = () => {
     const { userId } = useParams()
-    const navigator = useNavigate()
+    const navigator = useNavigate();
 
     const [user, setUser] = useState<user[]>();
 
@@ -18,15 +19,22 @@ const Profile: React.FC = () => {
         console.log(userResponse.data.data)
     }
 
-
     useEffect(() => {
         getUserInformation()
     }, []);
 
 
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("userInfo") as string);
+        if (!user) navigator("/account");
+    }, []);
+
+    const { profilePopupOnOff } = useContext(ProfilePopupContext)
+
     return (
         <Fragment>
             <div className="flex flex-col">
+                {profilePopupOnOff ? <ProfilePopup {...user[0]} /> : ""}
                 {user?.map((singleUserObject, index) => {
                     return (
                         <Fragment key={index}>

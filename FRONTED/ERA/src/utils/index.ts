@@ -5,7 +5,7 @@ export const getDateFromMongoData = (mongoDateData: string) => {
 
     const newDate = mongoDateData.split('T')[0].split("-");
     const month = monthsObject[newDate[1]];
-    const finalDate = `${month} ${newDate[0]}`
+    const finalDate = `${newDate[2]} ${month} ${newDate[0]}`
 
     return finalDate;
 }

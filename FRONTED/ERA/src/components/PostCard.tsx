@@ -1,13 +1,20 @@
-import React, { Fragment, Suspense, memo } from 'react'
-import { postInterface } from '../interfaces'
+import React, { Fragment, Suspense, memo, useEffect, useState } from 'react'
+import { postInterface, user } from '../interfaces'
 import { LoaderSpinner } from './LoaderSpinner'
 import { PostIcons } from '.'
 import { getDateFromMongoData } from '../utils'
 import { useNavigate } from 'react-router-dom'
+import { EditIcon } from '../icons'
 
 const PostCard: React.FC<postInterface> = memo((props) => {
 
+    const [user, setUser] = useState<user>()
     const navigator = useNavigate()
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("userInfo") as string);
+        setUser(user)
+    }, []);
 
     return (
         <Fragment>
@@ -18,8 +25,12 @@ const PostCard: React.FC<postInterface> = memo((props) => {
                             <img className='w-[2rem] h-[2rem] rounded-full' src={props.user?.profilePic} alt="" />
                             <span className='mx-2 font-bold'>{props.user?.name}</span>
                         </div>
-                        <div>
+                        <div className='flex'>
+
                             <span>{getDateFromMongoData(props.createdAt as string)}</span>
+                            {user?._id === props.user?._id ? (
+                                <span onClick={() => { }} className='mx-2 text-2xl cursor-pointer'>{<EditIcon />}</span>
+                            ) : ""}
                         </div>
                     </div>
                     <div className="content w-[95%]">

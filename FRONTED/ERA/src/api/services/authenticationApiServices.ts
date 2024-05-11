@@ -3,6 +3,9 @@ import { ENDPIONTS } from "../constants";
 import { http } from "../http";
 
 export const signup = (data: signupData) => {
+
+    console.log(data)
+
     return http.post(ENDPIONTS.signup, data, {
         headers: {
             "Content-type": "application/json",
@@ -15,5 +18,9 @@ export const login = (data: loginData) => {
 }
 
 export const forgotPassword = (data: forgotPasswordsDataInterface) => {
-    return http.put(ENDPIONTS.password, data);
+    return http.put(ENDPIONTS.password, data, {
+        headers: {
+            "Content-type": "application/json",
+        },
+    });
 }

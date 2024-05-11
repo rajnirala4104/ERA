@@ -10,7 +10,7 @@ const userControllers = {
 
     userRegistration: expressAsyncHandler(async (req, res) => {
         try {
-            const { name, email, password } = req.body;
+            const { name, email, password, profilePic } = req.body;
 
             // checking the values are vailid or not
             if (!name || !email || !password) {
@@ -34,7 +34,7 @@ const userControllers = {
 
             // add in our database
             const user = await User.create({
-                name, email, password
+                name, email, password, profilePic
             });
             if (user) {
                 return res.status(StatusCodes.OK).json({

@@ -34,11 +34,12 @@ const Singup = () => {
 
    }
 
+   console.log(profilePic)
+
    const subimtHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);
       const formObject = Object.fromEntries(formData.entries());
-
 
       if (formObject.password !== formObject.confirmPassword) {
          alert("passwords are not same");
@@ -53,7 +54,7 @@ const Singup = () => {
             email: formObject.email as string,
             name: formObject.name as string,
             password: formObject.confirmPassword as string,
-            profilePic: profilePic
+            profilePic: profilePic as string
          };
          const { data } = await signup(finalData);
          localStorage.setItem('userInfo', JSON.stringify(data))

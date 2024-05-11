@@ -12,6 +12,9 @@ const ForgotPasswordForm: React.FC = () => {
       e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);
       const formDataObject = Object.fromEntries(formData.entries());
+
+      console.log(formDataObject.password as string);
+
       try {
          await forgotPassword({
             email: formDataObject.email as string,

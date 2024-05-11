@@ -3,7 +3,7 @@ export interface signupData {
     email?: string,
     password?: string,
     bio?: string,
-    profilPic?: string
+    profilePic?: string
 }
 
 export interface loginData {

@@ -3,15 +3,42 @@ import { LoaderSpinner } from ".";
 import { signupData } from "../api/apiInterfaces";
 import { signup } from "../api/services/authenticationApiServices";
 
+
 const Singup = () => {
    const [hidePassword, setHidePassword] = useState<boolean>(true);
    const [hideConfirmPassword, setHideConfirmPassword] =
       useState<boolean>(true);
+   const [profilePic, setProfilePic] = useState<string>()
+
+
+   const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
+      const fileObject = pics.target.files[0];
+      if (fileObject === undefined) {
+         alert("Oops!! image error");
+         return;
+      }
+      if (fileObject.type === "image/jpeg" || fileObject.type === "image/png") {
+         const data = new FormData();
+         data.append('file', fileObject);
+         data.append('upload_preset', 'ERA_910');
+         data.append("cloud_name", "eracloud");
+
+         fetch('https://api.cloudinary.com/v1_1/eracloud/image/upload', {
+            method: "POST",
+            body: data
+         }).then((res) => res.json()).then((data) => {
+            setProfilePic(data.url.toString());
+         })
+
+      }
+
+   }
 
    const subimtHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);
       const formObject = Object.fromEntries(formData.entries());
+
 
       if (formObject.password !== formObject.confirmPassword) {
          alert("passwords are not same");
@@ -26,6 +53,7 @@ const Singup = () => {
             email: formObject.email as string,
             name: formObject.name as string,
             password: formObject.confirmPassword as string,
+            profilePic: profilePic
          };
          const { data } = await signup(finalData);
          localStorage.setItem('userInfo', JSON.stringify(data))
@@ -34,6 +62,8 @@ const Singup = () => {
          alert("we can't create your account right now");
       }
    };
+
+
 
    return (
       <React.Fragment>
@@ -56,6 +86,17 @@ const Singup = () => {
                      <input
                         type="email"
                         name="email"
+                        className="outline-none text-xl"
+                        placeholder="Enter your email..."
+                     />
+                  </div>
+                  <div className="inputemail my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
+                     <label htmlFor="userImage"></label>
+                     <input
+                        type="file"
+                        name="file"
+                        id="userImage"
+                        onChange={(e) => postDetails(e)}
                         className="outline-none text-xl"
                         placeholder="Enter your email..."
                      />

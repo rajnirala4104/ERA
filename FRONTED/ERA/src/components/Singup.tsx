@@ -12,7 +12,7 @@ const Singup = () => {
 
 
    const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
-      const fileObject = pics.target.files[0];
+      const fileObject = pics.target.files![0];
       if (fileObject === undefined) {
          alert("Oops!! image error");
          return;

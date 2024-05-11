@@ -34,7 +34,10 @@ const Profile: React.FC = () => {
     return (
         <Fragment>
             <div className="flex flex-col">
-                {profilePopupOnOff ? <ProfilePopup {...user[0]} /> : ""}
+
+                {profilePopupOnOff ? <ProfilePopup {...user![0]} /> : ""}
+
+                {/* ------------------  */}
                 {user?.map((singleUserObject, index) => {
                     return (
                         <Fragment key={index}>

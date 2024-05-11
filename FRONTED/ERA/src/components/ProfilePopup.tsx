@@ -34,7 +34,9 @@ const ProfilePopup: React.FC<user> = (props) => {
 
                         <div
                             style={{
-                                background: `url(${props.profilePic}) center center/cover`
+                                background: `url(${props.profilePic}) center center/cover`,
+                                borderTopRightRadius: "20px",
+                                borderBottomRightRadius: "20px"
                             }}
                             className='shadow-md w-[50%] flex justify-center items-center h-full'>
                         </div>

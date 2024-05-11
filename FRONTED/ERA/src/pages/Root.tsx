@@ -4,9 +4,8 @@ import { EditPostPopupContext } from '../contaxt'
 import { EditPostPopup } from '../components'
 const Root: React.FC = () => {
 
-    const { editPostPopupOnOff, setEditPostPopupOnOff } = useContext(EditPostPopupContext)
+    const { editPostPopupOnOff } = useContext(EditPostPopupContext)
 
-    console.log(editPostPopupOnOff)
     return (
         <Fragment>
             {editPostPopupOnOff ? <EditPostPopup /> : ""}

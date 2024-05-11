@@ -35,7 +35,11 @@ const LeftSideBar: React.FC = () => {
             <Suspense fallback={<LoaderSpinner />}>
                 <section className='shadow-lg w-full bg-gray-900 text-white'>
                     <div className="menuContainer">
-                        {menusDataObjectsArray.map(singleObject => <SingleLeftSideBarMenu {...singleObject} />)}
+                        {menusDataObjectsArray.map((singleObject, index) => (
+                            <Fragment key={index}>
+                                <SingleLeftSideBarMenu {...singleObject} />
+                            </Fragment>
+                        ))}
                     </div>
                 </section>
             </Suspense>

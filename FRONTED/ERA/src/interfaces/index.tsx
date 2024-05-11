@@ -18,6 +18,10 @@ export interface profilePopupOnOffContextInterface {
     profilePopupOnOff: boolean,
     setProfilePopupOnOff: React.Dispatch<React.SetStateAction<boolean>>
 }
+export interface editPostPopupContextInterface {
+    editPostPopupOnOff: boolean,
+    setEditPostPopupOnOff: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 export interface stateProviderContext {
     _user?: user | null,

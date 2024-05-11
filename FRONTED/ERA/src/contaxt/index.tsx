@@ -1,5 +1,11 @@
 import { createContext } from "react";
-import { loginDesinContext, profilePopupOnOffContextInterface } from "../interfaces";
+import {
+    editPostPopupContextInterface,
+    loginDesinContext,
+    profilePopupOnOffContextInterface
+} from "../interfaces";
+
+
 export const LoginDesignContext = createContext<loginDesinContext>({
     loginDesign: true,
     setLoginDesign: () => false
@@ -8,4 +14,9 @@ export const LoginDesignContext = createContext<loginDesinContext>({
 export const ProfilePopupContext = createContext<profilePopupOnOffContextInterface>({
     profilePopupOnOff: false,
     setProfilePopupOnOff: () => false
+})
+
+export const EditPostPopupContext = createContext<editPostPopupContextInterface>({
+    editPostPopupOnOff: false,
+    setEditPostPopupOnOff: () => false
 })

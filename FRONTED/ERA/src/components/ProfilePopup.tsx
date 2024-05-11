@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, useContext, useEffect, useState } from 'react'
 import { ProfilePopupContext } from '../contaxt'
 import { LoaderSpinner } from './LoaderSpinner'
-import { CloseIcon, EditIcon } from '../icons'
+import { CloseIcon, EditIcon, LogoutIcon } from '../icons'
 import { user } from '../interfaces'
 
 const ProfilePopup: React.FC<user> = (props) => {
@@ -17,14 +17,20 @@ const ProfilePopup: React.FC<user> = (props) => {
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
-                <section className='w-full h-screen flex justify-center items-center bg-[rgba(0,0,0,0.35)] backdrop-blur-sm absolute top-0 bg-black z-10'>
+                <section className='w-full h-screen flex justify-center items-center bg-[rgba(65,65,65,0.35)] backdrop-blur-sm absolute top-0 bg-black z-10'>
                     <div className="centerContainer flex w-[60%] h-[80%] justify-between relative items-center bg-white rounded-md">
-                        <span onClick={() => setProfilePopupOnOff(!profilePopupOnOff)} className='text-2xl absolute top-[3%] right-[2%] cursor-pointer'>{<CloseIcon classess='' />}</span>
+                        <span onClick={() => setProfilePopupOnOff(!profilePopupOnOff)} className='text-gray-700 transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[2%] cursor-pointer'>{<CloseIcon classess='' />}</span>
 
                         {user?._id === props._id ? (
-                            <span onClick={() => { }} className='text-2xl absolute top-[3%] right-[6%] cursor-pointer'>{<EditIcon />}</span>
+                            <span onClick={() => { }} className='text-gray-700 transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[6%] cursor-pointer'>{<EditIcon />}</span>
                         ) : ""}
 
+                        {user?._id === props._id ? (
+                            <span onClick={() => {
+                                localStorage.clear()
+                                window.location.reload()
+                            }} className='text-gray-700 transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[10%] cursor-pointer'>{<LogoutIcon />}</span>
+                        ) : ""}
 
                         <div
                             style={{

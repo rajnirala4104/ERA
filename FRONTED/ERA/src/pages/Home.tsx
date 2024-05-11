@@ -16,7 +16,6 @@ const Home = memo(() => {
       <React.Fragment>
          <Suspense fallback={<LoaderSpinner />}>
 
-
             <div className="bg-[#e1f8f2] h-full">
                <div>
                   <Navbar />

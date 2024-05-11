@@ -18,3 +18,4 @@ export const PostCard = lazy(() => import('./PostCard'));
 export const Singup = lazy(() => import('./Singup'));
 export const Navbar = lazy(() => import('./Navbar'));
 export const Login = lazy(() => import('./Login'));
+export const UserSingpleCard = lazy(() => import('./UserSingleCard'));

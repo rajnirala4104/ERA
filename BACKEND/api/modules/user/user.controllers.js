@@ -53,6 +53,7 @@ const userControllers = {
             })
         }
     }),
+
     login: expressAsyncHandler(async (req, res) => {
         try {
 
@@ -189,6 +190,22 @@ const userControllers = {
             })
 
 
+        } catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+            throw new Error(error.message)
+        }
+    }),
+    getAllUser: expressAsyncHandler(async (req, res) => {
+        try {
+            const data = await User.find({});
+            const loggedUserId = req.user._id
+            const finalData = data.filter(el => el._id.toString() !== loggedUserId.toString());
+
+            return res.status(StatusCodes.OK).json({
+                message: "here all the users",
+                status: StatusCodes.OK,
+                data: finalData
+            })
         } catch (error) {
             res.status(StatusCodes.INTERNAL_SERVER_ERROR)
             throw new Error(error.message)

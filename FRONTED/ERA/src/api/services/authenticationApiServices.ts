@@ -17,6 +17,16 @@ export const login = (data: loginData) => {
     return http.post(ENDPIONTS.login, data)
 }
 
+export const getAllTheUser = (loggedUserToken: string) => {
+    const config = {
+        "Content-type": "application/json",
+        headers: {
+            Authorization: `Bearer ${loggedUserToken}`,
+        },
+    };
+    return http.get(ENDPIONTS.getAllTheUser, config);
+}
+
 export const forgotPassword = (data: forgotPasswordsDataInterface) => {
     return http.put(ENDPIONTS.password, data, {
         headers: {

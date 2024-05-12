@@ -6,7 +6,8 @@ export const ENDPIONTS = {
     signup: "/user/signup",
     updateUser: '/user/update/:id',
     password: '/user/password',
-    getSingpleUser: '/user/'
+    getSingpleUser: '/user/',
+    getAllTheUser: '/user/all'
 }
 
 export const POST_ENDPOINT = {

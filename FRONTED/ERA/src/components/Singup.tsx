@@ -34,8 +34,6 @@ const Singup = () => {
 
    }
 
-   console.log(profilePic)
-
    const subimtHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);

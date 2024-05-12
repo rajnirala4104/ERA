@@ -3,7 +3,8 @@ const { User } = require("./user.model");
 const { StatusCodes } = require('http-status-codes')
 const { generateToken } = require('../../config/generateToken');
 const { genSalt, hash } = require("bcryptjs");
-const { Followers } = require('../followers/followers.model')
+const { Followers } = require('../followers/followers.model');
+const { shuffleArray } = require("../../utils");
 
 // controllers object
 const userControllers = {

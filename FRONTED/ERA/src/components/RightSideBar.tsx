@@ -3,6 +3,7 @@ import { LoaderSpinner } from './LoaderSpinner';
 import { getAllTheUser } from '../api/services/authenticationApiServices';
 import { user } from '../interfaces';
 import UserSingleCard from './UserSingleCard';
+import { shuffleArray } from '../utils';
 
 const RightSideBar: React.FC = () => {
 
@@ -11,26 +12,27 @@ const RightSideBar: React.FC = () => {
 
     const gettingAllTherUser = async () => {
         const response = await getAllTheUser(user?.token!)
-        setSuggestedUser(response.data.data)
+        setSuggestedUser(shuffleArray(response.data.data))
     }
 
     useEffect(() => {
         gettingAllTherUser()
-    })
+    }, [user])
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("userInfo") as string);
         setUser(user)
     }, []);
 
+    console.log(suggestedUser)
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
-                <section className='bg-[#6fc9b3] w-full flex-col flex justify-start items-center'>
+                <section className='bg-[#0edaa3] w-full flex-col flex justify-start items-center h-[89vh]'>
                     <div className="rightSideBarTitle flex justify-center items-center">
                         <span className='text-xl font-semibold my-3'>Suggestions</span>
                     </div>
-                    <div className="userSingleCardContainer flex flex-col border border-black">
+                    <div className="userSingleCardContainer flex flex-col w-[90%] overflow-y-auto h-[90%] px-2">
                         {suggestedUser?.map((singleObject, index) =>
                             <Fragment key={index}>
                                 <UserSingleCard {...singleObject} />

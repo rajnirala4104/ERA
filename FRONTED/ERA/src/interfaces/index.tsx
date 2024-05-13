@@ -53,3 +53,8 @@ export interface menuInterface {
     path: string
 }
 
+export interface createPostDataInterface {
+    user?: string,
+    caption?: string,
+    conten?: string
+}

@@ -1,11 +1,52 @@
-import React, { Fragment, Suspense, useContext } from 'react'
+import React, { Fragment, Suspense, useContext, useState } from 'react'
 import { LoaderSpinner } from './LoaderSpinner'
 import { PostCreatePopupContext } from '../contaxt'
 import { CloseIcon } from '../icons'
+import { createPostApiCall } from '../api/services/postApiServices'
 
 const PostCreatePopupForm: React.FC = () => {
 
     const { postCreatePopupOnOff, setPostCreatePopupOnOff } = useContext(PostCreatePopupContext)
+
+    const [postImage, setPostImage] = useState<string>()
+
+    const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
+        const fileObject = pics.target.files![0];
+        if (fileObject === undefined) {
+            alert("Oops!! image error");
+            return;
+        }
+        if (fileObject.type === "image/jpeg" || fileObject.type === "image/png") {
+            const data = new FormData();
+            data.append('file', fileObject);
+            data.append('upload_preset', 'ERA_910');
+            data.append("cloud_name", "eracloud");
+
+            fetch('https://api.cloudinary.com/v1_1/eracloud/image/upload', {
+                method: "POST",
+                body: data
+            }).then((res) => res.json()).then((data) => {
+                setPostImage(data.url.toString());
+            })
+        }
+    }
+
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        const formObject = Object.fromEntries(formData.entries());
+        const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
+
+        const finalDataObject = {
+            content: postImage,
+            caption: formObject.caption as string
+        }
+
+        const response = await createPostApiCall(finalDataObject, loggedUser?.token as string);
+
+        window.location.reload()
+
+    }
 
     return (
         <Fragment>
@@ -22,9 +63,12 @@ const PostCreatePopupForm: React.FC = () => {
                         </div>
                         <div className='my-2 flex flex-col justify-start items-center w-full h-full'>
                             <div className='my-5  w-[70%] '>
-                                <form className='flex flex-col justify-center items-center'>
+                                <form
+                                    onKeyDown={(e) => (e.key === "Enter" ? submitHandler : "")}
+                                    onSubmit={(e) => submitHandler(e)}
+                                    className='flex flex-col justify-center items-center'>
                                     <div className="file">
-                                        <input name='postImage' placeholder='Enter File' type="file" id='postImage' className='' />
+                                        <input onChange={(e) => postDetails(e)} name='postImage' placeholder='Enter File' type="file" id='postImage' className='' />
                                     </div>
                                     <div className='captin my-2'>
                                         <textarea rows={5} cols={60} name='caption' className='border border-black p-2 rounded-md ' placeholder='Caption..' />

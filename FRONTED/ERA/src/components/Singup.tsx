@@ -31,10 +31,9 @@ const Singup = () => {
          })
 
       }
-
    }
 
-   const subimtHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);
       const formObject = Object.fromEntries(formData.entries());
@@ -68,8 +67,8 @@ const Singup = () => {
       <React.Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <form
-               onKeyDown={(e) => (e.key === "Enter" ? subimtHandler : "")}
-               onSubmit={(e) => subimtHandler(e)}
+               onKeyDown={(e) => (e.key === "Enter" ? submitHandler : "")}
+               onSubmit={(e) => submitHandler(e)}
                className="h-[100%] flex justify-center items-center flex-col"
             >
                <div className="inputs">

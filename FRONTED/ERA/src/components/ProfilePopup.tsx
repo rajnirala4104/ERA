@@ -18,7 +18,7 @@ const ProfilePopup: React.FC<user> = (props) => {
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
                 <section
-                    style={{ background: 'rgba(106,106,106,0.2)' }}
+                    style={{ background: 'rgba(106,106,106,0.40)' }}
                     className='w-full h-screen flex justify-center items-center backdrop-blur-md absolute top-0 bg-black z-10'>
                     <div className="centerContainer flex w-[60%] h-[80%] justify-between relative items-center bg-white rounded-md">
                         <span onClick={() => setProfilePopupOnOff(!profilePopupOnOff)} className='text-gray-700 transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[2%] cursor-pointer'>{<CloseIcon classess='' />}</span>

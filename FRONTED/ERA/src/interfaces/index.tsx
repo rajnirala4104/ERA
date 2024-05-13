@@ -23,6 +23,11 @@ export interface editPostPopupContextInterface {
     setEditPostPopupOnOff: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+export interface postCreatePopupContextInterface {
+    postCreatePopupOnOff: boolean,
+    setPostCreatePopupOnOff: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export interface stateProviderContext {
     _user?: user | null,
     set_user: React.Dispatch<React.SetStateAction<user | undefined>>

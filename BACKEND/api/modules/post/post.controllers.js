@@ -24,6 +24,28 @@ const postControllers = {
       }
    }),
 
+   getAllThePostOfAPerticulerUser: expressAsyncHandler(async (req, res) => {
+      try {
+
+         const response = await Post.find({})
+            .populate('user', '-password')
+
+         const { userId } = req.params
+
+         const allPost = response.filter(el => el.user._id.toString() === userId)
+
+         return res.status(StatusCodes.OK).json({
+            message: "all post",
+            data: allPost
+         })
+
+
+      } catch (error) {
+         res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+         throw new Error(error.message);
+      }
+   }),
+
    //getting single post data
    getSinglePost: expressAsyncHandler(async (req, res) => {
       try {

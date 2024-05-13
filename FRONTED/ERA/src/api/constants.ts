@@ -12,6 +12,7 @@ export const ENDPIONTS = {
 
 export const POST_ENDPOINT = {
     getAllpost: "/post/",
+    getAllPostsOfAPerticulerUser: '/post/posts',
     getSinglePost: '/post/:postId',
     createPost: "/post/create",
     updatePost: "/post/update",

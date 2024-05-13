@@ -1,10 +1,24 @@
-import React, { Fragment, Suspense, useContext } from 'react'
+import React, { Fragment, Suspense, useContext, useEffect, useState } from 'react'
 import { LoaderSpinner } from './LoaderSpinner';
 import { PlusIcon } from '../icons';
 import { PostCreatePopupContext } from '../contaxt';
+import { getAllThePostOfAPerticulerUser } from '../api/services/postApiServices';
+import { postInterface } from '../interfaces';
 
 const UserProfilePostContainer: React.FC = () => {
     const { postCreatePopupOnOff, setPostCreatePopupOnOff } = useContext(PostCreatePopupContext)
+    const [allPosts, setAllPosts] = useState<postInterface[]>()
+
+    const gettingAllThePosts = async () => {
+        const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
+        const { data } = await getAllThePostOfAPerticulerUser(loggedUser._id, loggedUser.token)
+        setAllPosts(data.data)
+    }
+
+    useEffect(() => {
+        gettingAllThePosts()
+    }, [])
+
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>

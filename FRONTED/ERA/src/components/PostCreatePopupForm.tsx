@@ -3,12 +3,16 @@ import { LoaderSpinner } from './LoaderSpinner'
 import { PostCreatePopupContext } from '../contaxt'
 import { CloseIcon } from '../icons'
 import { createPostApiCall } from '../api/services/postApiServices'
+import { createThoghtPostApiCall } from '../api/services/thoughtPostServices'
+import { postInterface } from '../interfaces'
 
 const PostCreatePopupForm: React.FC = () => {
 
     const { postCreatePopupOnOff, setPostCreatePopupOnOff } = useContext(PostCreatePopupContext)
 
     const [postImage, setPostImage] = useState<string>()
+    const [thoughtPostForm, setThoughtPostForm] = useState<boolean>(false)
+    const [allPostsAndThoughtPosts, setAllPostsAndThoughtPosts] = useState<postInterface[]>()
 
     const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
         const fileObject = pics.target.files![0];
@@ -41,12 +45,26 @@ const PostCreatePopupForm: React.FC = () => {
             content: postImage,
             caption: formObject.caption as string
         }
-
         const response = await createPostApiCall(finalDataObject, loggedUser?.token as string);
-
+        setAllPostsAndThoughtPosts(response.data.data)
         window.location.reload()
-
     }
+
+    const ThoughtPostSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        const formObject = Object.fromEntries(formData.entries());
+        const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
+
+        const finalDataObject = {
+            user: loggedUser._id as string,
+            thought: formObject.thought as string,
+        }
+        const response = await createThoghtPostApiCall(finalDataObject, loggedUser.token)
+        setAllPostsAndThoughtPosts(el => [...el!, response.data.data])
+        window.location.reload()
+    }
+
 
     return (
         <Fragment>
@@ -59,10 +77,10 @@ const PostCreatePopupForm: React.FC = () => {
                         <span onClick={() => setPostCreatePopupOnOff(!postCreatePopupOnOff)} className='text-gray-700 transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[2%] cursor-pointer'>{<CloseIcon classess='' />}</span>
 
                         <div className='my-4'>
-                            <span className='font-semibold text-2xl'>Add Post</span>
+                            <span className='font-semibold text-2xl'>{thoughtPostForm ? "Add Post" : "Add Thougth Post"}</span>
                         </div>
                         <div className='my-2 flex flex-col justify-start items-center w-full h-full'>
-                            <div className='my-5  w-[70%] '>
+                            <div className={`${thoughtPostForm ? "" : "hidden"} my-5  w-[70%]`}>
                                 <form
                                     onKeyDown={(e) => (e.key === "Enter" ? submitHandler : "")}
                                     onSubmit={(e) => submitHandler(e)}
@@ -80,11 +98,31 @@ const PostCreatePopupForm: React.FC = () => {
                                         >
                                             Create Post
                                         </button>
-                                        <div className='my-2'>
-                                            <span className='underline text-blue-500 cursor-pointer text-center'>thoughtPost</span>
-                                        </div>
                                     </div>
                                 </form>
+                            </div>
+
+                            <div className={` ${thoughtPostForm ? "hidden" : ""} my-5  w-[70%] `}>
+                                <form
+                                    onKeyDown={(e) => (e.key === "Enter" ? ThoughtPostSubmitHandler : "")}
+                                    onSubmit={(e) => ThoughtPostSubmitHandler(e)}
+                                    className='flex flex-col justify-center items-center'>
+                                    <div className='captin my-2'>
+                                        <textarea rows={5} cols={60} name='thought' className='border border-black p-2 rounded-md ' placeholder='Enter you Thouht..' />
+                                    </div>
+                                    <div className="btn my-4 flex flex-col justify-center items-center">
+                                        <button
+                                            type="submit"
+                                            className="text-[20px] text-center cursor-pointer mx-2 w-[100%] bg-black hover:bg-gray-800 dark:text-white px-2 py-2 rounded-md"
+                                        >
+                                            Share Thought
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div className='my-2'>
+                                <span onClick={() => setThoughtPostForm(!thoughtPostForm)} className='underline text-blue-500 cursor-pointer text-center'>{thoughtPostForm ? "ThoughtPost" : "Post"}</span>
                             </div>
                         </div>
                     </div>

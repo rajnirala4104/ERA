@@ -58,3 +58,8 @@ export interface createPostDataInterface {
     caption?: string,
     conten?: string
 }
+
+export interface createThoughtPostInterface {
+    user?: string,
+    thought?: string,
+}

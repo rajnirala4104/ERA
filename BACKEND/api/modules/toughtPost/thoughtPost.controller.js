@@ -16,6 +16,21 @@ const thoughPostControllers = {
         }
     }),
 
+    getAllThePostsOfAPerticulerUser: expressAsyncHandler(async (req, res) => {
+        try {
+            const loggedUserId = req.user._id;
+            const dataBaseAllThoughtPost = await ThoughtPost.find({});
+            const fillteredThoughtPost = dataBaseAllThoughtPost.filter(el => el.user._id.toString() === loggedUserId);
+            return res.status(StatusCodes.OK).json({
+                message: "here all the thought posts",
+                status: StatusCodes.OK,
+                data: fillteredThoughtPost
+            })
+        } catch (error) {
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+            throw new Error(error.message)
+        }
+    }),
     getSingleThoughtPostData: expressAsyncHandler(async (req, res) => {
         try {
             const { thoughtPostId } = req.params;

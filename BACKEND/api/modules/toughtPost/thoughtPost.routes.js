@@ -9,6 +9,7 @@ thoughtPost.get('/health', async (req, res) => res.status(StatusCodes.OK).json({
     status: StatusCodes.OK
 }));
 thoughtPost.get('/', protect, thoughPostControllers.getAllTherThouhtPosts)
+thoughtPost.get('/allPosts', protect, thoughPostControllers.getAllThePostsOfAPerticulerUser)
 thoughtPost.get('/:thoughtPostId', protect, thoughPostControllers.getSingleThoughtPostData);
 thoughtPost.post('/create', protect, thoughPostControllers.createThoughtPost);
 thoughtPost.put('/update/:thoughtPostId', protect, thoughPostControllers.updateTheThoughtPost);

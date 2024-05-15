@@ -1,7 +1,7 @@
-import { lazy } from 'react'
+import { lazy } from 'react';
 
 // intentionally i didn't make it lazy loading..
-export * from './LoaderSpinner'
+export * from './LoaderSpinner';
 
 // Lazy Loadings..
 export const UserProfilePostContainer = lazy(() => import('./UserProfilePostContainer'));
@@ -10,6 +10,7 @@ export const PostCreatePopupForm = lazy(() => import('./PostCreatePopupForm'))
 export const ForgotPasswordForm = lazy(() => import('./ForgotPasswordForm'));
 export const UserProfileHeader = lazy(() => import('./UserProfileHeader'));
 export const SearchNavbarBtn = lazy(() => import('./SearchNavbarBtn'));
+export const SinglePostPopup = lazy(() => import('./SinglePostPopup'))
 export const UserSingpleCard = lazy(() => import('./UserSingleCard'));
 export const SignupAndLogin = lazy(() => import('./SignupAndLogin'));
 export const PostContainer = lazy(() => import('./PostContainer'));

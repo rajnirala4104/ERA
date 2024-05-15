@@ -1,7 +1,7 @@
 import React, { Fragment, memo, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PostIcons } from ".";
-import { EditPostPopupContext } from "../contaxt";
+import { EditPostPopupContext, SinglePostPopupContext } from "../contaxt";
 import { EditIcon } from "../icons";
 import { postInterface, user } from "../interfaces";
 import { getDateFromMongoData } from "../utils";
@@ -12,6 +12,9 @@ const PostCard: React.FC<postInterface> = memo((props) => {
 
    const { editPostPopupOnOff, setEditPostPopupOnOff } =
       useContext(EditPostPopupContext);
+   const { singlePostPopupOnOff, setSinglePostPopupOnOff } = useContext(
+      SinglePostPopupContext
+   );
 
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("userInfo") as string);
@@ -20,7 +23,10 @@ const PostCard: React.FC<postInterface> = memo((props) => {
 
    return (
       <Fragment>
-         <div className="postCard mx-3 my-6  flex flex-col justify-center items-center rounded-lg shadow-lg bg-white">
+         <div
+            onClick={() => setSinglePostPopupOnOff(!singlePostPopupOnOff)}
+            className="cursor-pointer postCard mx-3 my-6  flex flex-col justify-center items-center rounded-lg shadow-lg bg-white"
+         >
             <div className="userInfo w-[95%] my-2 flex justify-between items-center ">
                <div
                   onClick={() => navigator(`/user-profile/${props.user?._id}`)}

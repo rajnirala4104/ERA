@@ -9,12 +9,14 @@ import React, {
 import { LoaderSpinner } from "./LoaderSpinner";
 const PostCard = lazy(() => import("./PostCard"));
 
+import { useSelector } from "react-redux";
 import { SinglePostPopup } from ".";
 import { getAllThePosts } from "../api/services/postApiServices";
 import { getAllThoughtPost } from "../api/services/thoughtPostServices";
 import { SinglePostPopupContext } from "../contaxt";
 import "../css/postContainer.css";
 import { postInterface } from "../interfaces";
+import { RootState } from "../redux/store";
 import { shuffleArray } from "../utils";
 
 const PostContainer: React.FC = () => {
@@ -31,6 +33,8 @@ const PostContainer: React.FC = () => {
    };
 
    const { singlePostPopupOnOff } = useContext(SinglePostPopupContext);
+   const { post } = useSelector((state: RootState) => state);
+   console.log(post);
 
    useEffect(() => {
       getAllThePost();

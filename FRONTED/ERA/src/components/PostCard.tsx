@@ -1,9 +1,11 @@
 import React, { Fragment, memo, useContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { PostIcons } from ".";
 import { EditPostPopupContext, SinglePostPopupContext } from "../contaxt";
 import { EditIcon } from "../icons";
 import { postInterface, user } from "../interfaces";
+import { addPost } from "../redux/states/postSlice";
 import { getDateFromMongoData } from "../utils";
 
 const PostCard: React.FC<postInterface> = memo((props) => {
@@ -21,10 +23,15 @@ const PostCard: React.FC<postInterface> = memo((props) => {
       setUser(user);
    }, []);
 
+   const dispatch = useDispatch();
+
    return (
       <Fragment>
          <div
-            onClick={() => setSinglePostPopupOnOff(!singlePostPopupOnOff)}
+            onClick={() => {
+               dispatch(addPost(props));
+               setSinglePostPopupOnOff(!singlePostPopupOnOff);
+            }}
             className="cursor-pointer postCard mx-3 my-6  flex flex-col justify-center items-center rounded-lg shadow-lg bg-white"
          >
             <div className="userInfo w-[95%] my-2 flex justify-between items-center ">

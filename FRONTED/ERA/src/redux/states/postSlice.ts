@@ -17,10 +17,10 @@ const postSlice = createSlice({
                   state.updateAt = postObject.updateAt;
                   state.user = postObject.user;
             },
-            removePost: () => initialState
+            resetState: () => initialState
       }
 })
 
-export const { addPost, removePost } = postSlice.actions;
+export const { addPost, resetState } = postSlice.actions;
 
 export default postSlice.reducer;

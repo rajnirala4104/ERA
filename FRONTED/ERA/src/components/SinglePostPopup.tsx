@@ -2,12 +2,11 @@ import React, { Fragment, Suspense, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SinglePostPopupContext } from "../contaxt";
 import { CloseIcon } from "../icons";
-import { postInterface } from "../interfaces";
 import { resetState } from "../redux/states/postSlice";
 import { RootState } from "../redux/store";
 import { LoaderSpinner } from "./LoaderSpinner";
 
-const SinglePostPopup: React.FC<postInterface> = () => {
+const SinglePostPopup: React.FC = () => {
    const { singlePostPopupOnOff, setSinglePostPopupOnOff } = useContext(
       SinglePostPopupContext
    );

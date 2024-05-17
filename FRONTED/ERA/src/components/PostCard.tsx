@@ -40,6 +40,7 @@ const PostCard: React.FC<postInterface> = memo((props) => {
                   className="flex cursor-pointer justify-center items-center"
                >
                   <img
+                     loading="lazy"
                      className="w-[2rem] h-[2rem] rounded-full"
                      src={props.user?.profilePic}
                      alt="ERA"

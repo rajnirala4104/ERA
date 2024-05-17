@@ -42,6 +42,11 @@ export interface stateProviderProp {
    children: ReactNode;
 }
 
+export interface commentInterface {
+   user?: user;
+   commentContent?: string;
+}
+
 export interface postInterface {
    _id?: string;
    caption?: string;

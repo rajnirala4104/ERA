@@ -21,6 +21,7 @@ export const StoriesIcon = lazy(() => import('./StoriesIcon'));
 export const LeftSideBar = lazy(() => import('./LeftSideBar'));
 export const PostIcons = lazy(() => import('./PostIcons'));
 export const PostCard = lazy(() => import('./PostCard'));
+export const Comment = lazy(() => import('./Comment'))
 export const Singup = lazy(() => import('./Singup'));
 export const Navbar = lazy(() => import('./Navbar'));
 export const Login = lazy(() => import('./Login'));

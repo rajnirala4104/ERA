@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { PostIcons } from ".";
+import { Comment, PostIcons } from ".";
 import { SinglePostPopupContext } from "../contaxt";
 import { CloseIcon, SendIcon } from "../icons";
 import { resetState } from "../redux/states/postSlice";
@@ -77,26 +77,24 @@ const SinglePostPopup: React.FC = () => {
                               <hr />
                               <div className="comments container overflow-y-auto h-[60%]">
                                  {/* -------- commentes ------- */}
-                                 <div className="singleComment shadow-md w-[70%] m-2 rounded-md">
-                                    <div className=" cursor-pointer user flex justify-start  p-1 items-center bg-slate-200">
-                                       <img
-                                          src={post.user?.profilePic}
-                                          alt="ERA"
-                                          loading="lazy"
-                                          className="w-[1.5rem] h-[1.5rem] rounded-full object-cover"
+                                 <div className="flex flex-col ">
+                                    <Comment
+                                       user={post.user}
+                                       commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
+                  voluptates a omnis obcaecati, distinctio quia quisquam et
+                  architecto consectetur. Laborum."
+                                    />
+                                    <div className="reply flex justify-end">
+                                       <Comment
+                                          user={JSON.parse(
+                                             localStorage.getItem(
+                                                "userInfo"
+                                             ) as string
+                                          )}
+                                          commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
+                  voluptates a omnis obcaecati, distinctio quia quisquam et
+                  architecto consectetur. Laborum."
                                        />
-                                       <p className="mx-2 text-[12px]">
-                                          {post.user?.name}
-                                       </p>
-                                    </div>
-                                    <div className="commentContent">
-                                       <p className="text-[13px] p-2">
-                                          Lorem ipsum dolor sit amet
-                                          consectetur, adipisicing elit. Iste
-                                          voluptates a omnis obcaecati,
-                                          distinctio quia quisquam et architecto
-                                          consectetur. Laborum.
-                                       </p>
                                     </div>
                                  </div>
                               </div>

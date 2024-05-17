@@ -2,6 +2,7 @@ import React, { Fragment, Suspense, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Comment, PostIcons } from ".";
+import { deleteApost } from "../api/services/postApiServices";
 import { SinglePostPopupContext } from "../contaxt";
 import { CloseIcon, DeleteIcon, SendIcon } from "../icons";
 import { resetState } from "../redux/states/postSlice";
@@ -20,6 +21,14 @@ const SinglePostPopup: React.FC = () => {
 
    const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
 
+   const deletePostHandler = async () => {
+      const confirmation = confirm("Do you really want to delete this post? ");
+      if (confirmation) {
+         await deleteApost(post._id!, loggedUser.token);
+         window.location.reload();
+      }
+   };
+
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
@@ -28,19 +37,22 @@ const SinglePostPopup: React.FC = () => {
                className="w-full h-screen flex justify-center items-center backdrop-blur-md absolute top-0 left-0  bg-black z-10"
             >
                <div className="centerContainer flex w-[70%] h-[90%] justify-between relative items-center bg-white rounded-lg ">
-                  <span
-                     onClick={() => {
-                        dispatch(resetState());
-                        setSinglePostPopupOnOff(!singlePostPopupOnOff);
-                     }}
-                     className="text-gray-700 flex transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[2%] cursor-pointer"
-                  >
+                  <span className="text-gray-700 flex transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[2%] cursor-pointer">
                      {loggedUser._id === post.user?._id ? (
-                        <DeleteIcon classess="mx-2" />
+                        <span onClick={() => deletePostHandler()}>
+                           <DeleteIcon classess="mx-2" />
+                        </span>
                      ) : (
                         ""
                      )}
-                     {<CloseIcon classess="" />}
+                     <span
+                        onClick={() => {
+                           dispatch(resetState());
+                           setSinglePostPopupOnOff(!singlePostPopupOnOff);
+                        }}
+                     >
+                        {<CloseIcon classess="" />}
+                     </span>
                   </span>
                   {post.thought ? (
                      <Fragment>

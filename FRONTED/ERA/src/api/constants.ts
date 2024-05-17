@@ -16,7 +16,7 @@ export const POST_ENDPOINT = {
     getSinglePost: '/post/:postId',
     createPost: "/post/create",
     updatePost: "/post/update",
-    deletePost: "/post/:postId"
+    deletePost: "/post/delete"
 }
 
 export const THOUGHT_POST_ENDPOINTS = {

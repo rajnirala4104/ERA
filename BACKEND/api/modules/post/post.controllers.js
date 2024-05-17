@@ -8,8 +8,7 @@ const postControllers = {
    getAllPost: expressAsyncHandler(async (req, res) => {
       try {
          //mongoose .find query for getting all the data
-         const response = await Post.find()
-            .populate('user', '-password')
+         const response = await Post.find().populate("user", "-password");
          return res.status(StatusCodes.OK).json({
             message: "here all the post data",
             data: response, //shuffleArray function to shuffle the response array
@@ -26,22 +25,20 @@ const postControllers = {
 
    getAllThePostOfAPerticulerUser: expressAsyncHandler(async (req, res) => {
       try {
+         const response = await Post.find({}).populate("user", "-password");
 
-         const response = await Post.find({})
-            .populate('user', '-password')
+         const { userId } = req.params;
 
-         const { userId } = req.params
-
-         const allPost = response.filter(el => el.user._id.toString() === userId)
+         const allPost = response.filter(
+            (el) => el.user._id.toString() === userId
+         );
 
          return res.status(StatusCodes.OK).json({
             message: "all post",
-            data: allPost
-         })
-
-
+            data: allPost,
+         });
       } catch (error) {
-         res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+         res.status(StatusCodes.INTERNAL_SERVER_ERROR);
          throw new Error(error.message);
       }
    }),
@@ -161,7 +158,9 @@ const postControllers = {
    deletePost: expressAsyncHandler(async (req, res) => {
       try {
          const { id } = req.params; //getting post id
-         await Post.deletOne({ _id: id }); // mongoose delete query
+
+         await Post.deleteOne({ _id: id }); // mongoose delete query
+
          return res.status(StatusCodes.OK).json({
             messgage: "deleted success fully",
             status: StatusCodes.OK,

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Comment, PostIcons } from ".";
 import { SinglePostPopupContext } from "../contaxt";
-import { CloseIcon, SendIcon } from "../icons";
+import { CloseIcon, DeleteIcon, SendIcon } from "../icons";
 import { resetState } from "../redux/states/postSlice";
 import { RootState } from "../redux/store";
 import { LoaderSpinner } from "./LoaderSpinner";
@@ -18,11 +18,13 @@ const SinglePostPopup: React.FC = () => {
    const dispatch = useDispatch();
    const { post } = useSelector((state: RootState) => state);
 
+   const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
+
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <section
-               style={{ background: "rgba(0,0,0, 0.1)" }}
+               style={{ background: "rgba(0,0,0, 0.25)" }}
                className="w-full h-screen flex justify-center items-center backdrop-blur-md absolute top-0 left-0  bg-black z-10"
             >
                <div className="centerContainer flex w-[70%] h-[90%] justify-between relative items-center bg-white rounded-lg ">
@@ -31,8 +33,13 @@ const SinglePostPopup: React.FC = () => {
                         dispatch(resetState());
                         setSinglePostPopupOnOff(!singlePostPopupOnOff);
                      }}
-                     className="text-gray-700 transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[2%] cursor-pointer"
+                     className="text-gray-700 flex transition duration-200 hover:text-black text-2xl absolute top-[3%] right-[2%] cursor-pointer"
                   >
+                     {loggedUser._id === post.user?._id ? (
+                        <DeleteIcon classess="mx-2" />
+                     ) : (
+                        ""
+                     )}
                      {<CloseIcon classess="" />}
                   </span>
                   {post.thought ? (

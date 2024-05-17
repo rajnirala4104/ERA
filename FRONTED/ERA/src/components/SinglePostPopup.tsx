@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { PostIcons } from ".";
 import { SinglePostPopupContext } from "../contaxt";
-import { CloseIcon } from "../icons";
+import { CloseIcon, SendIcon } from "../icons";
 import { resetState } from "../redux/states/postSlice";
 import { RootState } from "../redux/store";
 import { LoaderSpinner } from "./LoaderSpinner";
@@ -75,7 +75,7 @@ const SinglePostPopup: React.FC = () => {
                                  </p>
                               </div>
                               <hr />
-                              <div className="comments container overflow-y-auto h-[70%]">
+                              <div className="comments container overflow-y-auto h-[60%]">
                                  {/* -------- commentes ------- */}
                                  <div className="singleComment shadow-md w-[70%] m-2 rounded-md">
                                     <div className=" cursor-pointer user flex justify-start  p-1 items-center bg-slate-200">
@@ -101,9 +101,19 @@ const SinglePostPopup: React.FC = () => {
                                  </div>
                               </div>
                               <hr />
-                              <div className="w-full flex justify-start items-center h-[13%] bg-slate-50 px-2">
-                                 <div>
+                              <div className="w-full flex flex-col justify-center items-start h-[13%] bg-slate-50 px-2">
+                                 <div className="text-[12px]">
                                     <PostIcons />
+                                 </div>
+                                 <div className="input w-full -my-2 flex justify-between">
+                                    <input
+                                       type="text"
+                                       className="text-[15px] w-[88%] rounded-md py-2 px-2 outline-none border border-black"
+                                       placeholder="Comment..."
+                                    />
+                                    <div className="w-[10%] hover:bg-green-200  grid place-content-center text-2xl rounded-md shadow-md text-white">
+                                       <SendIcon classess="" />
+                                    </div>
                                  </div>
                               </div>
                            </div>

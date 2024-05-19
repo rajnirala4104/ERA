@@ -2,7 +2,6 @@ import React, { Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoaderSpinner } from ".";
 import { login } from "../api/services/authenticationApiServices";
-
 const Login = () => {
    const [hidePassword, setHidePassword] = useState<boolean>(true);
 

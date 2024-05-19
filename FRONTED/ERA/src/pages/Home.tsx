@@ -1,8 +1,12 @@
 import React, { Suspense, memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { LeftSideBar, LoaderSpinner, Navbar, PostContainer, RightSideBar } from "../components";
-
-
+import {
+   LeftSideBar,
+   LoaderSpinner,
+   Navbar,
+   PostContainer,
+   RightSideBar,
+} from "../components";
 
 const Home = memo(() => {
    const navigator = useNavigate();
@@ -15,7 +19,6 @@ const Home = memo(() => {
    return (
       <React.Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-
             <div className="bg-[#e1f8f2] h-full">
                <div>
                   <Navbar />

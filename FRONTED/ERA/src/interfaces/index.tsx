@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 
 export interface user {
-   _id: string;
-   name: string;
-   profilePic: string;
-   bio: string;
-   email: string;
-   token: string;
+   _id?: string;
+   name?: string;
+   profilePic?: string;
+   bio?: string;
+   email?: string;
+   token?: string;
 }
 
 export interface loginDesinContext {

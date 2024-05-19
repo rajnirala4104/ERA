@@ -32,7 +32,7 @@ const PostCard: React.FC<postInterface> = memo((props) => {
                dispatch(addPost(props));
                setSinglePostPopupOnOff(!singlePostPopupOnOff);
             }}
-            className="cursor-pointer postCard mx-3 my-6  flex flex-col justify-center items-center rounded-lg shadow-lg bg-white"
+            className="cursor-pointer postCard mx-3 my-6  flex flex-col justify-center items-center rounded-lg w-full shadow-lg bg-white"
          >
             <div className="userInfo w-[95%] my-2 flex justify-between items-center ">
                <div

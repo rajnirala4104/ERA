@@ -5,7 +5,8 @@ import React, {
    useEffect,
    useState,
 } from "react";
-import { PostCard } from ".";
+import { useParams } from "react-router-dom";
+import { PostCard, ZeroPostIndicator } from ".";
 import { getAllThePostOfAPerticulerUser } from "../api/services/postApiServices";
 import { PostCreatePopupContext } from "../contaxt";
 import { PlusIcon } from "../icons";
@@ -16,6 +17,8 @@ const UserProfilePostContainer: React.FC = () => {
    const { postCreatePopupOnOff, setPostCreatePopupOnOff } = useContext(
       PostCreatePopupContext
    );
+
+   const { userId } = useParams();
    const [allPosts, setAllPosts] = useState<postInterface[]>();
    const [user, setUser] = useState<user>();
 
@@ -23,7 +26,7 @@ const UserProfilePostContainer: React.FC = () => {
       const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
       setUser(user);
       const { data } = await getAllThePostOfAPerticulerUser(
-         loggedUser._id,
+         userId!,
          loggedUser.token
       );
       setAllPosts(data.data);
@@ -32,11 +35,11 @@ const UserProfilePostContainer: React.FC = () => {
    useEffect(() => {
       gettingAllThePosts();
    }, []);
-
+   console.log("re-render");
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <section className="relative border border-red-500 w-full h-full">
+            <section className="relative w-full h-full">
                <span>{user?.name}</span>
                <div
                   onClick={() => setPostCreatePopupOnOff(!postCreatePopupOnOff)}
@@ -44,12 +47,18 @@ const UserProfilePostContainer: React.FC = () => {
                >
                   <PlusIcon classess="text-4xl hover:text-slate-800" />
                </div>
-               <div className="postContainer w-[100%] h-[100%] border border-blue-500 overflow-y-auto">
-                  {allPosts?.map((singlePostObject) => (
-                     <div className="w-[100%] border border-black flex flex-row ">
-                        <PostCard {...singlePostObject} />
+               <div className="postContainer w-[100%] h-[100%] overflow-y-auto">
+                  {allPosts?.length === 0 ? (
+                     <div className="w-full h-full grid place-items-center ">
+                        <ZeroPostIndicator />
                      </div>
-                  ))}
+                  ) : (
+                     allPosts?.map((singlePostObject) => (
+                        <div className="w-[100%] border border-black flex flex-row ">
+                           <PostCard {...singlePostObject} />
+                        </div>
+                     ))
+                  )}
                </div>
             </section>
          </Suspense>

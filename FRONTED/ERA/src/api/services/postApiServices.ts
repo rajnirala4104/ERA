@@ -23,14 +23,14 @@ export const createPostApiCall = (data: createPostDataInterface, userToken: stri
     return http.post(POST_ENDPOINT.createPost, data, config);
 }
 
-export const getAllThePostOfAPerticulerUser = (loggedUserId: string, userToken: string) => {
+export const getAllThePostOfAPerticulerUser = (userId: string, userToken: string) => {
     const config = {
         "Content-type": "application/json",
         headers: {
             Authorization: `Bearer ${userToken}`,
         },
     };
-    return http.get(`${POST_ENDPOINT.getAllPostsOfAPerticulerUser}/${loggedUserId}`, config)
+    return http.get(`${POST_ENDPOINT.getAllPostsOfAPerticulerUser}/${userId}`, config)
 }
 
 export const deleteApost = (postId: string, userToken: string) => {

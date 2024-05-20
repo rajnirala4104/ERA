@@ -24,10 +24,11 @@ import {
 import { user } from "../interfaces";
 
 const Profile: React.FC = () => {
-   const { userId } = useParams();
    const navigator = useNavigate();
 
    const [user, setUser] = useState<user[]>();
+
+   const { userId } = useParams();
 
    const getUserInformation = async () => {
       const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);

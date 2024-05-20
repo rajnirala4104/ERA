@@ -9,6 +9,7 @@ export const SingleLeftSideBarMenu = lazy(() => import('./SingleLeftSideBarMenu'
 export const PostCreatePopupForm = lazy(() => import('./PostCreatePopupForm'))
 export const ForgotPasswordForm = lazy(() => import('./ForgotPasswordForm'));
 export const UserProfileHeader = lazy(() => import('./UserProfileHeader'));
+export const ZeroPostIndicator = lazy(() => import('./ZeroPostIndicator'))
 export const SearchNavbarBtn = lazy(() => import('./SearchNavbarBtn'));
 export const SinglePostPopup = lazy(() => import('./SinglePostPopup'))
 export const UserSingpleCard = lazy(() => import('./UserSingleCard'));

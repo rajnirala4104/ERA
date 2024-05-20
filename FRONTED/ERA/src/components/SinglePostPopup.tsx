@@ -50,8 +50,8 @@ const SinglePostPopup: React.FC = () => {
                      {loggedUser?._id === post.user?._id ? (
                         <span
                            onClick={() => {
-                              setSinglePostPopupOnOff(!singlePostPopupOnOff);
                               setEditPostPopupOnOff(!editPostPopupOnOff);
+                              setSinglePostPopupOnOff(!singlePostPopupOnOff);
                            }}
                            className="hover:text-black text-gray-700 mx-2 cursor-pointer"
                         >

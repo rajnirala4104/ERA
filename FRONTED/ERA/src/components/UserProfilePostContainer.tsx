@@ -8,6 +8,7 @@ import React, {
 import { useParams } from "react-router-dom";
 import { ProfilePagePostCard, ZeroPostIndicator } from ".";
 import { getAllThePostOfAPerticulerUser } from "../api/services/postApiServices";
+import { getAllTheThoughtPostsOfAPerticulerUser } from "../api/services/thoughtPostServices";
 import { PostCreatePopupContext } from "../contaxt";
 import { PlusIcon } from "../icons";
 import { postInterface, user } from "../interfaces";
@@ -29,12 +30,19 @@ const UserProfilePostContainer: React.FC = () => {
          userId!,
          loggedUser.token
       );
-      setAllPosts(data.data);
+      const thoughtPostData = await getAllTheThoughtPostsOfAPerticulerUser(
+         userId!,
+         loggedUser.token
+      );
+      const bothPosts = [...data.data, ...thoughtPostData.data.data];
+      setAllPosts(bothPosts);
    };
 
    useEffect(() => {
       gettingAllThePosts();
    }, []);
+
+   console.log(allPosts);
 
    return (
       <Fragment>

@@ -22,14 +22,21 @@ const ProfilePagePostCard: React.FC<postInterface> = memo((props) => {
                }}
                className="m-1"
             >
-               <div className="w-[20rem] h-[20rem] cursor-pointer">
-                  <img
-                     src={props.content}
-                     alt="ERA"
-                     className="w-full h-full object-cover rounded-md"
-                  />
-               </div>
-               <span>{props.thought}</span>
+               {props.thought ? (
+                  <div className="w-[20rem] flex justify-center items-center shadow-md rounded-md h-[20rem] border-2 border-black cursor-pointer">
+                     <span className="text-center font-mono font-semibold m-2">
+                        "{props.thought}"
+                     </span>
+                  </div>
+               ) : (
+                  <div className="w-[20rem] h-[20rem] cursor-pointer shadow-md">
+                     <img
+                        src={props.content}
+                        alt="ERA"
+                        className="w-full h-full object-cover rounded-md"
+                     />
+                  </div>
+               )}
             </div>
          </Suspense>
       </Fragment>

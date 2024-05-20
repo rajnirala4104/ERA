@@ -15,7 +15,7 @@ const UserSingleCard: React.FC<user> = (props) => {
                <img
                   loading="lazy"
                   src={props.profilePic}
-                  className="w-[2.5rem] h-[2.5rem] rounded-full"
+                  className="w-[2.5rem] h-[2.5rem] rounded-full object-cover"
                   alt={`ERA-${props.name}`}
                />
             </div>

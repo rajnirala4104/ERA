@@ -6,7 +6,7 @@ import React, {
    useState,
 } from "react";
 import { useParams } from "react-router-dom";
-import { PostCard, ZeroPostIndicator } from ".";
+import { ProfilePagePostCard, ZeroPostIndicator } from ".";
 import { getAllThePostOfAPerticulerUser } from "../api/services/postApiServices";
 import { PostCreatePopupContext } from "../contaxt";
 import { PlusIcon } from "../icons";
@@ -40,6 +40,7 @@ const UserProfilePostContainer: React.FC = () => {
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <section className="w-full h-full">
+               {/* ---------- create Post button --------- */}
                {user?._id === userId ? (
                   <div
                      onClick={() =>
@@ -53,16 +54,16 @@ const UserProfilePostContainer: React.FC = () => {
                   ""
                )}
 
-               <div className="postContainer w-[100%] h-[100%] overflow-y-auto">
+               {/* --------- post container ------------ */}
+               <div className="postContainer w-[100%] h-[100%] overflow-y-auto flex flex-wrap p-2 justify-start items-start ">
                   {allPosts?.length === 0 ? (
                      <div className="w-full h-full grid place-items-center ">
                         <ZeroPostIndicator />
                      </div>
                   ) : (
+                     // ----- rendering all the post ------
                      allPosts?.map((singlePostObject) => (
-                        <div className="w-[100%] border border-black flex flex-row ">
-                           <PostCard {...singlePostObject} />
-                        </div>
+                        <ProfilePagePostCard {...singlePostObject} />
                      ))
                   )}
                </div>

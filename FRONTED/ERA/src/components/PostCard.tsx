@@ -19,13 +19,7 @@ const PostCard: React.FC<postInterface> = memo((props) => {
 
    return (
       <Fragment>
-         <div
-            onClick={() => {
-               dispatch(addPost(props));
-               setSinglePostPopupOnOff(!singlePostPopupOnOff);
-            }}
-            className=" cursor-pointer postCard my-6   flex flex-col justify-center items-center rounded-lg w-full shadow-lg bg-white"
-         >
+         <div className="  my-6   flex flex-col justify-center items-center rounded-lg w-full shadow-lg bg-white">
             <div className="userInfo w-[95%] my-2 flex justify-between items-center ">
                <div
                   onClick={() => navigator(`/user-profile/${props.user?._id}`)}
@@ -43,7 +37,13 @@ const PostCard: React.FC<postInterface> = memo((props) => {
                   <span>{getDateFromMongoData(props.createdAt as string)}</span>
                </div>
             </div>
-            <div className="content w-[95%]">
+            <div
+               onClick={() => {
+                  dispatch(addPost(props));
+                  setSinglePostPopupOnOff(!singlePostPopupOnOff);
+               }}
+               className="content w-[95%] cursor-pointer postCard"
+            >
                {/* ------------------------- thought Post Idia ------------ */}
                {props.caption ? (
                   <div

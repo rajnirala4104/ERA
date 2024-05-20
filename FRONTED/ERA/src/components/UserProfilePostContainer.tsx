@@ -24,7 +24,7 @@ const UserProfilePostContainer: React.FC = () => {
 
    const gettingAllThePosts = async () => {
       const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
-      setUser(user);
+      setUser(loggedUser);
       const { data } = await getAllThePostOfAPerticulerUser(
          userId!,
          loggedUser.token
@@ -35,18 +35,24 @@ const UserProfilePostContainer: React.FC = () => {
    useEffect(() => {
       gettingAllThePosts();
    }, []);
-   console.log("re-render");
+
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <section className="relative w-full h-full">
-               <span>{user?.name}</span>
-               <div
-                  onClick={() => setPostCreatePopupOnOff(!postCreatePopupOnOff)}
-                  className="appPostBtn absolute bottom-[6%] right-[4%] cursor-pointer"
-               >
-                  <PlusIcon classess="text-4xl hover:text-slate-800" />
-               </div>
+            <section className="w-full h-full">
+               {user?._id === userId ? (
+                  <div
+                     onClick={() =>
+                        setPostCreatePopupOnOff(!postCreatePopupOnOff)
+                     }
+                     className="appPostBtn absolute top-[10%] right-[10%] cursor-pointer"
+                  >
+                     <PlusIcon classess="text-4xl hover:text-slate-800" />
+                  </div>
+               ) : (
+                  ""
+               )}
+
                <div className="postContainer w-[100%] h-[100%] overflow-y-auto">
                   {allPosts?.length === 0 ? (
                      <div className="w-full h-full grid place-items-center ">

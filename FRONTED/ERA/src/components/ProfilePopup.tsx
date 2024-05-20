@@ -24,7 +24,7 @@ const ProfilePopup: React.FC<user> = (props) => {
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <section
-               style={{ background: "rgba(106,106,106,0.40)" }}
+               style={{ background: "rgba(65,65,65,0.35)" }}
                className="w-full h-screen flex justify-center items-center backdrop-blur-md absolute top-0 bg-black z-10"
             >
                <div className="centerContainer flex w-[60%] h-[80%] justify-between relative items-center bg-white rounded-md">

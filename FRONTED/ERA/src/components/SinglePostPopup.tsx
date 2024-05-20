@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Comment, PostIcons } from ".";
 import { deleteApost } from "../api/services/postApiServices";
-import { SinglePostPopupContext } from "../contaxt";
-import { CloseIcon, DeleteIcon, SendIcon } from "../icons";
+import { EditPostPopupContext, SinglePostPopupContext } from "../contaxt";
+import { CloseIcon, DeleteIcon, EditIcon, SendIcon } from "../icons";
 import { resetState } from "../redux/states/postSlice";
 import { RootState } from "../redux/store";
 import { LoaderSpinner } from "./LoaderSpinner";
@@ -18,6 +18,8 @@ const SinglePostPopup: React.FC = () => {
 
    const dispatch = useDispatch();
    const { post } = useSelector((state: RootState) => state);
+   const { editPostPopupOnOff, setEditPostPopupOnOff } =
+      useContext(EditPostPopupContext);
 
    const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
 
@@ -33,7 +35,7 @@ const SinglePostPopup: React.FC = () => {
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <section
-               style={{ background: "rgba(0,0,0, 0.25)" }}
+               style={{ background: "rgba(65,65,65,0.35)" }}
                className="w-full h-screen flex justify-center items-center backdrop-blur-md absolute top-0 left-0  bg-black z-10"
             >
                <div className="centerContainer flex w-[70%] h-[90%] justify-between relative items-center bg-white rounded-lg ">
@@ -41,6 +43,19 @@ const SinglePostPopup: React.FC = () => {
                      {loggedUser._id === post.user?._id ? (
                         <span onClick={() => deletePostHandler()}>
                            <DeleteIcon classess="mx-2" />
+                        </span>
+                     ) : (
+                        ""
+                     )}
+                     {loggedUser?._id === post.user?._id ? (
+                        <span
+                           onClick={() => {
+                              setSinglePostPopupOnOff(!singlePostPopupOnOff);
+                              setEditPostPopupOnOff(!editPostPopupOnOff);
+                           }}
+                           className="hover:text-black text-gray-700 mx-2 cursor-pointer"
+                        >
+                           {<EditIcon classess="text-xl " />}
                         </span>
                      ) : (
                         ""

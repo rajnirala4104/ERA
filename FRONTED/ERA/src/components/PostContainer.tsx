@@ -9,10 +9,10 @@ import React, {
 import { LoaderSpinner } from "./LoaderSpinner";
 const PostCard = lazy(() => import("./PostCard"));
 
-import { SinglePostPopup } from ".";
+import { EditPostPopup, SinglePostPopup } from ".";
 import { getAllThePosts } from "../api/services/postApiServices";
 import { getAllThoughtPost } from "../api/services/thoughtPostServices";
-import { SinglePostPopupContext } from "../contaxt";
+import { EditPostPopupContext, SinglePostPopupContext } from "../contaxt";
 import "../css/postContainer.css";
 import { postInterface } from "../interfaces";
 import { shuffleArray } from "../utils";
@@ -31,6 +31,7 @@ const PostContainer: React.FC = () => {
    };
 
    const { singlePostPopupOnOff } = useContext(SinglePostPopupContext);
+   const { editPostPopupOnOff } = useContext(EditPostPopupContext);
 
    useEffect(() => {
       getAllThePost();
@@ -39,8 +40,9 @@ const PostContainer: React.FC = () => {
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
+            {editPostPopupOnOff ? <EditPostPopup /> : ""}
             {singlePostPopupOnOff ? <SinglePostPopup /> : ""}
-            <div className=" w-[90%] mx-auto h-[89vh] overflow-y-auto">
+            <div className=" w-[94%] mx-auto h-[89vh] overflow-y-auto">
                {allPost.map((singplePostObject, index) => (
                   <Fragment key={index}>
                      <PostCard {...singplePostObject} />

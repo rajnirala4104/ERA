@@ -1,27 +1,19 @@
-import React, { Fragment, memo, useContext, useEffect, useState } from "react";
+import React, { Fragment, memo, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { PostIcons } from ".";
-import { EditPostPopupContext, SinglePostPopupContext } from "../contaxt";
-import { EditIcon } from "../icons";
-import { postInterface, user } from "../interfaces";
+import { SinglePostPopupContext } from "../contaxt";
+
+import { postInterface } from "../interfaces";
 import { addPost } from "../redux/states/postSlice";
 import { getDateFromMongoData } from "../utils";
 
 const PostCard: React.FC<postInterface> = memo((props) => {
-   const [user, setUser] = useState<user>();
    const navigator = useNavigate();
 
-   const { editPostPopupOnOff, setEditPostPopupOnOff } =
-      useContext(EditPostPopupContext);
    const { singlePostPopupOnOff, setSinglePostPopupOnOff } = useContext(
       SinglePostPopupContext
    );
-
-   useEffect(() => {
-      const user = JSON.parse(localStorage.getItem("userInfo") as string);
-      setUser(user);
-   }, []);
 
    const dispatch = useDispatch();
 
@@ -32,7 +24,7 @@ const PostCard: React.FC<postInterface> = memo((props) => {
                dispatch(addPost(props));
                setSinglePostPopupOnOff(!singlePostPopupOnOff);
             }}
-            className="cursor-pointer postCard mx-3 my-6  flex flex-col justify-center items-center rounded-lg w-full shadow-lg bg-white"
+            className=" cursor-pointer postCard my-6   flex flex-col justify-center items-center rounded-lg w-full shadow-lg bg-white"
          >
             <div className="userInfo w-[95%] my-2 flex justify-between items-center ">
                <div
@@ -49,18 +41,6 @@ const PostCard: React.FC<postInterface> = memo((props) => {
                </div>
                <div className="flex">
                   <span>{getDateFromMongoData(props.createdAt as string)}</span>
-                  {user?._id === props.user?._id ? (
-                     <span
-                        onClick={() =>
-                           setEditPostPopupOnOff(!editPostPopupOnOff)
-                        }
-                        className="hover:text-black text-gray-700 mx-2 cursor-pointer"
-                     >
-                        {<EditIcon classess="text-xl " />}
-                     </span>
-                  ) : (
-                     ""
-                  )}
                </div>
             </div>
             <div className="content w-[95%]">

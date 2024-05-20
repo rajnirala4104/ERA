@@ -1,17 +1,11 @@
-import React, { Fragment, useContext } from 'react'
-import { Outlet } from 'react-router-dom'
-import { EditPostPopupContext } from '../contaxt'
-import { EditPostPopup } from '../components'
+import React, { Fragment } from "react";
+import { Outlet } from "react-router-dom";
 const Root: React.FC = () => {
-
-    const { editPostPopupOnOff } = useContext(EditPostPopupContext)
-
-    return (
-        <Fragment>
-            {editPostPopupOnOff ? <EditPostPopup /> : ""}
-            <Outlet />
-        </Fragment>
-    )
-}
+   return (
+      <Fragment>
+         <Outlet />
+      </Fragment>
+   );
+};
 
 export default Root;

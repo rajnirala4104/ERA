@@ -42,8 +42,6 @@ const UserProfilePostContainer: React.FC = () => {
       gettingAllThePosts();
    }, []);
 
-   console.log(allPosts);
-
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>

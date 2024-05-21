@@ -10,7 +10,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <section className="bg-[#18eeb8]  flex justify-cetner items-center">
+            <section className="bg-[#18eeb8]  flex justify-cetner items-center shadow-md">
                <div className=" w-[40%] flex justify-center items-center flex-col">
                   <div className=" flex justify-center items-center flex-col">
                      <div
@@ -49,11 +49,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
                   <div className=" my-2">
                      <div className="userInfomation flex px-4  w-[94%] py-2">
                         <span className="font-bold">Bio: </span>
-                        <p>
-                           {" "}
-                           Lorem ipsum dolor sit amet consectetur adipisicing
-                           elit.
-                        </p>
+                        <p> {props.bio}</p>
                      </div>
                   </div>
                </div>

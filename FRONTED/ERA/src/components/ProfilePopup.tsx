@@ -73,7 +73,7 @@ const ProfilePopup: React.FC<user> = (props) => {
                         <span className="text-5xl font-semibold">
                            {props.name!.toLocaleUpperCase()}
                         </span>
-                        <span className="font-mono mb-2">{props.email}</span>
+                        <span className="font-mono my-2">{props.email}</span>
                         <hr />
                         <p className="my-2 text-[15px]">{props.bio}</p>
                      </div>

@@ -19,7 +19,8 @@ const thoughPostControllers = {
    getAllThePostsOfAPerticulerUser: expressAsyncHandler(async (req, res) => {
       try {
          const { userId } = req.params;
-         const dataBaseAllThoughtPost = await ThoughtPost.find({});
+         const dataBaseAllThoughtPost = await ThoughtPost.find()
+            .populate('user', '-password')
          const fillteredThoughtPost = dataBaseAllThoughtPost.filter(
             (el) => el.user._id.toString() === userId
          );

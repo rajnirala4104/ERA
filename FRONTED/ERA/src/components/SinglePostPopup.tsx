@@ -115,8 +115,8 @@ const SinglePostPopup: React.FC = () => {
                                     <Comment
                                        user={post.user}
                                        commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-                  voluptates a omnis obcaecati, distinctio quia quisquam et
-                  architecto consectetur. Laborum."
+                                          voluptates a omnis obcaecati, distinctio quia quisquam et
+                                          architecto consectetur. Laborum."
                                     />
                                     <div className="reply flex justify-end">
                                        <Comment
@@ -126,8 +126,8 @@ const SinglePostPopup: React.FC = () => {
                                              ) as string
                                           )}
                                           commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-                  voluptates a omnis obcaecati, distinctio quia quisquam et
-                  architecto consectetur. Laborum."
+                                          voluptates a omnis obcaecati, distinctio quia quisquam et
+                                          architecto consectetur. Laborum."
                                        />
                                     </div>
                                  </div>

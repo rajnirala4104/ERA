@@ -5,7 +5,7 @@ import { Comment, PostIcons } from ".";
 import { deleteApost } from "../api/services/postApiServices";
 import { EditPostPopupContext, SinglePostPopupContext } from "../contaxt";
 import { CloseIcon, DeleteIcon, EditIcon, SendIcon } from "../icons";
-import { resetState } from "../redux/states/postSlice";
+import { addPost, resetState } from "../redux/states/postSlice";
 import { RootState } from "../redux/store";
 import { LoaderSpinner } from "./LoaderSpinner";
 import { getDateFromMongoData } from "../utils";
@@ -51,6 +51,7 @@ const SinglePostPopup: React.FC = () => {
                      {loggedUser?._id === post.user?._id ? (
                         <span
                            onClick={() => {
+                              dispatch(addPost({ ...post }))
                               setEditPostPopupOnOff(!editPostPopupOnOff);
                               setSinglePostPopupOnOff(!singlePostPopupOnOff);
                            }}

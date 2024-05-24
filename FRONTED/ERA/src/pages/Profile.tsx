@@ -8,6 +8,7 @@ import React, {
 import { useNavigate, useParams } from "react-router-dom";
 import { getSingleUserInformation } from "../api/services/usersServices";
 import {
+   EditPostPopup,
    LeftSideBar,
    LoaderSpinner,
    PostCreatePopupForm,
@@ -17,6 +18,7 @@ import {
    UserProfilePostContainer,
 } from "../components";
 import {
+   EditPostPopupContext,
    PostCreatePopupContext,
    ProfilePopupContext,
    SinglePostPopupContext,
@@ -51,12 +53,15 @@ const Profile: React.FC = () => {
    const { profilePopupOnOff } = useContext(ProfilePopupContext);
    const { postCreatePopupOnOff } = useContext(PostCreatePopupContext);
    const { singlePostPopupOnOff } = useContext(SinglePostPopupContext);
+   const { editPostPopupOnOff } =
+      useContext(EditPostPopupContext);
    return (
       <Fragment>
          <div className="flex flex-col">
             {profilePopupOnOff ? <ProfilePopup {...user![0]} /> : ""}
             {postCreatePopupOnOff ? <PostCreatePopupForm /> : ""}
             {singlePostPopupOnOff ? <SinglePostPopup /> : ""}
+            {editPostPopupOnOff ? <EditPostPopup /> : ""}
             {/* ------------------  */}
             {user?.map((singleUserObject, index) => {
                return (

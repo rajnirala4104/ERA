@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, memo, useContext } from "react";
 import { useDispatch } from "react-redux";
-import { SinglePostPopupContext } from "../contaxt";
+import { EditPostPopupContext, SinglePostPopupContext } from "../contaxt";
 import { postInterface } from "../interfaces";
 import { addPost } from "../redux/states/postSlice";
 import { LoaderSpinner } from "./LoaderSpinner";

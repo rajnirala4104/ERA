@@ -33,3 +33,15 @@ export const createThoghtPostApiCall = (data: createThoughtPostInterface, userTo
     };
     return http.post(THOUGHT_POST_ENDPOINTS.create, data, config);
 }
+
+export const updateThoughtPost = (postId: string, userToken: string, thought: string) => {
+
+    const config = {
+        "Content-type": "application/json",
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    }
+
+    return http.put(`${THOUGHT_POST_ENDPOINTS.update}/${postId}`, { thought: thought }, config)
+}

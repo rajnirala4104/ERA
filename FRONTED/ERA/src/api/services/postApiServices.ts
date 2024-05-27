@@ -48,8 +48,6 @@ export const deleteApost = (postId: string, userToken: string) => {
 
 export const updatePost = (postId: string, userToken: string, captionAsData: string) => {
 
-    console.log(postId, userToken, captionAsData)
-
     const config = {
         "Content-type": "application/json",
         headers: {

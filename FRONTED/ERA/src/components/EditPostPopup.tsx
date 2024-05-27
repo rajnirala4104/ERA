@@ -7,6 +7,7 @@ import { RootState } from '../redux/store'
 import { getDateFromMongoData } from "../utils";
 import { updatePost } from "../api/services/postApiServices";
 import { user } from "../interfaces";
+import { updateThoughtPost } from "../api/services/thoughtPostServices";
 
 
 const EditPostPopup: React.FC = () => {
@@ -15,6 +16,7 @@ const EditPostPopup: React.FC = () => {
 
    const { post } = useSelector((state: RootState) => state);
    const [newCaption, setNewCaption] = useState<string>(post.caption as string)
+   const [newThought, setNewThought] = useState<string>(post.thought as string)
    const [user, setUser] = useState<user>()
 
    const updateHandler = async () => {
@@ -25,6 +27,15 @@ const EditPostPopup: React.FC = () => {
       } else {
          setEditPostPopupOnOff(!editPostPopupOnOff)
       }
+   }
+
+   const thoughtUpdateHandler = async () => {
+      const updateThoughtConfirmation = confirm("Do you really want to update thought");
+      if (updateThoughtConfirmation) {
+         await updateThoughtPost(post._id!, user?.token!, newThought);
+         window.location.reload()
+      }
+
    }
 
    useEffect(() => {
@@ -54,8 +65,45 @@ const EditPostPopup: React.FC = () => {
                      {post.thought ? (
                         <Fragment>
                            {/* ----------- thought post --------- */}
-                           <div className="thoughtPostUpdateDesign">
-                              {post.thought}
+                           <div className="post flex w-full h-full">
+                              <div
+                                 className="image  w-[50%]  h-full rounded-tl-md rounded-bl-md bg-slate-800 flex justify-center items-center flex-col px-2"
+                              >
+                                 <textarea
+                                    value={newThought}
+                                    onChange={(e) => setNewThought(e.target.value)}
+                                    rows={10}
+                                    className="text-white bg-transparent font-bold w-[70%] text-center">
+                                 </textarea>
+                              </div>
+                              <div className="info w-[50%]">
+                                 <div className="upperHeader bg-slate-200 py-3 px-2 flex flex-col justify-center items-start rounded-tr-md">
+                                    <div
+                                       className="flex justify-center items-center cursor-pointer"
+                                    >
+                                       <img
+                                          src={post.user?.profilePic}
+                                          alt="ERA"
+                                          loading="lazy"
+                                          className="w-[3rem] h-[3rem] rounded-full object-cover"
+                                       />
+                                       <p className="mx-2 text-xl">
+                                          {post.user?.name}
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div className="caption my-3 flex justify-between items-center px-6 bg-white w-full">
+                                    <p className="text-[13px] font-mono font-semibold w-[70%]">
+                                       "{post.caption}"
+                                    </p>
+                                    <p className="font-semibold font-sans ">{getDateFromMongoData(post.createdAt!)}</p>
+                                 </div>
+                                 <div className=" h-[75%] w-full flex justify-center items-center">
+                                    <button
+                                       onClick={() => thoughtUpdateHandler()}
+                                       className="p-2 text-xl hover:bg-slate-800 bg-black rounded-md text-white">Update Thought</button>
+                                 </div>
+                              </div>
                            </div>
                         </Fragment>
                      ) : (

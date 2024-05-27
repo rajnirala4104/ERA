@@ -22,10 +22,12 @@ const UserProfilePostContainer: React.FC = () => {
    const { userId } = useParams();
    const [allPosts, setAllPosts] = useState<postInterface[]>();
    const [user, setUser] = useState<user>();
+   const [loading, setLoading] = useState<boolean>(false)
 
    const gettingAllThePosts = async () => {
       const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
       setUser(loggedUser);
+      setLoading(true)
       const { data } = await getAllThePostOfAPerticulerUser(
          userId!,
          loggedUser.token
@@ -36,6 +38,7 @@ const UserProfilePostContainer: React.FC = () => {
       );
       const bothPosts = [...data.data, ...thoughtPostData.data.data];
       setAllPosts(bothPosts);
+      setLoading(false)
    };
 
    useEffect(() => {
@@ -46,6 +49,7 @@ const UserProfilePostContainer: React.FC = () => {
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <section className="w-full h-full">
+               {loading ? <LoaderSpinner /> : ""}
                {/* ---------- create Post button --------- */}
                {user?._id === userId ? (
                   <div

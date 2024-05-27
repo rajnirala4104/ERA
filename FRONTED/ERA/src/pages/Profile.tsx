@@ -29,16 +29,19 @@ const Profile: React.FC = () => {
    const navigator = useNavigate();
 
    const [user, setUser] = useState<user[]>();
+   const [loading, setLoading] = useState<boolean>(false)
 
    const { userId } = useParams();
 
    const getUserInformation = async () => {
       const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
+      setLoading(true)
       const userResponse = await getSingleUserInformation(
          loggedUser.token,
          userId as string
       );
       setUser(userResponse.data.data);
+      setLoading(false)
    };
 
    useEffect(() => {
@@ -57,6 +60,7 @@ const Profile: React.FC = () => {
       useContext(EditPostPopupContext);
    return (
       <Fragment>
+         {loading ? <LoaderSpinner /> : ""}
          <div className="flex flex-col">
             {profilePopupOnOff ? <ProfilePopup {...user![0]} /> : ""}
             {postCreatePopupOnOff ? <PostCreatePopupForm /> : ""}

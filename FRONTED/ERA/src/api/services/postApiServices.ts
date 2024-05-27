@@ -1,5 +1,5 @@
 import { createPostDataInterface } from "../../interfaces";
-import { POST_ENDPOINT } from "../constants";
+import { ENDPIONTS, POST_ENDPOINT } from "../constants";
 import { http } from "../http";
 
 export const getAllThePosts = (userToken: string) => {
@@ -43,4 +43,19 @@ export const deleteApost = (postId: string, userToken: string) => {
     }
 
     return http.delete(`${POST_ENDPOINT.deletePost}/${postId}`, config);
-}  
+}
+
+
+export const updatePost = (postId: string, userToken: string, captionAsData: string) => {
+
+    console.log(postId, userToken, captionAsData)
+
+    const config = {
+        "Content-type": "application/json",
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    }
+
+    return http.put(`${POST_ENDPOINT.updatePost}/${postId}`, { caption: captionAsData }, config)
+}

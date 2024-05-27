@@ -116,7 +116,7 @@ const postControllers = {
    updatePost: expressAsyncHandler(async (req, res) => {
       try {
          const { caption } = req.body; //geeting schema requirments
-         const { id } = req.params; //getting id from req.params
+         const { id } = req.params; //getting post id from req.params
 
          const post = await Post.find({ _id: id }); //mongoose .find query
 
@@ -129,9 +129,9 @@ const postControllers = {
             });
          }
 
-         if (post[0].user !== req.user._id) {
+         if (post[0].user.toString() !== req.user._id.toString()) {
             return res.status(StatusCodes.BAD_REQUEST).json({
-               message: "you can't update is post",
+               message: "you can't update this post",
                status: StatusCodes.UNAUTHORIZED,
                data: null,
             });

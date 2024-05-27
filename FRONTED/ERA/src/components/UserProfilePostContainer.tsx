@@ -68,8 +68,10 @@ const UserProfilePostContainer: React.FC = () => {
                      </div>
                   ) : (
                      // ----- rendering all the post ------
-                     allPosts?.map((singlePostObject) => (
-                        <ProfilePagePostCard {...singlePostObject} />
+                     allPosts?.map((singlePostObject, index) => (
+                        <Fragment key={index}>
+                           <ProfilePagePostCard {...singlePostObject} />
+                        </Fragment>
                      ))
                   )}
                </div>

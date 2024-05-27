@@ -11,26 +11,10 @@ thoughtPost.get("/health", async (req, res) =>
    })
 );
 thoughtPost.get("/", protect, thoughPostControllers.getAllTherThouhtPosts);
-thoughtPost.get(
-   "/allPosts/:userId",
-   protect,
-   thoughPostControllers.getAllThePostsOfAPerticulerUser
-);
-thoughtPost.get(
-   "/:thoughtPostId",
-   protect,
-   thoughPostControllers.getSingleThoughtPostData
-);
+thoughtPost.get("/allPosts/:userId", protect, thoughPostControllers.getAllThePostsOfAPerticulerUser);
+thoughtPost.get("/:thoughtPostId", protect, thoughPostControllers.getSingleThoughtPostData);
 thoughtPost.post("/create", protect, thoughPostControllers.createThoughtPost);
-thoughtPost.put(
-   "/update/:thoughtPostId",
-   protect,
-   thoughPostControllers.updateTheThoughtPost
-);
-thoughtPost.delete(
-   "/delete/:thoughtPostId",
-   protect,
-   thoughPostControllers.deleteThoughtPost
-);
+thoughtPost.put("/update/:thoughtPostId", protect, thoughPostControllers.updateTheThoughtPost);
+thoughtPost.delete("/delete/:thoughtPostId", protect, thoughPostControllers.deleteThoughtPost);
 
 module.exports = { thoughtPost };

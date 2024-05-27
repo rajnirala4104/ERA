@@ -1,10 +1,12 @@
-import React, { Fragment, Suspense, useContext, useState } from "react";
+import React, { Fragment, Suspense, useContext, useEffect, useState } from "react";
 import { EditPostPopupContext } from "../contaxt";
 import { CloseIcon } from "../icons";
 import { LoaderSpinner } from "./LoaderSpinner";
 import { useSelector } from "react-redux";
 import { RootState } from '../redux/store'
 import { getDateFromMongoData } from "../utils";
+import { updatePost } from "../api/services/postApiServices";
+import { user } from "../interfaces";
 
 
 const EditPostPopup: React.FC = () => {
@@ -13,7 +15,22 @@ const EditPostPopup: React.FC = () => {
 
    const { post } = useSelector((state: RootState) => state);
    const [newCaption, setNewCaption] = useState<string>(post.caption as string)
+   const [user, setUser] = useState<user>()
 
+   const updateHandler = async () => {
+      const updateConfirmation = confirm("Do you really want to update this post's caption");
+      if (updateConfirmation) {
+         await updatePost(post._id!, user?.token!, newCaption)
+         window.location.reload();
+      } else {
+         setEditPostPopupOnOff(!editPostPopupOnOff)
+      }
+   }
+
+   useEffect(() => {
+      const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
+      setUser(loggedUser)
+   }, [])
 
    return (
       <Fragment>
@@ -68,7 +85,8 @@ const EditPostPopup: React.FC = () => {
                                           </p>
                                        </div>
                                     </div>
-                                    <div className="caption my-3 flex justify-between items-center px-6 bg-white w-full">
+                                    <div
+                                       className="caption my-3 flex justify-between items-center px-6 bg-white w-full">
                                        <textarea
                                           onChange={(e) => setNewCaption(e.target.value)}
                                           className="text-[13px] font-mono font-semibold w-[70%]"
@@ -78,7 +96,9 @@ const EditPostPopup: React.FC = () => {
                                     </div>
                                     <hr />
                                     <div className=" h-[75%] w-full flex justify-center items-center">
-                                       <button className="p-2 text-xl hover:bg-slate-800 bg-black rounded-md text-white">Update</button>
+                                       <button
+                                          onClick={() => updateHandler()}
+                                          className="p-2 text-xl hover:bg-slate-800 bg-black rounded-md text-white">Update</button>
                                     </div>
                                  </div>
                               </div>

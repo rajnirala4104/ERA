@@ -8,9 +8,9 @@ const followerRouter = Router();
 // endpoints
 followerRouter.get('/followers', protect, followersControllersObject.getAllFollowJSONObject)
 followerRouter.get('/followers/:userId', protect, followersControllersObject.gettingAllTheFollwersOfAPerticularUser);
-followerRouter.get('/following/:id', protect, followersControllersObject.gettingAllTheFollowingsOfAPerticularUser);
+followerRouter.get('/following/:userId', protect, followersControllersObject.gettingAllTheFollowingsOfAPerticularUser);
 followerRouter.post('/create', protect, followersControllersObject.createFollower);
-followerRouter.delete('/delete', protect, followersControllersObject.removeFollower);
+followerRouter.delete('/delete/:followedUserId', protect, followersControllersObject.removeFollower);
 followerRouter.get('/search', protect, followersControllersObject.searchFolower);
 
 module.exports = { followerRouter }

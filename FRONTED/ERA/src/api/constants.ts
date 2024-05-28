@@ -26,3 +26,11 @@ export const THOUGHT_POST_ENDPOINTS = {
     update: '/thoughtPost/update',
     getAllTheThoughtPostsOfAUser: '/thoughtPost/allPosts'
 }
+
+export const FOLLOW_ENDPOINT = {
+    getAllTheFollowersOfAPerticularUser: '/follower/followers',
+    getAllTheFollowingsOfAPerticularUser: '/follower/following',
+    create: '/follower/create',
+    delete: '/follower/delete',
+    search: '/follower/search'
+}

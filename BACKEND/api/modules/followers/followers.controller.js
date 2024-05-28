@@ -49,7 +49,7 @@ const followersControllersObject = {
         try {
 
             // getting userId from params
-            const { id } = req.params
+            const { userId } = req.params
             // getting all follower json from the database using monoose .find() query and with some condition
             const responseJSON = await Followers.find({ followedUserId: id })
                 .populate('user followedUserId', '-password')
@@ -119,11 +119,14 @@ const followersControllersObject = {
         try {
 
             // getting followed user id
-            const { followedUserId } = req.body;
+            const { followedUserId } = req.params;
+
             // getting logged in user id
             const loggedUserId = req.user._id;
+
             // getting follower json object fromt the database using mongooose .find() query
             const followerJsonObjectFromDatabase = await Followers.find({ user: loggedUserId, followedUserId: followedUserId })
+
             // checking that object does exist or not
             if (!followerJsonObjectFromDatabase) {
                 return res.status(StatusCodes.NOT_FOUND).json({

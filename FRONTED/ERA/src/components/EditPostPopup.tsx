@@ -18,11 +18,14 @@ const EditPostPopup: React.FC = () => {
    const [newCaption, setNewCaption] = useState<string>(post.caption as string)
    const [newThought, setNewThought] = useState<string>(post.thought as string)
    const [user, setUser] = useState<user>()
+   const [loading, setLoading] = useState<boolean>(false);
 
    const updateHandler = async () => {
       const updateConfirmation = confirm("Do you really want to update this post's caption");
       if (updateConfirmation) {
+         setLoading(true)
          await updatePost(post._id!, user?.token!, newCaption)
+         setLoading(false)
          window.location.reload();
       } else {
          setEditPostPopupOnOff(!editPostPopupOnOff)
@@ -32,10 +35,11 @@ const EditPostPopup: React.FC = () => {
    const thoughtUpdateHandler = async () => {
       const updateThoughtConfirmation = confirm("Do you really want to update thought");
       if (updateThoughtConfirmation) {
+         setLoading(true)
          await updateThoughtPost(post._id!, user?.token!, newThought);
+         setLoading(false)
          window.location.reload()
       }
-
    }
 
    useEffect(() => {
@@ -46,6 +50,7 @@ const EditPostPopup: React.FC = () => {
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
             <section
                style={{
                   background: `rgba(65, 65, 65, 0.35)`,
@@ -101,7 +106,13 @@ const EditPostPopup: React.FC = () => {
                                  <div className=" h-[75%] w-full flex justify-center items-center">
                                     <button
                                        onClick={() => thoughtUpdateHandler()}
-                                       className="p-2 text-xl hover:bg-slate-800 bg-black rounded-md text-white">Update Thought</button>
+                                       className="p-2 text-xl hover:bg-slate-800 bg-black rounded-md text-white">
+                                       {loading ? (
+                                          <i className="fa fa-spinner fa-spin"></i>
+                                       ) : ""}
+                                       {" "}
+                                       Update Thought
+                                    </button>
                                  </div>
                               </div>
                            </div>
@@ -146,7 +157,13 @@ const EditPostPopup: React.FC = () => {
                                     <div className=" h-[75%] w-full flex justify-center items-center">
                                        <button
                                           onClick={() => updateHandler()}
-                                          className="p-2 text-xl hover:bg-slate-800 bg-black rounded-md text-white">Update</button>
+                                          className="p-2 text-xl hover:bg-slate-800 bg-black rounded-md text-white">
+                                          {loading ? (
+                                             <i className="fa fa-spinner fa-spin"></i>
+                                          ) : ""}
+                                          {" "}
+                                          Update
+                                       </button>
                                     </div>
                                  </div>
                               </div>

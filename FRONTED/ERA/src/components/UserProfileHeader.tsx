@@ -1,11 +1,31 @@
-import React, { Fragment, Suspense, useContext } from "react";
+import React, { Fragment, Suspense, useContext, useEffect, useState } from "react";
 import { ProfilePopupContext } from "../contaxt";
-import { user } from "../interfaces";
+import { followeInterface, user } from "../interfaces";
 import { LoaderSpinner } from "./LoaderSpinner";
+import { getAllTheFollowersOfAPerticularUserApiCall, getAllTheFollowingsOfAPerticularUserApiCall } from "../api/services/followApiServices";
 
 const UserProfileHeader: React.FC<user> = (props) => {
    const { profilePopupOnOff, setProfilePopupOnOff } =
       useContext(ProfilePopupContext);
+   const [followers, setFollowers] = useState<followeInterface[]>()
+   const [following, setFollowing] = useState<followeInterface[]>()
+
+   const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
+
+   const getAllTheFollowers = async () => {
+      const response = await getAllTheFollowersOfAPerticularUserApiCall(props._id!, loggedUser.token)
+      setFollowers(response.data.data)
+   }
+
+   const getAllTheFollowings = async () => {
+      const followingResponse = await getAllTheFollowingsOfAPerticularUserApiCall(props._id!, loggedUser.token);
+      setFollowing(followingResponse.data.data)
+   }
+
+   useEffect(() => {
+      getAllTheFollowers()
+      getAllTheFollowings()
+   }, [])
 
    return (
       <Fragment>
@@ -31,17 +51,17 @@ const UserProfileHeader: React.FC<user> = (props) => {
                </div>
                <div className="flex flex-col my-2 mt-2">
                   <div className="flex justify-evenly w-full">
-                     <div className="followInfo flex flex-col justify-center items-center">
+                     <div className="followInfo flex flex-col justify-center items-center cursor-pointer">
                         <span className="font-bold text-xl">10</span>
-                        <span className="font-semibold text-lg">Post</span>
+                        <span className=" text-lg">Post</span>
                      </div>
-                     <div className="followInfo flex flex-col justify-center items-center">
-                        <span className="font-bold text-xl">50</span>
-                        <span className="font-semibold text-lg">Followers</span>
+                     <div className="followInfo flex flex-col justify-center items-center mx-8 cursor-pointer">
+                        <span className="font-bold text-xl">{followers?.length}</span>
+                        <span className=" text-lg">Followers</span>
                      </div>
-                     <div className="followInfo flex flex-col justify-center items-center">
-                        <span className="font-bold text-xl">50</span>
-                        <span className="font-semibold text-lg">
+                     <div className="followInfo flex flex-col justify-center items-center cursor-pointer">
+                        <span className="font-bold text-xl">{following?.length}</span>
+                        <span className=" text-lg">
                            Followings
                         </span>
                      </div>

@@ -9,6 +9,11 @@ export interface user {
    token?: string;
 }
 
+export interface followeInterface {
+   user: string,
+   followedUserId: string
+}
+
 export interface loginDesinContext {
    loginDesign: boolean;
    setLoginDesign: React.Dispatch<React.SetStateAction<boolean>>;

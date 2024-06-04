@@ -51,7 +51,7 @@ const followersControllersObject = {
             // getting userId from params
             const { userId } = req.params
             // getting all follower json from the database using monoose .find() query and with some condition
-            const responseJSON = await Followers.find({ followedUserId: id })
+            const responseJSON = await Followers.find({ user: userId })
                 .populate('user followedUserId', '-password')
 
             return res.status(StatusCodes.OK).json({

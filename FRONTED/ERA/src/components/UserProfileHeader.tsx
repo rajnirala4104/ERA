@@ -7,25 +7,27 @@ import { getAllTheFollowersOfAPerticularUserApiCall, getAllTheFollowingsOfAPerti
 const UserProfileHeader: React.FC<user> = (props) => {
    const { profilePopupOnOff, setProfilePopupOnOff } =
       useContext(ProfilePopupContext);
-   const [followers, setFollowers] = useState<followeInterface[]>()
-   const [following, setFollowing] = useState<followeInterface[]>()
+   const [followers, setFollowers] = useState<followeInterface[]>();
+   const [following, setFollowing] = useState<followeInterface[]>();
 
    const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
 
    const getAllTheFollowers = async () => {
-      const response = await getAllTheFollowersOfAPerticularUserApiCall(props._id!, loggedUser.token)
-      setFollowers(response.data.data)
+      const response = await getAllTheFollowersOfAPerticularUserApiCall(props._id!, loggedUser.token);
+      setFollowers(response.data.data);
    }
 
    const getAllTheFollowings = async () => {
       const followingResponse = await getAllTheFollowingsOfAPerticularUserApiCall(props._id!, loggedUser.token);
-      setFollowing(followingResponse.data.data)
+      setFollowing(followingResponse.data.data);
    }
 
    useEffect(() => {
-      getAllTheFollowers()
-      getAllTheFollowings()
+      getAllTheFollowers();
+      getAllTheFollowings();
    }, [])
+
+   document.title = props.name?.toUpperCase()!;
 
    return (
       <Fragment>

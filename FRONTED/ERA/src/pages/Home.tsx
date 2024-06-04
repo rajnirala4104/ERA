@@ -12,7 +12,9 @@ const Home = memo(() => {
    const navigator = useNavigate();
 
    useEffect(() => {
+      document.title = "ERA"
       const user = JSON.parse(localStorage.getItem("userInfo") as string);
+
       if (!user) navigator("/account");
    }, []);
 

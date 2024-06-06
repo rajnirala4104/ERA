@@ -68,14 +68,14 @@ const userControllers = {
          const user = await User.findOne({ email });
          if (!user) {
             res.status(StatusCodes.NOT_FOUND);
-            throw new Error("Invalid Email or Password");
+            throw new Error("Invalid Email");
          }
 
          // Compare passwords
          const isPasswordMatch = await user.matchPassword(password);
          if (!isPasswordMatch) {
             res.status(StatusCodes.NOT_FOUND);
-            throw new Error("Invalid Email and Password");
+            throw new Error("Invalid Password");
          }
 
          // Passwords match, generate token and send response
@@ -89,7 +89,7 @@ const userControllers = {
          });
       } catch (error) {
          return res.status(StatusCodes.NOT_FOUND).json({
-            message: "Invailid email and password",
+            message: error.message,
             status: StatusCodes.NOT_FOUND,
             error: error.message,
             data: null,
@@ -173,11 +173,11 @@ const userControllers = {
       try {
          const keyword = req.query.search
             ? {
-                 $or: [
-                    { name: { $regex: req.query.search, $options: "i" } },
-                    { email: { $regex: req.query.search, $options: "i" } },
-                 ],
-              }
+               $or: [
+                  { name: { $regex: req.query.search, $options: "i" } },
+                  { email: { $regex: req.query.search, $options: "i" } },
+               ],
+            }
             : {};
          const users = await User.find(keyword)
             .find({ _id: { $ne: req.user._id } })

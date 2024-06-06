@@ -10,20 +10,22 @@ const Login = () => {
       const formData = new FormData(e.target as HTMLFormElement);
 
       const formObject = Object.fromEntries(formData.entries());
-
-      if (!formObject.email || !formObject.password)
-         alert("invailid email and password");
-
       try {
-         const { data } = await login({
+
+         if (!formObject.email || !formObject.password)
+            alert("invailid email and password");
+
+         const response = login({
             email: formObject.email as string,
             password: formObject.password as string,
          });
-         localStorage.setItem("userInfo", JSON.stringify(data));
+
+         localStorage.setItem("userInfo", JSON.stringify(response.data));
          window.location.reload();
-      } catch (error) {
-         alert("Oops!! there is an error in code");
+      } catch {
+         alert("something went wrong, check given values")
       }
+
    };
 
    return (

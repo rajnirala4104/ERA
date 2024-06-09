@@ -48,7 +48,7 @@ const UserProfilePostContainer: React.FC = () => {
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <section className="w-full h-full">
+            <section className="w-full h-full ">
                {loading ? <LoaderSpinner /> : ""}
                {/* ---------- create Post button --------- */}
                {user?._id === userId ? (
@@ -56,9 +56,9 @@ const UserProfilePostContainer: React.FC = () => {
                      onClick={() =>
                         setPostCreatePopupOnOff(!postCreatePopupOnOff)
                      }
-                     className="appPostBtn absolute top-[10%] right-[10%] cursor-pointer"
+                     className="appPostBtn absolute top-[90%] right-[82%] cursor-pointer"
                   >
-                     <PlusIcon classess="text-4xl hover:text-slate-800" />
+                     <PlusIcon classess="text-4xl hover:text-white text-green-300" />
                   </div>
                ) : (
                   ""

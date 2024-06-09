@@ -15,7 +15,7 @@ const Login = () => {
          if (!formObject.email || !formObject.password)
             alert("invailid email and password");
 
-         const response = login({
+         const response = await login({
             email: formObject.email as string,
             password: formObject.password as string,
          });

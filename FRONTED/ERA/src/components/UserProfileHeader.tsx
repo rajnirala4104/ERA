@@ -1,12 +1,13 @@
 import React, { Fragment, Suspense, useContext, useEffect, useState } from "react";
-import { ProfilePopupContext } from "../contaxt";
+import { ProfilePopupContext, FollowersPopupContext } from "../contaxt";
 import { followeInterface, user } from "../interfaces";
 import { LoaderSpinner } from "./LoaderSpinner";
 import { getAllTheFollowersOfAPerticularUserApiCall, getAllTheFollowingsOfAPerticularUserApiCall } from "../api/services/followApiServices";
 
 const UserProfileHeader: React.FC<user> = (props) => {
-   const { profilePopupOnOff, setProfilePopupOnOff } =
-      useContext(ProfilePopupContext);
+   const { profilePopupOnOff, setProfilePopupOnOff } = useContext(ProfilePopupContext);
+   const { followerPopupOnOff, setFollowersPopupOnOff } = useContext(FollowersPopupContext)
+
    const [followers, setFollowers] = useState<followeInterface[]>();
    const [following, setFollowing] = useState<followeInterface[]>();
 
@@ -57,7 +58,9 @@ const UserProfileHeader: React.FC<user> = (props) => {
                         <span className="font-bold text-xl">10</span>
                         <span className=" text-lg">Post</span>
                      </div>
-                     <div className="followInfo flex flex-col justify-center items-center mx-8 cursor-pointer">
+                     <div
+                        onClick={() => setFollowersPopupOnOff(!followerPopupOnOff)}
+                        className="followInfo flex flex-col justify-center items-center mx-8 cursor-pointer">
                         <span className="font-bold text-xl">{followers?.length}</span>
                         <span className=" text-lg">Followers</span>
                      </div>

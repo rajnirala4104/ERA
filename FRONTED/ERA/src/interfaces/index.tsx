@@ -37,6 +37,10 @@ export interface singlePostPopupContextInterface {
    singlePostPopupOnOff: boolean;
    setSinglePostPopupOnOff: React.Dispatch<React.SetStateAction<boolean>>;
 }
+export interface followersPopupContextInterfce {
+   followerPopupOnOff: boolean;
+   setFollowersPopupOnOff: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export interface stateProviderContext {
    _user?: user | null;

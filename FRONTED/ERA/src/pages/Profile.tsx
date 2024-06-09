@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getSingleUserInformation } from "../api/services/usersServices";
 import {
    EditPostPopup,
+   FollowersPopup,
    LeftSideBar,
    LoaderSpinner,
    PostCreatePopupForm,
@@ -22,6 +23,7 @@ import {
    PostCreatePopupContext,
    ProfilePopupContext,
    SinglePostPopupContext,
+   FollowersPopupContext,
 } from "../contaxt";
 import { user } from "../interfaces";
 
@@ -53,11 +55,12 @@ const Profile: React.FC = () => {
       if (!user) navigator("/account");
    }, []);
 
-   const { profilePopupOnOff } = useContext(ProfilePopupContext);
    const { postCreatePopupOnOff } = useContext(PostCreatePopupContext);
    const { singlePostPopupOnOff } = useContext(SinglePostPopupContext);
-   const { editPostPopupOnOff } =
-      useContext(EditPostPopupContext);
+   const { editPostPopupOnOff } = useContext(EditPostPopupContext);
+   const { followerPopupOnOff } = useContext(FollowersPopupContext)
+   const { profilePopupOnOff } = useContext(ProfilePopupContext);
+
    return (
       <Fragment>
          {loading ? <LoaderSpinner /> : ""}
@@ -66,6 +69,7 @@ const Profile: React.FC = () => {
             {postCreatePopupOnOff ? <PostCreatePopupForm /> : ""}
             {singlePostPopupOnOff ? <SinglePostPopup /> : ""}
             {editPostPopupOnOff ? <EditPostPopup /> : ""}
+            {followerPopupOnOff ? <FollowersPopup /> : ""}
             {/* ------------------  */}
             {user?.map((singleUserObject, index) => {
                return (

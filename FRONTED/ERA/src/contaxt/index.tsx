@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import {
+   followersPopupContextInterfce,
    editPostPopupContextInterface,
    loginDesinContext,
    postCreatePopupContextInterface,
@@ -34,4 +35,10 @@ export const SinglePostPopupContext =
    createContext<singlePostPopupContextInterface>({
       singlePostPopupOnOff: false,
       setSinglePostPopupOnOff: () => false,
+   });
+
+export const FollowersPopupContext =
+   createContext<followersPopupContextInterfce>({
+      followerPopupOnOff: false,
+      setFollowersPopupOnOff: () => false
    });

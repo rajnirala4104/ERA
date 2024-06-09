@@ -82,3 +82,9 @@ export interface createThoughtPostInterface {
    user?: string;
    thought?: string;
 }
+
+
+export interface followersAndFollowings {
+   followedUserId: user,
+   user: user,
+}

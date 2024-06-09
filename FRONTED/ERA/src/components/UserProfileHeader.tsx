@@ -3,6 +3,9 @@ import { ProfilePopupContext, FollowersPopupContext } from "../contaxt";
 import { followeInterface, user } from "../interfaces";
 import { LoaderSpinner } from "./LoaderSpinner";
 import { getAllTheFollowersOfAPerticularUserApiCall, getAllTheFollowingsOfAPerticularUserApiCall } from "../api/services/followApiServices";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { addFollwersAndFollowings, resetFollowState } from "../redux/states/usersFollowersAndFollowings";
 
 const UserProfileHeader: React.FC<user> = (props) => {
    const { profilePopupOnOff, setProfilePopupOnOff } = useContext(ProfilePopupContext);
@@ -23,10 +26,24 @@ const UserProfileHeader: React.FC<user> = (props) => {
       setFollowing(followingResponse.data.data);
    }
 
+   const dispatch = useDispatch();
+
+   const { followersAndFollowings } = useSelector((state: RootState) => state)
+   if (followersAndFollowings.length === 1 && followersAndFollowings[0].user._id === "") {
+      dispatch(resetFollowState());
+   }
+
    useEffect(() => {
       getAllTheFollowers();
       getAllTheFollowings();
    }, [])
+
+   const followersAndFollowingsReducFinalState = followers?.map(singleObject => {
+      return {
+         user: singleObject.user,
+         followedUserId: singleObject.followedUserId
+      }
+   })
 
    document.title = props.name?.toUpperCase()!;
 
@@ -59,7 +76,10 @@ const UserProfileHeader: React.FC<user> = (props) => {
                         <span className=" text-lg">Post</span>
                      </div>
                      <div
-                        onClick={() => setFollowersPopupOnOff(!followerPopupOnOff)}
+                        onClick={() => {
+                           dispatch(addFollwersAndFollowings(followersAndFollowingsReducFinalState));
+                           setFollowersPopupOnOff(!followerPopupOnOff)
+                        }}
                         className="followInfo flex flex-col justify-center items-center mx-8 cursor-pointer">
                         <span className="font-bold text-xl">{followers?.length}</span>
                         <span className=" text-lg">Followers</span>

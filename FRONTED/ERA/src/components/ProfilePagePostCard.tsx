@@ -29,11 +29,11 @@ const ProfilePagePostCard: React.FC<postInterface> = memo((props) => {
                      </span>
                   </div>
                ) : (
-                  <div className="w-[20rem] h-[20rem] cursor-pointer shadow-md">
+                  <div className="border-2 rounded-md border-black w-[20rem] h-[20rem] cursor-pointer shadow-md">
                      <img
                         src={props.content}
                         alt="ERA"
-                        className="w-full h-full object-cover rounded-md"
+                        className="w-full h-full object-cover rounded-sm"
                      />
                   </div>
                )}

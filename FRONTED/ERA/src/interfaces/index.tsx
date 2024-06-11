@@ -10,8 +10,8 @@ export interface user {
 }
 
 export interface followeInterface {
-   user: string,
-   followedUserId: string
+   user: user,
+   followedUserId: user
 }
 
 export interface loginDesinContext {

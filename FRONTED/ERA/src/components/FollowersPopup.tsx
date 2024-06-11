@@ -11,7 +11,7 @@ const FollowersPopup: React.FC = () => {
     const { followerPopupOnOff, setFollowersPopupOnOff } = useContext(FollowersPopupContext);
     const dispatch = useDispatch()
     const { followersAndFollowings } = useSelector((state: RootState) => state);
-
+    // const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>

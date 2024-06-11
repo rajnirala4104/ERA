@@ -45,3 +45,16 @@ export const updateThoughtPost = (postId: string, userToken: string, thought: st
 
     return http.put(`${THOUGHT_POST_ENDPOINTS.update}/${postId}`, { thought: thought }, config)
 }
+
+
+export const deleteAThoughtPost = (postId: string, userToken: string) => {
+    const config = {
+        "Content-type": "application/json",
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    }
+
+    return http.delete(`${THOUGHT_POST_ENDPOINTS.deleteThoughtPost}/${postId}`, config);
+}
+

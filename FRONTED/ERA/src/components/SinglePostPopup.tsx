@@ -9,6 +9,7 @@ import { addPost, resetState } from "../redux/states/postSlice";
 import { RootState } from "../redux/store";
 import { LoaderSpinner } from "./LoaderSpinner";
 import { getDateFromMongoData } from "../utils";
+import { deleteAThoughtPost } from "../api/services/thoughtPostServices";
 
 const SinglePostPopup: React.FC = () => {
    const { singlePostPopupOnOff, setSinglePostPopupOnOff } = useContext(
@@ -25,10 +26,19 @@ const SinglePostPopup: React.FC = () => {
    const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
 
    const deletePostHandler = async () => {
+      console.log(post)
       const confirmation = confirm("Do you really want to delete this post? ");
+
       if (confirmation) {
-         await deleteApost(post._id!, loggedUser.token);
-         window.location.reload();
+         // delete thought post
+         if (post.thought !== undefined) {
+            await deleteAThoughtPost(post._id!, loggedUser.token);
+            window.location.reload();
+         } else {
+            // delete post
+            await deleteApost(post._id!, loggedUser.token);
+            window.location.reload();
+         }
       }
    };
 

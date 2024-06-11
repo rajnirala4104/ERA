@@ -24,7 +24,8 @@ export const THOUGHT_POST_ENDPOINTS = {
     getSingle: '/thoughtPost/:thougthPostId',
     create: '/thoughtPost/create',
     update: '/thoughtPost/update',
-    getAllTheThoughtPostsOfAUser: '/thoughtPost/allPosts'
+    getAllTheThoughtPostsOfAUser: '/thoughtPost/allPosts',
+    deleteThoughtPost: '/thoughtPost/delete'
 }
 
 export const FOLLOW_ENDPOINT = {

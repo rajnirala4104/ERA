@@ -121,14 +121,17 @@ const thoughPostControllers = {
          const doesExist = await ThoughtPost.find({ _id: thoughtPostId });
 
          if (!doesExist) {
-            res.status(StatusCodes.NOT_FOUND);
-            throw new Error("Thought post doesn't exist");
+            res.status(StatusCodes.NOT_FOUND).json({
+               message: "Thought post doesn't exist",
+               status: StatusCodes.NOT_FOUND,
+               data: null
+            })
          }
 
          await ThoughtPost.deleteOne({ _id: thoughtPostId });
-         return res.status(StatusCodes.FORBIDDEN).json({
+         return res.status(StatusCodes.OK).json({
             message: "thoughtPost deleted successfully",
-            status: StatusCodes.FORBIDDEN,
+            status: StatusCodes.OK,
             data: doesExist,
          });
       } catch (error) {

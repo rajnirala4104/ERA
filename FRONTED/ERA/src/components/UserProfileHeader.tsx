@@ -52,8 +52,6 @@ const UserProfileHeader: React.FC<user> = (props) => {
       }
    })
 
-   console.log(followersAndFollowingsReducSecondFinalState, followersAndFollowingsReducFinalState)
-
    document.title = props.name?.toUpperCase()!;
 
    return (

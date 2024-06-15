@@ -88,7 +88,7 @@ export const ChatIcon: React.FC<classes> = (props) => {
          <path
             fillRule="evenodd"
             d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm3 1a1 1 0 100-2 1 1 0 000 2z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
          ></path>
       </svg>
    );
@@ -176,9 +176,9 @@ export const PlusIcon: React.FC<classes> = (props) => {
          xmlns="http://www.w3.org/2000/svg"
       >
          <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
          ></path>
       </svg>
    );
@@ -199,7 +199,7 @@ export const SendIcon: React.FC<classes> = (props) => {
          <path
             fill="none"
             stroke="#000"
-            stroke-width="2"
+            strokeWidth="2"
             d="M22,3 L2,11 L20.5,19 L22,3 Z M10,20.5 L13,16 M15.5,9.5 L9,14 L9.85884537,20.0119176 C9.93680292,20.5576204 10.0751625,20.5490248 10.1651297,20.009222 L11,15 L15.5,9.5 Z"
          ></path>
       </svg>

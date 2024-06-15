@@ -2,41 +2,58 @@ import React, { Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoaderSpinner } from ".";
 import { login } from "../api/services/authenticationApiServices";
+
+// This is the Login component which handles the login functionality.
+// It uses the useState hook to manage the state of hidePassword.
 const Login = () => {
+   // Initializing hidePassword state to true.
    const [hidePassword, setHidePassword] = useState<boolean>(true);
 
+   // This is the form submit handler which handles the form submission.
    const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+      // Preventing the default form submission behavior.
       e.preventDefault();
+      // Creating a new FormData object from the form data.
       const formData = new FormData(e.target as HTMLFormElement);
-
+      // Convert the FormData object to a key-value object.
       const formObject = Object.fromEntries(formData.entries());
       try {
-
-         if (!formObject.email || !formObject.password)
+         // Checking if email and password are provided.
+         if (!formObject.email || !formObject.password) {
+            // If not, alerting the user.
             alert("invailid email and password");
-
-         const response = await login({
-            email: formObject.email as string,
-            password: formObject.password as string,
-         });
-
-         localStorage.setItem("userInfo", JSON.stringify(response.data));
-         window.location.reload();
+         } else {
+            // If provided, sending a login request to the server.
+            const response = await login({
+               email: formObject.email as string,
+               password: formObject.password as string,
+            });
+            // Storing the user information in the local storage.
+            localStorage.setItem("userInfo", JSON.stringify(response.data));
+            // Reloading the page.
+            window.location.reload();
+         }
       } catch {
-         alert("something went wrong, check given values")
+         // If there is an error, alerting the user.
+         alert("something went wrong, check given values");
       }
-
    };
 
+   // Rendering the Login component.
    return (
       <React.Fragment>
+         {/* Wrapping the form in a Suspense component with a loader spinner. */}
          <Suspense fallback={<LoaderSpinner />}>
             <form
-               onKeyDown={(e) => (e.key === "Enter" ? formSubmitHandler : "")}
+               // Handling form submission and key press events.
+               onKeyDown={(e) =>
+                  e.key === "Enter" ? formSubmitHandler : ""
+               }
                onSubmit={(e) => formSubmitHandler(e)}
                className="h-[100%] flex justify-center items-center flex-col"
             >
                <div>
+                  {/* Email input field. */}
                   <div className="inputemail my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                      <input
                         name="email"
@@ -46,6 +63,7 @@ const Login = () => {
                      />
                   </div>
                   <div className="">
+                     {/* Password input field with show/hide password toggle. */}
                      <div className="inputPassword mt-3 border px-2 py-1 border-[#115f4c] rounded-md flex justify-between items-center">
                         <input
                            name="password"
@@ -57,9 +75,11 @@ const Login = () => {
                            onClick={() => setHidePassword(!hidePassword)}
                            className="w-16 text-center cursor-pointer  bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800"
                         >
+                           {/* Show/Hide password button. */}
                            {hidePassword ? "Show" : "Hide"}
                         </span>
                      </div>
+                     {/* Forgot password link. */}
                      <Link
                         to="/password"
                         className="text-blue-500 hover:text-blue-600 cursor-pointer hover:underline"
@@ -69,6 +89,7 @@ const Login = () => {
                   </div>
                </div>
                <div className="btn my-4 ">
+                  {/* Login button. */}
                   <button
                      type="submit"
                      className="text-[20px] text-center cursor-pointer mx-2 w-[100%] bg-black hover:bg-gray-800 dark:text-white px-2 py-2 rounded-md"

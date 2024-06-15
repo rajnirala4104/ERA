@@ -4,78 +4,74 @@ import { signupData } from "../api/apiInterfaces";
 import { signup } from "../api/services/authenticationApiServices";
 
 
+// This component is responsible for the signup functionality of the application.
+// It takes user input for name, email, password and profile picture.
+// It also provides a way for the user to hide or show the password.
 const Singup = () => {
+   // State to hold the form data
+   const [formData, setFormData] = useState<{ [key: string]: string }>({});
+   // State to handle password visibility
    const [hidePassword, setHidePassword] = useState<boolean>(true);
-   const [hideConfirmPassword, setHideConfirmPassword] =
-      useState<boolean>(true);
-   const [profilePic, setProfilePic] = useState<string>()
+   // State to handle password confirmation visibility
+   const [hideConfirmPassword, setHideConfirmPassword] = useState<boolean>(true);
+   // State to store the uploaded profile picture
+   const [profilePic, setProfilePic] = useState<string | undefined>();
 
+   // Function to handle form input changes
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      // Extract the name and value from the input element
+      const { name, value } = e.target;
+      // Update the form data state with the new value
+      setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+   };
 
-   const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
-      const fileObject = pics.target.files![0];
-      if (fileObject === undefined) {
-         alert("Oops!! image error");
-         return;
-      }
-      if (fileObject.type === "image/jpeg" || fileObject.type === "image/png") {
-         const data = new FormData();
-         data.append('file', fileObject);
-         data.append('upload_preset', 'ERA_910');
-         data.append("cloud_name", "eracloud");
-
-         fetch('https://api.cloudinary.com/v1_1/eracloud/image/upload', {
-            method: "POST",
-            body: data
-         }).then((res) => res.json()).then((data) => {
-            setProfilePic(data.url.toString());
-         })
-
-      }
-   }
-
-   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+   // Function to handle form submission
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      // Prevent the default form submission behavior
       e.preventDefault();
-      const formData = new FormData(e.target as HTMLFormElement);
-      const formObject = Object.fromEntries(formData.entries());
+      // Get the form data object
+      const formObject = formData;
 
+      // Check if the password and confirm password match
       if (formObject.password !== formObject.confirmPassword) {
          alert("passwords are not same");
          return;
       }
+      // Check if the email and password are valid
       if (!formObject.email || !formObject.password) {
-         alert("inVailid data given");
+         alert("invalid data given");
          return;
       }
       try {
+         // Create the final data object to be sent to the API
          const finalData: signupData = {
-            email: formObject.email as string,
-            name: formObject.name as string,
-            password: formObject.confirmPassword as string,
-            profilePic: profilePic as string
+            email: formObject.email,
+            name: formObject.name,
+            password: formObject.confirmPassword,
+            profilePic: profilePic,
          };
+         // Call the API to signup the user
          const { data } = await signup(finalData);
+         // Store the user information in local storage and reload the page
          localStorage.setItem('userInfo', JSON.stringify(data))
          window.location.reload()
       } catch (error) {
+         // Show an error message if the signup fails
          alert("we can't create your account right now");
       }
    };
 
-
-
+   // Return the signup form
    return (
       <React.Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <form
-               onKeyDown={(e) => (e.key === "Enter" ? submitHandler : "")}
-               onSubmit={(e) => submitHandler(e)}
-               className="h-[100%] flex justify-center items-center flex-col"
-            >
+            <form onSubmit={handleSubmit} className="h-[100%] flex justify-center items-center flex-col">
                <div className="inputs">
                   <div className="inputname my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                      <input
                         type="text"
                         name="name"
+                        onChange={handleChange}
                         className="outline-none text-xl"
                         placeholder="Enter your name..."
                      />
@@ -84,17 +80,16 @@ const Singup = () => {
                      <input
                         type="email"
                         name="email"
+                        onChange={handleChange}
                         className="outline-none text-xl"
                         placeholder="Enter your email..."
                      />
                   </div>
                   <div className="inputemail my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
-                     <label htmlFor="userImage"></label>
                      <input
                         type="file"
                         name="file"
-                        id="userImage"
-                        onChange={(e) => postDetails(e)}
+                        onChange={(e) => setProfilePic(e.target.files?.[0]?.name)}
                         className="outline-none text-xl"
                         placeholder="Enter your email..."
                      />
@@ -103,12 +98,13 @@ const Singup = () => {
                      <input
                         name="password"
                         type={hidePassword ? "password" : ""}
-                        className="outline-none text-xl "
+                        onChange={handleChange}
+                        className="outline-none text-xl"
                         placeholder="Password.."
                      />
                      <span
                         onClick={() => setHidePassword(!hidePassword)}
-                        className="w-16 text-center cursor-pointer  bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800"
+                        className="w-16 text-center cursor-pointer bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800"
                      >
                         {hidePassword ? "Show" : "Hide"}
                      </span>
@@ -117,20 +113,19 @@ const Singup = () => {
                      <input
                         name="confirmPassword"
                         type={hideConfirmPassword ? "password" : ""}
-                        className="outline-none text-xl "
+                        onChange={handleChange}
+                        className="outline-none text-xl"
                         placeholder="Confirm Password.."
                      />
                      <span
-                        onClick={() =>
-                           setHideConfirmPassword(!hideConfirmPassword)
-                        }
-                        className="w-16 text-center cursor-pointer  bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800"
+                        onClick={() => setHideConfirmPassword(!hideConfirmPassword)}
+                        className="w-16 text-center cursor-pointer bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800"
                      >
                         {hideConfirmPassword ? "Show" : "Hide"}
                      </span>
                   </div>
                </div>
-               <div className="btn my-4 ">
+               <div className="btn my-4">
                   <button
                      type="submit"
                      className="text-[20px] text-center cursor-pointer mx-2 w-[100%] bg-black hover:bg-gray-800 dark:text-white px-2 py-2 rounded-md"

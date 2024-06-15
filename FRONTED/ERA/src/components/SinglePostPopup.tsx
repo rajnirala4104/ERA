@@ -30,12 +30,10 @@ const SinglePostPopup: React.FC = () => {
       const confirmation = confirm("Do you really want to delete this post? ");
 
       if (confirmation) {
-         // delete thought post
          if (post.thought !== undefined) {
             await deleteAThoughtPost(post._id!, loggedUser.token);
             window.location.reload();
          } else {
-            // delete post
             await deleteApost(post._id!, loggedUser.token);
             window.location.reload();
          }
@@ -82,8 +80,8 @@ const SinglePostPopup: React.FC = () => {
                      </span>
                   </span>
                   {post.thought ? (
-                     // ------------ thought post --------
                      <Fragment>
+                        {/* thought */}
                         <div className="post flex w-full h-full">
                            <div
                               className="image  w-[50%]  h-full rounded-tl-md rounded-bl-md bg-slate-800 flex justify-center items-center flex-col px-2"
@@ -121,12 +119,10 @@ const SinglePostPopup: React.FC = () => {
                               </div>
                               <hr />
                               <div className="comments container overflow-y-auto h-[60%]">
-                                 {/* -------- commentes ------- */}
                                  <div className="flex flex-col ">
                                     <Comment
                                        user={post.user}
-                                       commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-                                          voluptates a omnis obcaecati, distinctio quia quisquam et
+                                       commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste voluptates a omnis obcaecati, distinctio quia quisquam et
                                           architecto consectetur. Laborum."
                                     />
                                     <div className="reply flex justify-end">
@@ -136,8 +132,7 @@ const SinglePostPopup: React.FC = () => {
                                                 "userInfo"
                                              ) as string
                                           )}
-                                          commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-                                          voluptates a omnis obcaecati, distinctio quia quisquam et
+                                          commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste voluptates a omnis obcaecati, distinctio quia quisquam et
                                           architecto consectetur. Laborum."
                                        />
                                     </div>
@@ -163,8 +158,8 @@ const SinglePostPopup: React.FC = () => {
                         </div>
                      </Fragment>
                   ) : (
-                     // ----- post --------------
                      <Fragment>
+                        {/* Post */}
                         <div className="post flex w-full h-full">
                            <div
                               className="image  w-[50%]  h-full rounded-tl-md rounded-bl-md"
@@ -201,13 +196,11 @@ const SinglePostPopup: React.FC = () => {
                               </div>
                               <hr />
                               <div className="comments container overflow-y-auto h-[60%]">
-                                 {/* -------- commentes ------- */}
+
                                  <div className="flex flex-col ">
                                     <Comment
                                        user={post.user}
-                                       commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-                  voluptates a omnis obcaecati, distinctio quia quisquam et
-                  architecto consectetur. Laborum."
+                                       commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste voluptates a omnis obcaecati, distinctio quia quisquam et architecto consectetur. Laborum."
                                     />
                                     <div className="reply flex justify-end">
                                        <Comment
@@ -216,9 +209,7 @@ const SinglePostPopup: React.FC = () => {
                                                 "userInfo"
                                              ) as string
                                           )}
-                                          commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
-                  voluptates a omnis obcaecati, distinctio quia quisquam et
-                  architecto consectetur. Laborum."
+                                          commentContent=" Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste voluptates a omnis obcaecati, distinctio quia quisquam et architecto consectetur. Laborum."
                                        />
                                     </div>
                                  </div>

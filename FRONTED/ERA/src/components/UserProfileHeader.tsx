@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, useContext, useEffect, useState } from "react";
 import { ProfilePopupContext, FollowersPopupContext } from "../contaxt";
-import { followeInterface, followersAndFollowings, user } from "../interfaces";
+import { followeInterface, user } from "../interfaces";
 import { LoaderSpinner } from "./LoaderSpinner";
 import { getAllTheFollowersOfAPerticularUserApiCall, getAllTheFollowingsOfAPerticularUserApiCall } from "../api/services/followApiServices";
 import { useDispatch, useSelector } from "react-redux";

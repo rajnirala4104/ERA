@@ -35,7 +35,7 @@ const FollowersPopup: React.FC = memo(() => {
           }}
           className="w-full h-screen flex justify-center items-center backdrop-blur-sm absolute top-0 left-0 bg-black z-10"
         >
-          <div className="centerContainer flex w-[70%] h-[90%] justify-center relative items-center bg-white rounded-md">
+          <div className="centerContainer flex w-[45%] h-[70%] justify-center relative items-center bg-white rounded-md">
             {/* Close button to close the popup */}
             <span
               onClick={() => {
@@ -48,7 +48,7 @@ const FollowersPopup: React.FC = memo(() => {
               {/* CloseIcon component */}
               {<CloseIcon classess="" />}
             </span>
-            <div className="flex flex-col justify-between w-[90%] p-2 h-[80%] items-center border border-red-500">
+            <div className="flex flex-col justify-start w-[100%] p-2 h-[95%] items-center overflow-x-hidden overflow-y-auto">
               {/* Map over the followersAndFollowings array to display each follower or following */}
               {followersAndFollowings.map((singleObject, index) => (
                 <Fragment key={index}>
@@ -56,7 +56,7 @@ const FollowersPopup: React.FC = memo(() => {
                   {singleObject.user._id !== userId &&
                   singleObject.followedUserId._id === userId ? (
                     <Fragment>
-                      <div className="followings border border-blue-500 mx-2 w-[60%] h-[4rem]">
+                      <div className="followings w-[85%] h-[4rem] my-2">
                         <UserSingleCard {...singleObject.user} />
                       </div>
                     </Fragment>
@@ -66,7 +66,7 @@ const FollowersPopup: React.FC = memo(() => {
                   {/* If the user is the same as the one in the URL parameters, display followings */}
                   {singleObject.user._id === userId ? (
                     <Fragment>
-                      <div className="followings border border-blue-500 mx-2 w-[60%] h-[4rem]">
+                      <div className="followings w-[85%] h-[4rem] my-2">
                         <UserSingleCard {...singleObject.followedUserId} />
                       </div>
                     </Fragment>

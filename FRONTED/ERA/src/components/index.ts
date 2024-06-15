@@ -13,7 +13,7 @@ export const UserProfileHeader = lazy(() => import('./UserProfileHeader'));
 export const ZeroPostIndicator = lazy(() => import('./ZeroPostIndicator'))
 export const SearchNavbarBtn = lazy(() => import('./SearchNavbarBtn'));
 export const SinglePostPopup = lazy(() => import('./SinglePostPopup'))
-export const UserSingpleCard = lazy(() => import('./UserSingleCard'));
+export const UserSingleCard = lazy(() => import('./UserSingleCard'));
 export const SignupAndLogin = lazy(() => import('./SignupAndLogin'));
 export const FollowersPopup = lazy(() => import('./FollowersPopup'))
 export const PostContainer = lazy(() => import('./PostContainer'));

@@ -1,5 +1,5 @@
 import { createPostDataInterface } from "../../interfaces";
-import { ENDPIONTS, POST_ENDPOINT } from "../constants";
+import { POST_ENDPOINT } from "../constants";
 import { http } from "../http";
 
 export const getAllThePosts = (userToken: string) => {

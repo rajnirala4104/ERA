@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, useContext, useEffect, useState } from "react";
 import { ProfilePopupContext, FollowersPopupContext } from "../contaxt";
-import { followeInterface, user } from "../interfaces";
+import { followeInterface, followersAndFollowings, user } from "../interfaces";
 import { LoaderSpinner } from "./LoaderSpinner";
 import { getAllTheFollowersOfAPerticularUserApiCall, getAllTheFollowingsOfAPerticularUserApiCall } from "../api/services/followApiServices";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,6 +51,8 @@ const UserProfileHeader: React.FC<user> = (props) => {
          followedUserId: singleObject.followedUserId
       }
    })
+
+   console.log(followersAndFollowingsReducSecondFinalState, followersAndFollowingsReducFinalState)
 
    document.title = props.name?.toUpperCase()!;
 

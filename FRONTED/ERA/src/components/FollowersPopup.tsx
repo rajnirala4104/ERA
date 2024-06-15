@@ -5,13 +5,16 @@ import { FollowersPopupContext } from '../contaxt'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "../redux/store";
 import { resetFollowState } from '../redux/states/usersFollowersAndFollowings'
+import { useParams } from 'react-router-dom'
 
 const FollowersPopup: React.FC = () => {
 
     const { followerPopupOnOff, setFollowersPopupOnOff } = useContext(FollowersPopupContext);
     const dispatch = useDispatch()
     const { followersAndFollowings } = useSelector((state: RootState) => state);
-    // const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
+    const loggedUser = JSON.parse(localStorage.getItem('userInfo') as string);
+    const { userId } = useParams()
+    console.log(followersAndFollowings)
     return (
         <Fragment>
             <Suspense fallback={<LoaderSpinner />}>
@@ -34,18 +37,27 @@ const FollowersPopup: React.FC = () => {
                         <div className='flex justify-between w-[90%] p-2 h-[80%] items-center border border-red-500'>
                             {followersAndFollowings.map((singleObject, index) => (
                                 <Fragment key={index}>
-                                    <div className='followers border border-blue-500 w-full h-full mx-2'>
-                                        <div className="title grid place-content-center">
-                                            <span className='text-2xl font-bold text-center'>Followers</span>
-                                        </div>
-                                        <span>{singleObject.user.name}</span>
-                                    </div>
-                                    <div className='followings border border-blue-500 w-full h-full mx-2'>
-                                        <div className="title grid place-content-center">
-                                            <span className='text-2xl font-bold text-center'>Followings</span>
-                                        </div>
-                                        <span>{singleObject.followedUserId.name}</span>
-                                    </div>
+                                    {singleObject.user._id !== userId ? (
+                                        <Fragment>
+                                            {/* ------------ followers ---------- */}
+                                            <div className='followers border border-blue-500 w-full h-full mx-2'>
+                                                <div className="title grid place-content-center">
+                                                    <span className='text-2xl font-bold text-center'>Followers</span>
+                                                </div>
+                                                <span>{singleObject.followedUserId._id === userId ? singleObject.user.name : ""}</span>
+                                            </div>
+                                        </Fragment>
+                                    ) : (
+                                        <Fragment>
+                                            {/* ------------- followeings ----------- */}
+                                            <div className='followings border border-blue-500 w-full h-full mx-2'>
+                                                <div className="title grid place-content-center">
+                                                    <span className='text-2xl font-bold text-center'>Followings</span>
+                                                </div>
+                                                <span>{singleObject.followedUserId._id !== userId ? singleObject.followedUserId.name : ""}</span>
+                                            </div>
+                                        </Fragment>
+                                    )}
                                 </Fragment>
                             ))}
                         </div>

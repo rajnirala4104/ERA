@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getSingleUserInformation } from "../api/services/usersServices";
 import {
    EditPostPopup,
+   EditUserProfilePopup,
    FollowersPopup,
    LeftSideBar,
    LoaderSpinner,
@@ -24,6 +25,7 @@ import {
    ProfilePopupContext,
    SinglePostPopupContext,
    FollowersPopupContext,
+   EditUserProfilePopupContext,
 } from "../contaxt";
 import { user } from "../interfaces";
 
@@ -75,6 +77,7 @@ const Profile: React.FC = () => {
    const { editPostPopupOnOff } = useContext(EditPostPopupContext);
    const { followerPopupOnOff } = useContext(FollowersPopupContext)
    const { profilePopupOnOff } = useContext(ProfilePopupContext);
+   const { editUserProfilePopupOnOff } = useContext(EditUserProfilePopupContext)
 
    // Render the Profile component.
    return (
@@ -92,6 +95,8 @@ const Profile: React.FC = () => {
             {editPostPopupOnOff ? <EditPostPopup /> : ""}
             {/* If the followerPopupOnOff state variable is true, display the FollowersPopup component. */}
             {followerPopupOnOff ? <FollowersPopup /> : ""}
+            {/* If the editUserProfilePopupOnOff state variable is true, display the EditUserProfile component. */}
+            {editUserProfilePopupOnOff ? <EditUserProfilePopup {...user![0]} /> : ""}
             {/* ------------------  */}
             {/* Map over the user state variable and display the UserProfileHeader and UserProfilePostContainer components. */}
             {user?.map((singleUserObject, index) => {

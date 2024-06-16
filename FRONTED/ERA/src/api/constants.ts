@@ -4,7 +4,7 @@ export const REQUEST_TIMEOUT = 5000;
 export const ENDPIONTS = {
     login: "/user/login",
     signup: "/user/signup",
-    updateUser: '/user/update/:id',
+    updateUser: '/user/update',
     password: '/user/password',
     getSingpleUser: '/user/',
     getAllTheUser: '/user/all'

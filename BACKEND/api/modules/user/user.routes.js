@@ -11,7 +11,7 @@ userRouter.post('/login', userControllers.login); // -------- /api/v1/user/login
 userRouter.get('/', protect, userControllers.searchUser);
 userRouter.get('/all', protect, userControllers.getAllUser)
 userRouter.get('/:userId', protect, userControllers.getAllTheInformationAboutAPerticularUser)
-userRouter.put('/update/:id', userControllers.updatedUserInfo);
+userRouter.put('/update/:id', protect, userControllers.updatedUserInfo);
 userRouter.put('/password', userControllers.updatePassword);
 
 module.exports = { userRouter }

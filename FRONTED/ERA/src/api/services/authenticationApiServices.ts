@@ -13,11 +13,6 @@ import { http } from "../http";
  * @return {Promise} A Promise that resolves to the response from the API.
  */
 export const signup = (data: signupData) => {
-
-    // Log the user data to the console for debugging purposes
-    console.log(data)
-
-    // Send a POST request to the signup endpoint of the API with the user data
     return http.post(ENDPIONTS.signup, data, {
         headers: {
             // Set the "Content-type" header to "application/json"
@@ -37,7 +32,6 @@ export const signup = (data: signupData) => {
  * @return {Promise} A Promise that resolves to the response from the API.
  */
 export const login = (data: loginData) => {
-    // Send a POST request to the login endpoint of the API with the login data
     return http.post(ENDPIONTS.login, data)
 }
 
@@ -59,7 +53,7 @@ export const getAllTheUser = (loggedUserToken: string) => {
             Authorization: `Bearer ${loggedUserToken}`,
         },
     };
-    // Send a GET request to the API's getAllTheUser endpoint with the configuration
+
     return http.get(ENDPIONTS.getAllTheUser, config);
 }
 
@@ -78,9 +72,8 @@ export const getAllTheUser = (loggedUserToken: string) => {
 export const forgotPassword = (data: forgotPasswordsDataInterface) => {
     // Create a configuration object for the request
     const config = {
-        // Set the "Content-type" header to "application/json"
         "Content-type": "application/json",
     };
-    // Send a PUT request to the API's password endpoint with the data and the configuration
+
     return http.put(ENDPIONTS.password, data, config);
 }

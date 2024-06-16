@@ -6,6 +6,7 @@ export * from './LoaderSpinner';
 // Lazy Loadings..
 export const UserProfilePostContainer = lazy(() => import('./UserProfilePostContainer'));
 export const SingleLeftSideBarMenu = lazy(() => import('./SingleLeftSideBarMenu'));
+export const EditUserProfilePopup = lazy(() => import('./EditUserProfilePopup'));
 export const ProfilePagePostCard = lazy(() => import('./ProfilePagePostCard'))
 export const PostCreatePopupForm = lazy(() => import('./PostCreatePopupForm'))
 export const ForgotPasswordForm = lazy(() => import('./ForgotPasswordForm'));

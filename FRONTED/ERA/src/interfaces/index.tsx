@@ -41,6 +41,10 @@ export interface followersPopupContextInterfce {
    followerPopupOnOff: boolean;
    setFollowersPopupOnOff: React.Dispatch<React.SetStateAction<boolean>>;
 }
+export interface editUserProfilePopupInterface {
+   editUserProfilePopupOnOff: boolean,
+   setEditUserProfilePopupOnOff: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 export interface stateProviderContext {
    _user?: user | null;

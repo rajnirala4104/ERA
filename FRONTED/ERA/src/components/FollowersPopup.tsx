@@ -48,30 +48,44 @@ const FollowersPopup: React.FC = memo(() => {
               {/* CloseIcon component */}
               {<CloseIcon classess="" />}
             </span>
+
+            {/* ------------ followersAndFollowingContainer ------------ */}
             <div className="flex flex-col justify-start w-[100%] p-2 h-[95%] items-center overflow-x-hidden overflow-y-auto">
               {/* Map over the followersAndFollowings array to display each follower or following */}
               {followersAndFollowings.map((singleObject, index) => (
                 <Fragment key={index}>
-                  {/* If the user is not the same as the one in the URL parameters AND the followedUserId is the same as the one in the URL parameters, display followers */}
-                  {singleObject.user._id !== userId &&
-                  singleObject.followedUserId._id === userId ? (
+                  {Object.keys(followersAndFollowings[0].user).length === 0 &&
+                  Object.keys(followersAndFollowings[0].followedUserId)
+                    .length === 0 ? (
                     <Fragment>
-                      <div className="followings w-[85%] h-[4rem] my-2">
-                        <UserSingleCard {...singleObject.user} />
+                      <div className=" w-full h-full grid place-content-center">
+                        <span className="text-3xl font-semibold">No One </span>
                       </div>
                     </Fragment>
                   ) : (
-                    ""
-                  )}
-                  {/* If the user is the same as the one in the URL parameters, display followings */}
-                  {singleObject.user._id === userId ? (
                     <Fragment>
-                      <div className="followings w-[85%] h-[4rem] my-2">
-                        <UserSingleCard {...singleObject.followedUserId} />
-                      </div>
+                      {/* If the user is not the same as the one in the URL parameters AND the followedUserId is the same as the one in the URL parameters, display followers */}
+                      {singleObject.user._id !== userId &&
+                      singleObject.followedUserId._id === userId ? (
+                        <Fragment>
+                          <div className="followings w-[85%] h-[4rem] my-2">
+                            <UserSingleCard {...singleObject.user} />
+                          </div>
+                        </Fragment>
+                      ) : (
+                        ""
+                      )}
+                      {/* If the user is the same as the one in the URL parameters, display followings */}
+                      {singleObject.user._id === userId ? (
+                        <Fragment>
+                          <div className="followings w-[85%] h-[4rem] my-2">
+                            <UserSingleCard {...singleObject.followedUserId} />
+                          </div>
+                        </Fragment>
+                      ) : (
+                        ""
+                      )}
                     </Fragment>
-                  ) : (
-                    ""
                   )}
                 </Fragment>
               ))}

@@ -7,6 +7,7 @@ const UserSingleCard: React.FC<user> = ({ _id, profilePic, name, email }) => {
 
   const handleClick = () => {
     navigate(`/user-profile/${_id}`);
+    window.location.reload();
   };
 
   return (

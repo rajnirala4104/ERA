@@ -21,4 +21,15 @@ export const userProfileInformation = (userToken: string, userId: string, update
     }
 
     return http.put(`${ENDPIONTS.updateUser}/${userId}`, updatedData, config);
-} 
+}
+
+export const updateUserProfileApiCall = (userToken: string, userId: string, updatedData: user) => {
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    }
+
+    return http.put(`${ENDPIONTS.updateUser}/${userId}`, updatedData, config);
+}

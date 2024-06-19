@@ -2,10 +2,13 @@ import React, { useContext, useState } from 'react'
 import { user } from '../interfaces'
 import { CloseIcon } from '../icons'
 import { EditUserProfilePopupContext } from '../contaxt'
+import { updateUserProfileApiCall } from '../api/services/usersServices'
 
-const EditUserProfilePopup: React.FC<user> = ({ _id, bio, email, name, profilePic }) => {
+const EditUserProfilePopup: React.FC<user> = ({ _id, token, bio, email, name, profilePic }) => {
 
    const { editUserProfilePopupOnOff, setEditUserProfilePopupOnOff } = useContext(EditUserProfilePopupContext);
+
+   const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
 
    const [profilePicture, setProfilePicture] = useState<string>(profilePic!);
    const [loading, setLoading] = useState<boolean>(false);
@@ -50,12 +53,26 @@ const EditUserProfilePopup: React.FC<user> = ({ _id, bio, email, name, profilePi
                setProfilePicture(data.url.toString());
             });
       }
+      setLoading(false)
    }
 
    const updateUserProfile = async () => {
+      const response = await updateUserProfileApiCall(loggedUser.token, loggedUser._id, { name: userName, bio: userBio, profilePic: profilePicture });
 
+      // Check if the API call was successful (status code 200)
+      if (response.status === 200) {
+         // If the update was successful, close the popup and reload the page
+
+         // Update the state of editUserProfilePopupOnOff to flip its value
+         // This will cause the popup to close
+         setEditUserProfilePopupOnOff(!editUserProfilePopupOnOff);
+
+         // Reload the page to reflect the changes made by the API call
+         // This is necessary because the state of the component is not automatically updated
+         // with the new data from the API call
+         window.location.reload();
+      }
    }
-
 
    return (
       <section
@@ -85,8 +102,11 @@ const EditUserProfilePopup: React.FC<user> = ({ _id, bio, email, name, profilePi
                </div>
                <div className="w-[50%] px-4">
                   <div className="flex flex-col">
-                     <input type='text' placeholder={userName} className="text-5xl placeholder:text-black font-semibold my-2 outline-none focus:border-b border-black" onChange={(e) => setUserName(e.target.value)} value={userName}></input>
-                     <span className="font-mono my-2">{email}</span>
+                     <input type='text' placeholder={userName} className=" text-5xl placeholder:text-black font-semibold my-2 outline-none cursor-pointer focus:border-b border-black" onChange={(e) => setUserName(e.target.value)} value={userName}></input>
+                     <div className='flex flex-col cursor-not-allowed justify-center items-start w-[40%]'>
+                        <span className="font-mono my-2">{email}</span>
+                        <span className='text-red-500 font-bold text-[10px] -mt-3'>You can't change your email</span>
+                     </div>
                      <hr />
                      <textarea value={userBio} onChange={(e) => setUserBio(e.target.value)} rows={12} className="my-2 text-[15px] outline-none border focus:border-black bg-gray-200 p-2 rounded-md"></textarea>
                   </div>

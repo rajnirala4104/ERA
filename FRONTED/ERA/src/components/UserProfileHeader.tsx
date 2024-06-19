@@ -62,10 +62,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
   // The followersAndFollowings variable is used to store the list of followers and followings for the user from the Redux store.
   const { followersAndFollowings } = useSelector((state: RootState) => state);
   // If there is only one follower or following and the user ID is empty, reset the follow state in the Redux store.
-  if (
-    Object.keys(followersAndFollowings[0].user).length === 0 &&
-    Object.keys(followersAndFollowings[0].followedUserId).length === 0
-  ) {
+  if (Object.keys(followersAndFollowings[0].user).length === 0 && Object.keys(followersAndFollowings[0].followedUserId).length === 0) {
     dispatch(resetFollowState());
   }
 

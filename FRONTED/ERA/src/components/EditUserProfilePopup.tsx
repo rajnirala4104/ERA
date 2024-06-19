@@ -7,9 +7,54 @@ const EditUserProfilePopup: React.FC<user> = ({ _id, bio, email, name, profilePi
 
    const { editUserProfilePopupOnOff, setEditUserProfilePopupOnOff } = useContext(EditUserProfilePopupContext);
 
-   const [oldProfilePic, setOldProfilePic] = useState<string>(profilePic!);
+   const [profilePicture, setProfilePicture] = useState<string>(profilePic!);
+   const [loading, setLoading] = useState<boolean>(false);
+   const [userName, setUserName] = useState<string>(name!);
+   const [userBio, setUserBio] = useState<string>(bio!);
 
+   // This function handles the uploading of a profile picture to Cloudinary.
+   // It takes in an event object from an HTML input element of type file.
+   const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
+      // Extract the first file from the input element.
+      const fileObject = pics.target.files![0];
 
+      // If there is no file, display an alert and return.
+      if (fileObject === undefined) {
+         alert("Oops!! image error");
+         return;
+      }
+
+      setLoading(true);
+      // Check if the file type is either 'image/jpeg' or 'image/png'.
+      if (fileObject.type === "image/jpeg" || fileObject.type === "image/png") {
+         // Create a new FormData object to hold the file data.
+         const data = new FormData();
+
+         // Append the file to the FormData object.
+         data.append('file', fileObject);
+
+         // Append the upload preset and cloud name to the FormData object.
+         // The upload preset and cloud name are specific to our Cloudinary account.
+         data.append('upload_preset', 'ERA_910');
+         data.append("cloud_name", "eracloud");
+
+         // Send a POST request to Cloudinary's image upload API with the FormData.
+         fetch('https://api.cloudinary.com/v1_1/eracloud/image/upload', {
+            method: "POST",
+            body: data
+         })
+            // Parse the response as JSON.
+            .then((res) => res.json())
+            // Update the profilePic state with the URL of the uploaded image.
+            .then((data) => {
+               setProfilePicture(data.url.toString());
+            });
+      }
+   }
+
+   const updateUserProfile = async () => {
+
+   }
 
 
    return (
@@ -32,19 +77,21 @@ const EditUserProfilePopup: React.FC<user> = ({ _id, bio, email, name, profilePi
                   }}
                   className="shadow-md w-[50%] flex flex-col justify-evenly items-center h-full"
                >
-                  <img src={oldProfilePic} className='w-[50%] rounded-md' alt="ERA" />
+                  {loading ? "loading.." : ""}
+                  <img src={profilePicture} className='w-[50%] rounded-md shadow-xl' alt="ERA" />
                   <div>
-                     <input type="file" name="file" className="" />
+                     <input type="file" name="file" onChange={postDetails} />
                   </div>
                </div>
                <div className="w-[50%] px-4">
                   <div className="flex flex-col">
-                     <span className="text-5xl font-semibold">
-                        {name!.toLocaleUpperCase()}
-                     </span>
+                     <input type='text' placeholder={userName} className="text-5xl placeholder:text-black font-semibold my-2 outline-none focus:border-b border-black" onChange={(e) => setUserName(e.target.value)} value={userName}></input>
                      <span className="font-mono my-2">{email}</span>
                      <hr />
-                     <p className="my-2 text-[15px]">{bio}</p>
+                     <textarea value={userBio} onChange={(e) => setUserBio(e.target.value)} rows={12} className="my-2 text-[15px] outline-none border focus:border-black bg-gray-200 p-2 rounded-md"></textarea>
+                  </div>
+                  <div>
+                     <button onClick={updateUserProfile} className="w-full p-2 bg-black text-white rounded-md hover:bg-slate-900 shadow-lg">Update</button>
                   </div>
                </div>
             </div>

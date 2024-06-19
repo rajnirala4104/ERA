@@ -25,6 +25,48 @@ const Singup = () => {
       setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
    };
 
+
+   // This function handles the uploading of a profile picture to Cloudinary.
+   // It takes in an event object from an HTML input element of type file.
+   const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
+      // Extract the first file from the input element.
+      const fileObject = pics.target.files![0];
+
+      // If there is no file, display an alert and return.
+      if (fileObject === undefined) {
+         alert("Oops!! image error");
+         return;
+      }
+
+      // Check if the file type is either 'image/jpeg' or 'image/png'.
+      if (fileObject.type === "image/jpeg" || fileObject.type === "image/png") {
+         // Create a new FormData object to hold the file data.
+         const data = new FormData();
+
+         // Append the file to the FormData object.
+         data.append('file', fileObject);
+
+         // Append the upload preset and cloud name to the FormData object.
+         // The upload preset and cloud name are specific to our Cloudinary account.
+         data.append('upload_preset', 'ERA_910');
+         data.append("cloud_name", "eracloud");
+
+         // Send a POST request to Cloudinary's image upload API with the FormData.
+         fetch('https://api.cloudinary.com/v1_1/eracloud/image/upload', {
+            method: "POST",
+            body: data
+         })
+            // Parse the response as JSON.
+            .then((res) => res.json())
+            // Update the profilePic state with the URL of the uploaded image.
+            .then((data) => {
+               setProfilePic(data.url.toString());
+            });
+      }
+   }
+
+
+
    // Function to handle form submission
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       // Prevent the default form submission behavior
@@ -50,6 +92,7 @@ const Singup = () => {
             password: formObject.confirmPassword,
             profilePic: profilePic,
          };
+         console.log(finalData)
          // Call the API to signup the user
          const { data } = await signup(finalData);
          // Store the user information in local storage and reload the page
@@ -89,7 +132,7 @@ const Singup = () => {
                      <input
                         type="file"
                         name="file"
-                        onChange={(e) => setProfilePic(e.target.files?.[0]?.name)}
+                        onChange={(e) => postDetails(e)}
                         className="outline-none text-xl"
                         placeholder="Enter your email..."
                      />

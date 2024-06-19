@@ -3,7 +3,6 @@ import { createPostApiCall } from "../api/services/postApiServices";
 import { createThoghtPostApiCall } from "../api/services/thoughtPostServices";
 import { PostCreatePopupContext } from "../contaxt";
 import { CloseIcon } from "../icons";
-import { postInterface } from "../interfaces";
 
 const PostCreatePopupForm: React.FC = () => {
    const { postCreatePopupOnOff, setPostCreatePopupOnOff } = useContext(
@@ -12,50 +11,114 @@ const PostCreatePopupForm: React.FC = () => {
 
    const [postImage, setPostImage] = useState<File | undefined>();
    const [thoughtPostForm, setThoughtPostForm] = useState(false);
-   const [allPostsAndThoughtPosts, setAllPostsAndThoughtPosts] = useState<postInterface[] | undefined>();
 
-   const postDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
+   // This function handles the uploading of a profile picture to Cloudinary.
+   // It takes in an event object from an HTML input element of type file.
+   const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
+      // Extract the first file from the input element.
+      const fileObject = pics.target.files![0];
+
+      // If there is no file, display an alert and return.
+      if (fileObject === undefined) {
          alert("Oops!! image error");
          return;
       }
-      setPostImage(file);
-   };
 
+      // Check if the file type is either 'image/jpeg' or 'image/png'.
+      if (fileObject.type === "image/jpeg" || fileObject.type === "image/png") {
+         // Create a new FormData object to hold the file data.
+         const data = new FormData();
+
+         // Append the file to the FormData object.
+         data.append('file', fileObject);
+
+         // Append the upload preset and cloud name to the FormData object.
+         // The upload preset and cloud name are specific to our Cloudinary account.
+         data.append('upload_preset', 'ERA_910');
+         data.append("cloud_name", "eracloud");
+
+         // Send a POST request to Cloudinary's image upload API with the FormData.
+         fetch('https://api.cloudinary.com/v1_1/eracloud/image/upload', {
+            method: "POST",
+            body: data
+         })
+            // Parse the response as JSON.
+            .then((res) => res.json())
+            // Update the profilePic state with the URL of the uploaded image.
+            .then((data) => {
+               setPostImage(data.url.toString());
+            });
+      }
+   }
+
+   //  -------------------- Post Create Function ---------------------
+   // This function handles the submission of a new post.
+   // It takes in a form event object from an HTML form element.
    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+      // Prevent the default form submission behavior.
       e.preventDefault();
+
+      // Create a new FormData object from the form data.
       const formData = new FormData(e.target as HTMLFormElement);
+
+      // Parse the user information from the local storage.
       const loggedUser = JSON.parse(localStorage.getItem("userInfo") || "");
 
+      // Create an object to hold the final data to be sent to the API.
       const finalDataObject = {
+         // Set the content of the post to the URL of the uploaded image.
          content: postImage,
+         // Set the caption of the post to the value of the caption input field.
          caption: formData.get("caption") as string,
       };
-      const response = await createPostApiCall(
+
+      // Call the createPostApiCall function with the final data object and the user's token.
+      // The token is obtained from the user information in the local storage.
+      await createPostApiCall(
          finalDataObject,
          loggedUser?.token || ""
       );
-      setAllPostsAndThoughtPosts((prev) => [...(prev || []), response.data.data]);
+
+      // Reload the window to update the UI with the new post.
       window.location.reload();
    };
 
+   // ----------------------- Thhought Post Create Function -----------------------------
+   /**
+    * This function handles the submission of a new thought post.
+    * It takes in a form event object from an HTML form element.
+    *
+    * @param {React.FormEvent<HTMLFormElement>} e - The event object from the form submission.
+    * @return {Promise<void>} This function does not return anything.
+    */
    const ThoughtPostSubmitHandler = async (
       e: React.FormEvent<HTMLFormElement>
    ) => {
+      // Prevent the default form submission behavior.
       e.preventDefault();
+
+      // Create a new FormData object from the form data.
       const formData = new FormData(e.target as HTMLFormElement);
+
+      // Parse the user information from the local storage.
       const loggedUser = JSON.parse(localStorage.getItem("userInfo") || "");
 
+      // Create an object to hold the final data to be sent to the API.
       const finalDataObject = {
+         // Set the user ID of the thought post to the ID of the logged-in user.
          user: loggedUser?._id as string,
+         // Set the thought of the thought post to the value of the thought input field.
          thought: formData.get("thought") as string,
       };
-      const response = await createThoghtPostApiCall(
+
+      // Call the createThoughtPostApiCall function with the final data object and the user's token.
+      // The token is obtained from the user information in the local storage.
+      await createThoghtPostApiCall(
          finalDataObject,
          loggedUser?.token || ""
       );
-      setAllPostsAndThoughtPosts((prev) => [...(prev || []), response.data.data]);
+
+      // Reload the window to update the UI with the new thought post.
       window.location.reload();
    };
 

@@ -99,7 +99,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
     <Fragment>
       <Suspense fallback={<LoaderSpinner />}>
         <section className="bg-[#18eeb8] flex justify-between items-center shadow-md">
-          <div className=" flex justify-evenly items-center  w-[40%]">
+          <div className=" flex justify-evenly items-center  w-[50%] ">
             <div className=" flex justify-center items-center flex-col">
               <div className=" flex justify-center items-center flex-col">
                 {/* Render an image of the user's profile picture and display the user's name. */}
@@ -119,8 +119,8 @@ const UserProfileHeader: React.FC<user> = (props) => {
                 </span>
               </div>
             </div>
-            <div className=" flex justify-center-start flex-col my-2 mt-2">
-              <div className="flex justify-between w-full">
+            <div className=" flex justify-center-start flex-col my-2 mt-2 ">
+              <div className="flex justify-between w-[60%]  ">
                 {/* Render the number of posts the user has made and allow the user to view their followers. */}
                 <div className="followInfo flex flex-col justify-center items-center cursor-pointer">
                   <span className="font-bold text-xl">10</span>
@@ -157,7 +157,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
                 </div>
               </div>
               {/* Render the user's bio. */}
-              <div className="my-2">
+              <div className="my-2  w-[100%]">
                 <div className="userInfomation flex  w-[94%] py-2">
                   <span className="font-bold">Bio: </span>
                   <p> {props.bio}</p>

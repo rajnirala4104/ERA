@@ -148,14 +148,19 @@ const PostCreatePopupForm: React.FC = () => {
                   className="flex flex-col justify-center items-center"
                >
                   <div className="file">
-                     <input
-                        onChange={postDetails}
-                        name="postImage"
-                        placeholder="Enter File"
-                        type="file"
-                        id="postImage"
-                        className=""
-                     />
+                     {
+                        thoughtPostForm ? "" : (
+                           <input
+                              onChange={postDetails}
+                              name="postImage"
+                              placeholder="Enter File"
+                              type="file"
+                              id="postImage"
+                              className=""
+                           />
+                        )
+                     }
+
                   </div>
                   <div className="captin my-2">
                      <textarea

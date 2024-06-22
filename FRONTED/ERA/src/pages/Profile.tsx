@@ -40,16 +40,16 @@ const Profile: React.FC = () => {
 
    // Get the userId parameter from the URL.
    const { userId } = useParams();
+   // Get the logged user's information from localStorage.
+   const LOGGED_USER = JSON.parse(localStorage.getItem("userInfo") as string);
 
    // This function is responsible for fetching the user information from the server.
    const getUserInformation = async () => {
-      // Get the logged user's information from localStorage.
-      const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
       // Set the loading status to true.
       setLoading(true)
       // Send a request to the server to get the user information.
       const userResponse = await getSingleUserInformation(
-         loggedUser.token,
+         LOGGED_USER.token,
          userId as string
       );
       // Set the user state variable with the response data.
@@ -96,7 +96,7 @@ const Profile: React.FC = () => {
             {/* If the followerPopupOnOff state variable is true, display the FollowersPopup component. */}
             {followerPopupOnOff ? <FollowersPopup /> : ""}
             {/* If the editUserProfilePopupOnOff state variable is true, display the EditUserProfile component. */}
-            {editUserProfilePopupOnOff ? <EditUserProfilePopup {...user![0]} /> : ""}
+            {editUserProfilePopupOnOff ? <EditUserProfilePopup {...LOGGED_USER} /> : ""}
             {/* ------------------  */}
             {/* Map over the user state variable and display the UserProfileHeader and UserProfilePostContainer components. */}
             {user?.map((singleUserObject, index) => {

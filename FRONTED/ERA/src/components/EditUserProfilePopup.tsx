@@ -8,8 +8,6 @@ const EditUserProfilePopup: React.FC<user> = ({ _id, token, bio, email, name, pr
 
    const { editUserProfilePopupOnOff, setEditUserProfilePopupOnOff } = useContext(EditUserProfilePopupContext);
 
-   const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
-
    const [profilePicture, setProfilePicture] = useState<string>(profilePic!);
    const [loading, setLoading] = useState<boolean>(false);
    const [userName, setUserName] = useState<string>(name!);
@@ -57,7 +55,7 @@ const EditUserProfilePopup: React.FC<user> = ({ _id, token, bio, email, name, pr
    }
 
    const updateUserProfile = async () => {
-      const response = await updateUserProfileApiCall(loggedUser.token, loggedUser._id, { name: userName, bio: userBio, profilePic: profilePicture });
+      const response = await updateUserProfileApiCall(token!, _id!, { name: userName, bio: userBio, profilePic: profilePicture });
 
       // Check if the API call was successful (status code 200)
       if (response.status === 200) {
@@ -66,6 +64,16 @@ const EditUserProfilePopup: React.FC<user> = ({ _id, token, bio, email, name, pr
          // Update the state of editUserProfilePopupOnOff to flip its value
          // This will cause the popup to close
          setEditUserProfilePopupOnOff(!editUserProfilePopupOnOff);
+
+         // re-storing the localStrogar with updated data
+         localStorage.setItem("userInfo", JSON.stringify({
+            _id: _id,
+            token: token,
+            profilePic: profilePicture,
+            name: userName,
+            bio: userBio,
+            email: email
+         }))
 
          // Reload the page to reflect the changes made by the API call
          // This is necessary because the state of the component is not automatically updated

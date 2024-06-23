@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { protect } = require('../../middelware/authUser');
+const { protect } = require('../../middleware/authUser');
 const { storyControllersObject } = require('./story.controllers');
 
 //story router

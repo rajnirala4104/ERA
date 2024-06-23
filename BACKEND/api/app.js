@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const { StatusCodes } = require("http-status-codes");
 const { v1Router } = require("./routes/v1Routes");
 const connectDatabase = require("./config/connectDB");
-const { erroHandler, notFoundErr } = require("./middelware/error");
+const { erroHandler, notFoundErr } = require("./middleware/error");
 const cors = require("cors");
 connectDatabase();
 

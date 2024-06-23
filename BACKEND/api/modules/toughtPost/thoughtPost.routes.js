@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { StatusCodes } = require("http-status-codes");
-const { protect } = require("../../middelware/authUser");
+const { protect } = require('../../middleware/authUser');
 const { thoughPostControllers } = require("./thoughtPost.controller");
 const thoughtPost = Router();
 

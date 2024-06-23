@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { protect } = require("../../middelware/authUser");
+const { protect } = require('../../middleware/authUser');
 const { commentControllers } = require("./comment.controllers");
 
 // Comment Router

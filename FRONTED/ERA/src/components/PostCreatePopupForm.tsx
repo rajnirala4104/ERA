@@ -17,6 +17,7 @@ const PostCreatePopupForm: React.FC = () => {
    const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
       // Extract the first file from the input element.
       const fileObject = pics.target.files![0];
+      console.log(fileObject)
 
       // If there is no file, display an alert and return.
       if (fileObject === undefined) {
@@ -91,9 +92,7 @@ const PostCreatePopupForm: React.FC = () => {
     * @param {React.FormEvent<HTMLFormElement>} e - The event object from the form submission.
     * @return {Promise<void>} This function does not return anything.
     */
-   const ThoughtPostSubmitHandler = async (
-      e: React.FormEvent<HTMLFormElement>
-   ) => {
+   const ThoughtPostSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       // Prevent the default form submission behavior.
       e.preventDefault();
 

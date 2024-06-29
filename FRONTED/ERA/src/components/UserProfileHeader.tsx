@@ -9,6 +9,7 @@ import { ProfilePopupContext, FollowersPopupContext } from "../contaxt";
 import { followeInterface, user } from "../interfaces";
 import { LoaderSpinner } from "./LoaderSpinner";
 import {
+  followApiCall,
   getAllTheFollowersOfAPerticularUserApiCall,
   getAllTheFollowingsOfAPerticularUserApiCall,
 } from "../api/services/followApiServices";
@@ -32,8 +33,8 @@ const UserProfileHeader: React.FC<user> = (props) => {
   );
 
   // The followers and following variables are used to store the list of followers and followings for the user.
-  const [followers, setFollowers] = useState<followeInterface[]>();
-  const [following, setFollowing] = useState<followeInterface[]>();
+  const [followers, setFollowers] = useState<followeInterface[]>([]);
+  const [following, setFollowing] = useState<followeInterface[]>([]);
 
   // The loggedUser variable is used to store the user information of the logged-in user.
   const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
@@ -72,27 +73,48 @@ const UserProfileHeader: React.FC<user> = (props) => {
     getAllTheFollowings();
   }, []);
 
-  // The followersAndFollowingsReducFinalState variable is used to store the list of followers and followings for the user in a specific format.
-  const followersAndFollowingsReducFinalState = followers?.map(
-    (singleObject) => {
-      return {
-        user: singleObject.user,
-        followedUserId: singleObject.followedUserId,
-      };
-    }
-  );
-  // The followersAndFollowingsReducSecondFinalState variable is used to store the list of followers and followings for the user in a different format.
-  const followersAndFollowingsReducSecondFinalState = following?.map(
-    (singleObject) => {
-      return {
-        user: singleObject.user,
-        followedUserId: singleObject.followedUserId,
-      };
-    }
-  );
+
+  // Check if both followers and following are arrays. If they are, map over them to create a new array of objects with user and followedUserId properties.
+  if (Array.isArray(followers) && Array.isArray(following)) {
+    // Map over the followers array to create a new array of objects with user and followedUserId properties.
+    var followersAndFollowingsReducFinalState = followers.map(
+      (singleObject) => ({ user: singleObject.user, followedUserId: singleObject.followedUserId })
+    );
+    // Map over the following array to create a new array of objects with user and followedUserId properties.
+    var followersAndFollowingsReducSecondFinalState = following.map(
+      (singleObject) => ({ user: singleObject.user, followedUserId: singleObject.followedUserId })
+    );
+  } else {
+    // If the followers or following are not arrays, set the followersAndFollowingsReducFinalState and followersAndFollowingsReducSecondFinalState to an empty array.
+    window.location.reload();
+  }
+
 
   // Set the title of the page to the name of the user in uppercase.
   document.title = props.name?.toUpperCase()!;
+
+  /**
+   * The followFunctionApiCallHandler is an async function that is responsible for handling the API call to follow a user.
+   * It makes a POST request to the follow API endpoint with the user ID and the logged user token in the request body.
+   * If the request is successful, it updates the followers state with the response data and reloads the page.
+   * If there is an error, it displays an alert with an error message.
+   */
+  const followFunctionApiCallHandler = async () => {
+    try {
+      // Make a POST request to the follow API endpoint with the user ID and the logged user token in the request body.
+      const response = await followApiCall(props._id!, loggedUser.token);
+
+      // Update the followers state with the response data.
+      setFollowers(response.data.data);
+
+      // Reload the page to reflect the updated followers state.
+      window.location.reload();
+    } catch (error) {
+      // Display an alert with an error message if there is an error.
+      alert("Oops!! something went wrong,  - " + error);
+    }
+  }
+
 
   // Return the JSX for the header section of the user's profile page.
   return (
@@ -119,7 +141,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
                 </span>
               </div>
             </div>
-            <div className=" flex justify-center-start flex-col my-2 mx-3 mt-2 w-[50%]">
+            <div className=" flex justify-center-start flex-col my-2 mx-3 mt-2 w-[40%]">
               <div className="flex justify-between w-[50%] ">
                 {/* Render the number of posts the user has made and allow the user to view their followers. */}
                 <div className="followInfo flex flex-col justify-center items-center cursor-pointer">
@@ -157,23 +179,25 @@ const UserProfileHeader: React.FC<user> = (props) => {
                 </div>
               </div>
               {/* Render the user's bio. */}
-              <div className="my-2  w-[100%]">
+              <div className="my-2  w-[80%]">
                 <div className="userInfomation flex  w-[94%] py-2">
                   <span className="font-bold">Bio: </span>
                   <p> {props.bio}</p>
                 </div>
               </div>
             </div>
-          </div>
-          <div className=" w-[20%] h-full grid place-content-center ">
-            {/* If the logged-in user is not the same as the user being displayed, render a "Follow" button. */}
-            {loggedUser._id !== props._id ? (
-              <button className="text-2xl text-white font-semibold cursor-pointer shadow-lg hover:bg-gray-900 bg-cyan-950 transi duration-200 p-2 rounded-md">
-                Follow
-              </button>
-            ) : (
-              ""
-            )}
+            <div className=" w-[30%] grid place-content-end ">
+              {/* If the logged-in user is not the same as the user being displayed, render a "Follow" button. */}
+              {loggedUser._id !== props._id ? (
+                <button
+                  onClick={() => followFunctionApiCallHandler()}
+                  className="text-2xl text-white font-semibold cursor-pointer shadow-lg hover:bg-gray-900 bg-cyan-950 transi duration-200 p-2 rounded-md">
+                  Follow
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </section>
       </Suspense>

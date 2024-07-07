@@ -58,7 +58,7 @@ const Login = () => {
                      <input
                         name="email"
                         type="email"
-                        className="outline-none text-xl"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Enter your email..."
                      />
                   </div>
@@ -68,7 +68,7 @@ const Login = () => {
                         <input
                            name="password"
                            type={hidePassword ? "password" : ""}
-                           className="outline-none text-xl "
+                           className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold "
                            placeholder="Password.."
                         />
                         <span
@@ -82,7 +82,7 @@ const Login = () => {
                      {/* Forgot password link. */}
                      <Link
                         to="/password"
-                        className="text-blue-500 hover:text-blue-600 cursor-pointer hover:underline"
+                        className="text-blue-700 font-semibold lg:font-normal hover:text-blue-600 cursor-pointer hover:underline"
                      >
                         Forgot password
                      </Link>

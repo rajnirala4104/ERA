@@ -109,22 +109,23 @@ const Singup = () => {
       <React.Fragment>
          <Suspense fallback={<LoaderSpinner />}>
             <form onSubmit={handleSubmit} className="h-[100%] flex justify-center items-center flex-col">
-               <div className="inputs">
+               <div className="inputs w-[80%]">
                   <div className="inputname my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                      <input
                         type="text"
                         name="name"
                         onChange={handleChange}
-                        className="outline-none text-xl"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Enter your name..."
                      />
                   </div>
+
                   <div className="inputemail my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                      <input
                         type="email"
                         name="email"
                         onChange={handleChange}
-                        className="outline-none text-xl"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Enter your email..."
                      />
                   </div>
@@ -133,7 +134,7 @@ const Singup = () => {
                         type="file"
                         name="file"
                         onChange={(e) => postDetails(e)}
-                        className="outline-none text-xl"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Enter your email..."
                      />
                   </div>
@@ -142,7 +143,7 @@ const Singup = () => {
                         name="password"
                         type={hidePassword ? "password" : ""}
                         onChange={handleChange}
-                        className="outline-none text-xl"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Password.."
                      />
                      <span
@@ -157,7 +158,7 @@ const Singup = () => {
                         name="confirmPassword"
                         type={hideConfirmPassword ? "password" : ""}
                         onChange={handleChange}
-                        className="outline-none text-xl"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Confirm Password.."
                      />
                      <span

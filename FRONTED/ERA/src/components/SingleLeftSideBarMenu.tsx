@@ -29,7 +29,7 @@ const SingleLeftSideBarMenu: React.FC<menuInterface> = (props) => {
             // Click event handler
             onClick={() => clickHandler()}
             // CSS classes for styling the menu item
-            className="sinpleMen cursor-pointer hover:bg-slate-700 flex justify-start items-center bg-slate-800 m-2 h-10 rounded-md"
+            className="sinpleMen cursor-pointer lg:w-[90%] hover:bg-slate-800 transition transition-duration-300 flex justify-start items-center bg-slate-900 lg:hover:bg-slate-700 lg:bg-slate-800 m-2 h-10 rounded-md"
          >
             {/* Div element for the icon */}
             <div className="icon">{props.icon}</div>

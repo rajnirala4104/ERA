@@ -109,7 +109,7 @@ const Profile: React.FC = () => {
                            <UserProfileHeader {...singleUserObject} />
                         </div>
                         <div className="flex  w-full h-[74vh] justify-between ">
-                           <div className="lg:flex md:flex hidden w-[23%]">
+                           <div className="lg:flex md:flex w-[23%]">
                               {/* Display the LeftSideBar component. */}
                               <LeftSideBar />
                            </div>

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { menuInterface } from "../interfaces";
 
 /**
@@ -22,6 +22,8 @@ const SingleLeftSideBarMenu: React.FC<menuInterface> = (props) => {
       navigator(props.path);
    };
 
+   const { pathname } = useLocation();
+
    return (
       <Fragment>
          {/* Div element representing the menu item */}
@@ -29,14 +31,13 @@ const SingleLeftSideBarMenu: React.FC<menuInterface> = (props) => {
             // Click event handler
             onClick={() => clickHandler()}
             // CSS classes for styling the menu item
-            className="sinpleMen cursor-pointer lg:w-[90%] hover:bg-slate-700 transition transition-duration-300 flex justify-start items-center bg-slate-800 lg:hover:bg-slate-700 lg:bg-slate-800 m-2 h-10 rounded-md "
-         >
+            className={`sinpleMen cursor-pointer lg:w-[90%] hover:bg-slate-700 hover:text-white transition transition-duration-300 flex justify-start items-center bg-slate-800 lg:hover:bg-slate-700 lg:bg-slate-800 m-2 h-10 rounded-md ${pathname === props.path ? "text-white font-semibold" : "text-gray-400"}`}>
             {/* Div element for the icon */}
             <div className="icon">{props.icon}</div>
             {/* Div element for the menu name */}
             <div className="menuName mx-2 ">
                {/* Span element for the menu name */}
-               <span>{props.menuName}</span>
+               <span className={``}>{props.menuName}</span>
             </div>
          </div>
       </Fragment>

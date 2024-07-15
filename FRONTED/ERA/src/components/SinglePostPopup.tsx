@@ -83,13 +83,14 @@ const SinglePostPopup: React.FC = () => {
                         {/* thought */}
                         <div className="post flex w-full h-full">
                            <div
-                              className="image  w-[50%]  h-full rounded-tl-md rounded-bl-md bg-slate-800 flex justify-center items-center flex-col px-2"
+                              className="image w-[50%]  h-full rounded-tl-md rounded-bl-md bg-slate-800 flex justify-center items-center flex-col px-2"
                            >
                               <p className="text-white font-bold w-[70%] text-center">
                                  "{post.thought}"
                               </p>
                            </div>
-                           <div className="info w-[50%]">
+                           <div className="info w-[50%]  flex flex-col justify-between ">
+                              {/* user profile */}
                               <div className="upperHeader bg-slate-200 py-3 px-2 flex flex-col justify-center items-start rounded-tr-md">
                                  <div
                                     onClick={() =>
@@ -110,14 +111,11 @@ const SinglePostPopup: React.FC = () => {
                                     </p>
                                  </div>
                               </div>
-                              <div className="caption my-3 flex justify-between items-center px-6 bg-white w-full">
-                                 <p className="text-[13px] font-mono font-semibold w-[70%]">
-                                    "{post.caption}"
-                                 </p>
-                                 <p className="font-semibold font-sans ">{getDateFromMongoData(post.createdAt!)}</p>
+                              <div className="caption flex justify-end items-center px-6 bg-white w-full ">
+                                 <p className="font-semibold font-sans  ">{getDateFromMongoData(post.createdAt!)}</p>
                               </div>
                               <hr />
-                              <div className="comments container overflow-y-auto h-[60%]">
+                              <div className="comments container overflow-y-auto h-[68%] ">
                                  <div className="flex flex-col ">
                                     <Comment
                                        user={post.user}
@@ -138,11 +136,11 @@ const SinglePostPopup: React.FC = () => {
                                  </div>
                               </div>
                               <hr />
-                              <div className="w-full flex flex-col justify-center items-start h-[13%] bg-slate-50 px-2">
-                                 <div className="text-[12px]">
+                              <div className="w-full flex flex-col justify-center items-start h-[16%] bg-slate-50 px-2 ">
+                                 <div className="text-[12px] ">
                                     <PostIcons />
                                  </div>
-                                 <div className="input w-full -my-2 flex justify-between">
+                                 <div className="input w-full mb-2 flex justify-between">
                                     <input
                                        type="text"
                                        className="text-[15px] w-[88%] rounded-md py-2 px-2 outline-none border border-black"

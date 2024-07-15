@@ -4,15 +4,15 @@ import { CommentIcon, UnLikeIcon } from "../icons";
 const PostIcons: React.FC = () => {
    return (
       <Fragment>
-         <div className="iconsContainer flex w-[50%] my-4 justify-between ">
-            <div className="flex justify-center items-center hover:bg-green-200 rounded-md cursor-pointer px-2 py-1">
+         <div className="iconsContainer flex w-[40%] my-2 justify-between ">
+            <div className=" flex justify-center items-center hover:bg-green-200 rounded-md cursor-pointer px-2 py-1">
                <UnLikeIcon classess="mx-1 text-2xl" />
-               <span>Like</span>
+               <span className="lg:text-[15px]">Like</span>
             </div>
-            <span className="text-gray-600">|</span>
-            <div className="flex justify-center items-center  hover:bg-green-200  rounded-md cursor-pointer  px-2 py-1">
+            <span className="text-gray-500 text-xl">|</span>
+            <div className="flex justify-center items-center  hover:bg-green-200  rounded-md cursor-pointer px-2 py-1">
                <CommentIcon classess="mx-1 text-2xl" />
-               <span>Comment</span>
+               <span className="lg:text-[15px]">Comment</span>
             </div>
          </div>
       </Fragment>

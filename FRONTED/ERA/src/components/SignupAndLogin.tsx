@@ -19,12 +19,12 @@ const SignupAndLogin = () => {
       <Suspense fallback={<LoaderSpinner />}>
         <section
           style={{ background: `url(${allImages.loginBg}) center center/cover` }}
-          className='w-full h-screen flex justify-center items-center '>
+          className='w-full h-screen flex justify-center items-center'>
           <div
             style={{
               background: ''
             }}
-            className='bg-["rgba(0,0,0,.1)"] backdrop-blur-md rounded-lg shadow-[0_00px_60px_-6px_rgba(0,0,0,0.5)] w-[80%] h-[80%] flex lg:justify-between justify-center items-center '>
+            className='bg-["rgba(0,0,0,.1)"] backdrop-blur-md rounded-lg shadow-[0_00px_60px_-6px_rgba(0,0,0,0.5)] w-[80%] lg:h-[80%] h-[40%] flex lg:justify-between justify-center items-center '>
             <div className="sideImg hidden lg:flex flex-col justify-between items-center w-[45%] h-[100%] ">
               <h1 style={{
                 fontFamily: ` "Fjalla One", sans-serif`,
@@ -35,7 +35,7 @@ const SignupAndLogin = () => {
             </div>
 
             <div
-              className="w-[50%] h-[87%] flex justify-center items-center flex-col ">
+              className="w-[50%] h-[87%]  flex justify-center items-center flex-col ">
               {loginDesign ? <Login /> : <Singup />}
               <span onClick={() => setLoginDesign(!loginDesign)} className='text-blue-700 font-semibold  hover:underline cursor-pointer'>{loginDesign ? "Don't have account" : "have account"}</span>
             </div>

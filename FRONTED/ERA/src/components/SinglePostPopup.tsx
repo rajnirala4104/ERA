@@ -26,11 +26,10 @@ const SinglePostPopup: React.FC = () => {
    const loggedUser = JSON.parse(localStorage.getItem("userInfo") as string);
 
    const deletePostHandler = async () => {
-      console.log(post)
       const confirmation = confirm("Do you really want to delete this post? ");
 
       if (confirmation) {
-         if (post.thought !== undefined) {
+         if (post.thought?.length !== 0 && post.thought !== undefined) {
             await deleteAThoughtPost(post._id!, loggedUser.token);
             window.location.reload();
          } else {

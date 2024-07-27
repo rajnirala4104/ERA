@@ -26,7 +26,7 @@ const Home = memo(() => {
                   <Navbar />
                </div>
                <div className="homePageContainer flex justify-between  w-full h-full">
-                  <div className="leftSideBar  hidden lg:flex lg:w-full">
+                  <div className="leftSideBar  lg:flex lg:w-full">
                      <LeftSideBar />
                   </div>
                   <div className="centerContentOrPostSection w-[150%] ">

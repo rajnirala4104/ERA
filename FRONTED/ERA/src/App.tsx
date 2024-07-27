@@ -20,7 +20,7 @@ function App() {
    const [editPostPopupOnOff, setEditPostPopupOnOff] = useState<boolean>(false);
    const [followerPopupOnOff, setFollowersPopupOnOff] = useState<boolean>(false);
    const [profilePopupOnOff, setProfilePopupOnOff] = useState<boolean>(false);
-   const [loginDesign, setLoginDesign] = useState<boolean>(false);
+   const [loginDesign, setLoginDesign] = useState<boolean>(true);
 
    return (
       <Fragment>

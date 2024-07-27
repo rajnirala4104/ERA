@@ -12,4 +12,18 @@ const shuffleArray = (array) => {
     return array;
 }
 
-module.exports = { shuffleArray }
+const cloudinaryUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "ERA_910");
+    formData.append("cloud_name", "eracloud");
+    const res = await fetch("https://api.cloudinary.com/v1_1/eracloud/image/upload", {
+        method: "POST",
+        body: formData
+    });
+    const data = await res.json();
+    console.log(data);
+    return data;
+}
+
+module.exports = { shuffleArray, cloudinaryUpload }

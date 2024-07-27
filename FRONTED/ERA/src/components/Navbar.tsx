@@ -14,17 +14,17 @@ const Navbar: React.FC = () => {
    return (
       <Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <div className="sticky bg-[#18eeb8] top-0 shadow-md px-10 h-[4.5rem] flex justify-between items-center ">
-               <div className="userIcon  cursor-pointer lg:p-2">
+            <div className="sticky bg-[#18eeb8] top-0 shadow-md lg:px-10 px-3 h-[4.5rem] flex justify-between items-center  ">
+               <div className="userIcon  cursor-pointer lg:p-2 ">
                   {user?.map((singleObject) => (
                      <Link
                         to={`/user-profile/${singleObject._id}`}
-                        className="flex justify-center items-center"
+                        className="flex justify-center items-center "
                         key={singleObject._id}
                      >
                         <img
                            loading="lazy"
-                           className="rounded-full w-[3rem] h-[3rem] object-cover"
+                           className="rounded-full w-[3rem] h-[3rem] object-cover "
                            src={singleObject.profilePic}
                            alt="asdf"
                         />
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
                   <StoriesIcon />
                   <StoriesIcon />
                </div>
-               <div className="searchBtn">
+               <div className="searchBtn ">
                   <SearchNavbarBtn />
                </div>
             </div>

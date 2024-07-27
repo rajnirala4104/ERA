@@ -12,7 +12,7 @@ const UserSingleCard: React.FC<user> = ({ _id, profilePic, name, email }) => {
 
   return (
     <div
-      className="bg-slate-700 text-white hover:bg-[#064737] cursor-pointer rounded-md w-full my-1 flex justify-start items-center py-2 px-2 shadow-md"
+      className="bg-slate-700 text-white hover:bg-[#064737] cursor-pointer rounded-md w-full my-1 flex lg:justify-start justify-center items-center py-2 px-2 shadow-md"
       onClick={handleClick}
     >
       <div className="prfileImage">

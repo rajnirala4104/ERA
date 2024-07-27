@@ -75,7 +75,7 @@ const UserProfilePostContainer: React.FC = () => {
       <Fragment>
          {/* Suspense component to handle the loading state */}
          <Suspense fallback={<LoaderSpinner />}>
-            <section className="w-full h-full ">
+            <section className="w-full h-full border border-black flex justify-center items-center">
                {/* Conditionally rendering the loading spinner */}
                {loading ? <LoaderSpinner /> : ""}
 
@@ -94,7 +94,7 @@ const UserProfilePostContainer: React.FC = () => {
                )}
 
                {/* Container for the posts */}
-               <div className="postContainer w-[100%] h-[100%] overflow-y-auto flex flex-wrap p-2 justify-start items-start ">
+               <div className="postContainer w-[100%] h-[100%] overflow-y-auto flex flex-wrap p-2 justify-center lg:justify-start lg:items-start items-center ">
                   {/* Conditionally rendering the zero post indicator */}
                   {allPosts?.length === 0 ? (
                      <div className="w-full h-full grid place-items-center ">

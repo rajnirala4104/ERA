@@ -68,7 +68,7 @@ const PostContainer: React.FC = () => {
             {/* Render the LoaderSpinner component if loading is true */}
             {loading ? <LoaderSpinner /> : ""}
             {/* Render a div to contain the posts */}
-            <div className=" w-[94%] mx-auto h-[89vh] overflow-y-auto">
+            <div className=" w-[94%] mx-auto h-[92vh] overflow-y-auto">
                {/* Render a PostCard component for each post in the allPost array */}
                {allPost.map((singplePostObject, index) => (
                   <Fragment key={index}>

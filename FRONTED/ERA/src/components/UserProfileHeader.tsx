@@ -121,27 +121,30 @@ const UserProfileHeader: React.FC<user> = (props) => {
     <Fragment>
       <Suspense fallback={<LoaderSpinner />}>
         <section className="bg-[#18eeb8] flex justify-start items-start shadow-md">
-          <div className=" flex justify-start items-center  w-full">
-            <div className=" flex justify-center items-center flex-col mx-[4.5rem] ">
-              <div className=" flex justify-center items-center flex-col">
+          <div className=" flex justify-start items-center  w-full ">
+            <div className=" flex justify-start items-center flex-col lg:mx-[4.5rem]  w-full lg:w-[10%]">
+              <div className=" flex justify-center items-center flex-col  ">
                 {/* Render an image of the user's profile picture and display the user's name. */}
                 <div
                   onClick={() => setProfilePopupOnOff(!profilePopupOnOff)}
-                  className="my-2"
+                  className="my-2 flex flex-col"
                 >
                   <img
                     loading="lazy"
                     src={props.profilePic}
-                    className="rounded-full w-[7rem] h-[7rem] object-cover text-center shadow-lg cursor-pointer"
+                    className="rounded-full lg:w-[7rem] w-[4rem] lg:h-[7rem] h-[4rem] object-cover text-center shadow-lg cursor-pointer"
                     alt="era user"
                   />
                 </div>
-                <span className="mb-2 lg:text-2xl text-xl font-semibold">
-                  {capitalize(props.name!)}
-                </span>
+                <div className="flex flex-col justify-center items-center -space-y-3">
+                  <span className="mb-2 lg:text-2xl text-lg font-semibold">
+                    {capitalize(props.name!)}
+                  </span>
+                  {loggedUser._id !== props._id ? <span className="text-blue-950 lg:hidden text-sm underline hover:no-underline cursor-pointer hover:text-blue-900">Follow</span> : ""}
+                </div>
               </div>
             </div>
-            <div className=" flex justify-center-start flex-col my-2 mx-3 mt-2 w-[40%]">
+            <div className=" flex justify-center-start flex-col my-2 mx-3 mt-5 lg:mt-2 lg:w-[40%] w-full">
               <div className="flex justify-between w-[50%] ">
                 {/* Render the number of posts the user has made and allow the user to view their followers. */}
                 <div className="followInfo flex flex-col justify-center items-center cursor-pointer">
@@ -182,7 +185,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
               <div className="my-2  w-[80%]">
                 <div className="userInfomation flex  w-[94%] py-2">
                   <span className="font-bold">Bio: </span>
-                  <p> {props.bio}</p>
+                  <p>{props.bio}</p>
                 </div>
               </div>
             </div>
@@ -191,7 +194,7 @@ const UserProfileHeader: React.FC<user> = (props) => {
               {loggedUser._id !== props._id ? (
                 <button
                   onClick={() => followFunctionApiCallHandler()}
-                  className="text-2xl text-white font-semibold cursor-pointer shadow-lg hover:bg-gray-900 bg-cyan-950 transi duration-200 p-2 rounded-md">
+                  className="lg:text-2xl text-lg hidden lg:block text-white font-semibold cursor-pointer shadow-lg hover:bg-gray-900 bg-cyan-950 transi duration-200 p-2 rounded-md">
                   Follow
                 </button>
               ) : (

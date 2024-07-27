@@ -108,12 +108,12 @@ const Profile: React.FC = () => {
                            {/* Display the UserProfileHeader component, passing the singleUserObject as props. */}
                            <UserProfileHeader {...singleUserObject} />
                         </div>
-                        <div className="flex  w-full h-[74vh] justify-between ">
-                           <div className="lg:flex md:flex w-[23%]">
+                        <div className="flex w-full max-h-[74vh] lg:justify-between  ">
+                           <div className="lg:flex md:flex lg:w-[23%]">
                               {/* Display the LeftSideBar component. */}
                               <LeftSideBar />
                            </div>
-                           <div className=" w-[90%]">
+                           <div className=" lg:w-[90%] lg:h-[90vh] h-[84.5vh] w-full flex justify-center items-center">
                               {/* Display the UserProfilePostContainer component. */}
                               <UserProfilePostContainer />
                            </div>

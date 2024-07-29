@@ -10,7 +10,7 @@ const likeSchema = Schema({
         type: Types.ObjectId,
         ref: "Post"
     }
-}, { timestamp: true });
+}, { timestamps: true });
 
 // like model
 const Like = model('Like', likeSchema);

@@ -5,17 +5,19 @@ const { generateToken } = require("../../config/generateToken");
 const { genSalt, hash } = require("bcryptjs");
 const { Followers } = require("../followers/followers.model");
 const { shuffleArray } = require("../../utils");
+const { uploadOnCloudinary } = require("../../utils/cloudinary");
 
 // controllers object
 const userControllers = {
    userRegistration: expressAsyncHandler(async (req, res) => {
       try {
-         const { name, email, password, profilePic } = req.body;
+         const { name, email, password } = req.body;
 
          // checking the values are vailid or not
          if (!name || !email || !password) {
             return res.status(StatusCodes.NOT_FOUND).json({
                message: "Please Enter all the Feilds",
+               status: StatusCodes.NOT_FOUND,
                data: null,
             });
          }
@@ -32,21 +34,25 @@ const userControllers = {
             });
          }
 
+         // ------------------ upload profilePic on cloudinary -------------
+         const profilePicLocalPath = req.file.path;
+         let profilePicCloudinaryResponse;
+         if (profilePicLocalPath)
+            profilePicCloudinaryResponse = await uploadOnCloudinary(
+               profilePicLocalPath
+            );
+         // ---------------------------- end -------------------
+
          // add in our database
          const user = await User.create({
             name,
             email,
             password,
-            profilePic,
+            profilePic: profilePicCloudinaryResponse.url,
          });
+
          if (user) {
-            return res.status(StatusCodes.OK).json({
-               _id: user._id,
-               name: user.name,
-               email: user.email,
-               profilePic: user.profilePic,
-               token: generateToken(user._id),
-            });
+            return res.status(StatusCodes.OK).json(user);
          } else {
             res.status(StatusCodes.NOT_FOUND);
             throw new Error("something went wrong");
@@ -111,6 +117,9 @@ const userControllers = {
             });
          }
 
+         // ------------------ upload profilePic on cloudinary -------------
+         // ---------------------------- end -------------------------------
+
          const updateData = await User.findOneAndUpdate(
             { _id: id },
             {
@@ -173,11 +182,11 @@ const userControllers = {
       try {
          const keyword = req.query.search
             ? {
-               $or: [
-                  { name: { $regex: req.query.search, $options: "i" } },
-                  { email: { $regex: req.query.search, $options: "i" } },
-               ],
-            }
+                 $or: [
+                    { name: { $regex: req.query.search, $options: "i" } },
+                    { email: { $regex: req.query.search, $options: "i" } },
+                 ],
+              }
             : {};
          const users = await User.find(keyword)
             .find({ _id: { $ne: req.user._id } })

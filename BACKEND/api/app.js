@@ -5,6 +5,7 @@ const { v1Router } = require("./routes/v1Routes");
 const connectDatabase = require("./config/connectDB");
 const { erroHandler, notFoundErr } = require("./middleware/error");
 const cors = require("cors");
+
 connectDatabase();
 
 const app = express();

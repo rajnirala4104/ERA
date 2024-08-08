@@ -16,7 +16,7 @@ export const signup = (data: signupData) => {
     return http.post(ENDPIONTS.signup, data, {
         headers: {
             // Set the "Content-type" header to "application/json"
-            "Content-type": "application/json",
+            "Content-type": "multipart/form-data",
         },
     })
 }
@@ -70,10 +70,5 @@ export const getAllTheUser = (loggedUserToken: string) => {
  * @return {Promise} A Promise that resolves to the response from the API.
  */
 export const forgotPassword = (data: forgotPasswordsDataInterface) => {
-    // Create a configuration object for the request
-    const config = {
-        "Content-type": "application/json",
-    };
-
-    return http.put(ENDPIONTS.password, data, config);
+    return http.put(ENDPIONTS.password, data);
 }

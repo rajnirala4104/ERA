@@ -1,106 +1,34 @@
 import React, { Suspense, useState } from "react";
 import { LoaderSpinner } from ".";
-import { signupData } from "../api/apiInterfaces";
 import { signup } from "../api/services/authenticationApiServices";
+import { FormObject } from "../interfaces";
 
-
-// This component is responsible for the signup functionality of the application.
-// It takes user input for name, email, password and profile picture.
-// It also provides a way for the user to hide or show the password.
 const Singup = () => {
-   // State to hold the form data
-   const [formData, setFormData] = useState<{ [key: string]: string }>({});
-   // State to handle password visibility
    const [hidePassword, setHidePassword] = useState<boolean>(true);
-   // State to handle password confirmation visibility
-   const [hideConfirmPassword, setHideConfirmPassword] = useState<boolean>(true);
-   // State to store the uploaded profile picture
-   const [profilePic, setProfilePic] = useState<string | undefined>();
+   const [hideConfirmPassword, setHideConfirmPassword] =
+      useState<boolean>(true);
+   const [profilePic, setProfilePic] = useState<File | null>();
 
-   // Function to handle form input changes
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      // Extract the name and value from the input element
-      const { name, value } = e.target;
-      // Update the form data state with the new value
-      setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files.length > 0) {
+         setProfilePic(e.target.files[0]);
+      }
    };
-
-
-   // This function handles the uploading of a profile picture to Cloudinary.
-   // It takes in an event object from an HTML input element of type file.
-   const postDetails = (pics: React.ChangeEvent<HTMLInputElement>) => {
-      // Extract the first file from the input element.
-      const fileObject = pics.target.files![0];
-
-      // If there is no file, display an alert and return.
-      if (fileObject === undefined) {
-         alert("Oops!! image error");
-         return;
-      }
-
-      // Check if the file type is either 'image/jpeg' or 'image/png'.
-      if (fileObject.type === "image/jpeg" || fileObject.type === "image/png") {
-         // Create a new FormData object to hold the file data.
-         const data = new FormData();
-
-         // Append the file to the FormData object.
-         data.append('file', fileObject);
-
-         // Append the upload preset and cloud name to the FormData object.
-         // The upload preset and cloud name are specific to our Cloudinary account.
-         data.append('upload_preset', 'ERA_910');
-         data.append("cloud_name", "eracloud");
-
-         // Send a POST request to Cloudinary's image upload API with the FormData.
-         fetch('https://api.cloudinary.com/v1_1/eracloud/image/upload', {
-            method: "POST",
-            body: data
-         })
-            // Parse the response as JSON.
-            .then((res) => res.json())
-            // Update the profilePic state with the URL of the uploaded image.
-            .then((data) => {
-               setProfilePic(data.url.toString());
-            });
-      }
-   }
-
-
-
-   // Function to handle form submission
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      // Prevent the default form submission behavior
       e.preventDefault();
-      // Get the form data object
-      const formObject = formData;
+      const formData = new FormData(e.target as HTMLFormElement);
 
-      // Check if the password and confirm password match
-      if (formObject.password !== formObject.confirmPassword) {
-         alert("passwords are not same");
-         return;
-      }
-      // Check if the email and password are valid
-      if (!formObject.email || !formObject.password) {
-         alert("invalid data given");
-         return;
-      }
+      // Convert FormData to an object
+      const formObject = Object.fromEntries(formData.entries()) as FormObject;
+
+      formData.append("profilePic", profilePic);
+
       try {
-         // Create the final data object to be sent to the API
-         const finalData: signupData = {
-            email: formObject.email,
-            name: formObject.name,
-            password: formObject.confirmPassword,
-            profilePic: profilePic,
-         };
-         console.log(finalData)
-         // Call the API to signup the user
-         const { data } = await signup(finalData);
-         // Store the user information in local storage and reload the page
-         localStorage.setItem('userInfo', JSON.stringify(data))
-         window.location.reload()
+         const { data } = await signup(formObject); // Assuming signup is a function that returns a Promise
+         localStorage.setItem("userInfo", JSON.stringify(data));
+         window.location.reload();
       } catch (error) {
-         // Show an error message if the signup fails
-         alert("we can't create your account right now");
+         console.error("Signup failed:", error);
       }
    };
 
@@ -108,13 +36,15 @@ const Singup = () => {
    return (
       <React.Fragment>
          <Suspense fallback={<LoaderSpinner />}>
-            <form onSubmit={handleSubmit} className="h-[100%] flex justify-center items-center flex-col">
+            <form
+               onSubmit={(e) => handleSubmit(e)}
+               className="h-[100%] flex justify-center items-center flex-col"
+            >
                <div className="inputs w-[80%]">
                   <div className="inputname my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                      <input
                         type="text"
                         name="name"
-                        onChange={handleChange}
                         className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Enter your name..."
                      />
@@ -124,7 +54,6 @@ const Singup = () => {
                      <input
                         type="email"
                         name="email"
-                        onChange={handleChange}
                         className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Enter your email..."
                      />
@@ -132,8 +61,8 @@ const Singup = () => {
                   <div className="inputemail my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                      <input
                         type="file"
-                        name="file"
-                        onChange={(e) => postDetails(e)}
+                        name="profilePic"
+                        onChange={(e) => onInputChange(e)}
                         className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Enter your email..."
                      />
@@ -142,7 +71,6 @@ const Singup = () => {
                      <input
                         name="password"
                         type={hidePassword ? "password" : ""}
-                        onChange={handleChange}
                         className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Password.."
                      />
@@ -157,12 +85,13 @@ const Singup = () => {
                      <input
                         name="confirmPassword"
                         type={hideConfirmPassword ? "password" : ""}
-                        onChange={handleChange}
                         className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
                         placeholder="Confirm Password.."
                      />
                      <span
-                        onClick={() => setHideConfirmPassword(!hideConfirmPassword)}
+                        onClick={() =>
+                           setHideConfirmPassword(!hideConfirmPassword)
+                        }
                         className="w-16 text-center cursor-pointer bg-black dark:text-white px-2 py-2 text-[14px] rounded-md hover:bg-gray-800"
                      >
                         {hideConfirmPassword ? "Show" : "Hide"}

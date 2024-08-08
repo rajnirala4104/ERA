@@ -15,3 +15,11 @@ export interface forgotPasswordsDataInterface {
     email: string,
     password: string
 }
+
+export interface profilePicFormData {
+    lastModified?: number,
+    name?: string,
+    size?: number,
+    type?: string,
+    webkitRelativePath?: string
+}

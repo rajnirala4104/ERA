@@ -59,7 +59,7 @@ const userControllers = {
          }
       } catch (error) {
          return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            message: error,
+            message: "INTERNAL_SERVER_ERROR",
             status: StatusCodes.INTERNAL_SERVER_ERROR,
             data: null,
          });

@@ -1,5 +1,6 @@
 import React, { Suspense, useState } from "react";
 import { LoaderSpinner } from ".";
+import { signupData } from "../api/apiInterfaces";
 import { signup } from "../api/services/authenticationApiServices";
 import { FormObject } from "../interfaces";
 
@@ -14,6 +15,7 @@ const Singup = () => {
          setProfilePic(e.target.files[0]);
       }
    };
+
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.target as HTMLFormElement);
@@ -21,10 +23,10 @@ const Singup = () => {
       // Convert FormData to an object
       const formObject = Object.fromEntries(formData.entries()) as FormObject;
 
-      formData.append("profilePic", profilePic);
+      formData.append("profilePic", profilePic as File);
 
       try {
-         const { data } = await signup(formObject); // Assuming signup is a function that returns a Promise
+         const { data } = await signup(formObject as signupData); // Assuming signup is a function that returns a Promise
          localStorage.setItem("userInfo", JSON.stringify(data));
          window.location.reload();
       } catch (error) {
@@ -40,12 +42,12 @@ const Singup = () => {
                onSubmit={(e) => handleSubmit(e)}
                className="h-[100%] flex justify-center items-center flex-col"
             >
-               <div className="inputs w-[80%]">
+               <div className="inputs w-[100%]">
                   <div className="inputname my-3 border px-2 py-2 border-[#115f4c] rounded-md flex justify-start items-center">
                      <input
                         type="text"
                         name="name"
-                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-medium"
                         placeholder="Enter your name..."
                      />
                   </div>
@@ -54,7 +56,7 @@ const Singup = () => {
                      <input
                         type="email"
                         name="email"
-                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-medium"
                         placeholder="Enter your email..."
                      />
                   </div>
@@ -63,7 +65,7 @@ const Singup = () => {
                         type="file"
                         name="profilePic"
                         onChange={(e) => onInputChange(e)}
-                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-medium"
                         placeholder="Enter your email..."
                      />
                   </div>
@@ -71,7 +73,7 @@ const Singup = () => {
                      <input
                         name="password"
                         type={hidePassword ? "password" : ""}
-                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-medium"
                         placeholder="Password.."
                      />
                      <span
@@ -81,11 +83,11 @@ const Singup = () => {
                         {hidePassword ? "Show" : "Hide"}
                      </span>
                   </div>
-                  <div className="inputPassword mt-3 border px-2 py-1 border-[#115f4c] rounded-md flex justify-between items-center">
+                  <div className="inputPassword mt-3 border px-2 py-1 border-[#115f4c]  rounded-md flex justify-between items-center">
                      <input
                         name="confirmPassword"
                         type={hideConfirmPassword ? "password" : ""}
-                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-medium"
                         placeholder="Confirm Password.."
                      />
                      <span

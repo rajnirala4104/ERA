@@ -46,9 +46,7 @@ const Login = () => {
          <Suspense fallback={<LoaderSpinner />}>
             <form
                // Handling form submission and key press events.
-               onKeyDown={(e) =>
-                  e.key === "Enter" ? formSubmitHandler : ""
-               }
+               onKeyDown={(e) => (e.key === "Enter" ? formSubmitHandler : "")}
                onSubmit={(e) => formSubmitHandler(e)}
                className="h-[100%] flex justify-center items-center flex-col"
             >
@@ -58,7 +56,7 @@ const Login = () => {
                      <input
                         name="email"
                         type="email"
-                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold"
+                        className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-medium"
                         placeholder="Enter your email..."
                      />
                   </div>
@@ -68,7 +66,7 @@ const Login = () => {
                         <input
                            name="password"
                            type={hidePassword ? "password" : ""}
-                           className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-semibold "
+                           className="outline-none text-xl bg-transparent lg:placeholder:font-normal placeholder:text-gray-800 placeholder:font-medium "
                            placeholder="Password.."
                         />
                         <span

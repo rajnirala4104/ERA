@@ -3,7 +3,7 @@ export interface signupData {
     email?: string,
     password?: string,
     bio?: string,
-    profilePic?: string
+    profilePic?: File
 }
 
 export interface loginData {
@@ -14,4 +14,12 @@ export interface loginData {
 export interface forgotPasswordsDataInterface {
     email: string,
     password: string
+}
+
+export interface profilePicFormData {
+    lastModified?: number,
+    name?: string,
+    size?: number,
+    type?: string,
+    webkitRelativePath?: string
 }

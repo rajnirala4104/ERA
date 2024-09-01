@@ -10,8 +10,8 @@ export interface user {
 }
 
 export interface followeInterface {
-   user: user,
-   followedUserId: user
+   user: user;
+   followedUserId: user;
 }
 
 export interface loginDesinContext {
@@ -42,8 +42,8 @@ export interface followersPopupContextInterfce {
    setFollowersPopupOnOff: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface editUserProfilePopupInterface {
-   editUserProfilePopupOnOff: boolean,
-   setEditUserProfilePopupOnOff: React.Dispatch<React.SetStateAction<boolean>>
+   editUserProfilePopupOnOff: boolean;
+   setEditUserProfilePopupOnOff: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface stateProviderContext {
@@ -87,8 +87,12 @@ export interface createThoughtPostInterface {
    thought?: string;
 }
 
-
 export interface followersAndFollowings {
-   followedUserId: user,
-   user: user,
+   followedUserId: user;
+   user: user;
+}
+
+export interface FormObject {
+   [key: string]: FormDataEntryValue;
+   profilePic: File | null;
 }

@@ -146,10 +146,10 @@ const userControllers = {
 
    updatePassword: expressAsyncHandler(async (req, res) => {
       try {
-         const { email, password } = req.body;
+         const { oldPassword, newPassword } = req.body;
 
-         const doesExist = await User.findOne({ email: email });
-         if (!doesExist) {
+         const user = await User.findOne({ _id: req.user._id });
+         if (!user) {
             return res.status(StatusCodes.BAD_REQUEST).json({
                message: "user is not in our database",
                status: StatusCodes.BAD_REQUEST,
@@ -157,18 +157,22 @@ const userControllers = {
             });
          }
 
-         const salt = await genSalt(10);
-         const newPassword = await hash(password, salt);
+         const isPasswordCurrect = await user.matchPassword(oldPassword);
+         if (!isPasswordCurrect) {
+            return res.status(StatusCodes.CONFLICT).json({
+               message: "wrong oldPassword given",
+               status: StatusCodes.CONFLICT,
+               data: null,
+            });
+         }
 
-         await User.findOneAndUpdate(
-            { email: email },
-            { $set: { password: newPassword } }
-         );
+         user.password = newPassword;
+         await user.save({ validateBeforeSave: false });
 
          return res.status(StatusCodes.OK).json({
             message: "password is updated successfully",
             status: StatusCodes.OK,
-            data: doesExist,
+            data: user,
          });
       } catch (error) {
          return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

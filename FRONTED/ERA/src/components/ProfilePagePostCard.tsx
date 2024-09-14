@@ -25,7 +25,10 @@ const ProfilePagePostCard: React.FC<postInterface> = memo((props) => {
                {props.thought ? (
                   <div className="w-[20rem] flex justify-center items-center shadow-md rounded-md h-[20rem] border-2 border-black cursor-pointer">
                      <span className="text-center font-mono font-semibold m-2">
-                        "{props.thought}"
+                        {props.thought?.length >= 50
+                           ? props.thought?.slice(0, 50)
+                           : props.thought}
+                        ...
                      </span>
                   </div>
                ) : (

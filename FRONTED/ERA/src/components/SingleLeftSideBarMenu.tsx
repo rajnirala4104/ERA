@@ -1,18 +1,19 @@
 import React, { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { menuInterface } from "../interfaces";
 
 /**
  * SingleLeftSideBarMenu is a functional component that renders a single left sidebar menu item.
  * It takes in a menuInterface object as a prop and renders a div with click event handler that
  * navigates to the specified path when clicked.
- * 
+ *
  * @param {menuInterface} props - An object containing the properties for the menu item.
  * @returns {JSX.Element} - A div element representing the menu item.
  */
 const SingleLeftSideBarMenu: React.FC<menuInterface> = (props) => {
    // Hook to get the navigate function from react-router-dom
    const navigator = useNavigate();
+   const { pathname } = useLocation();
 
    /**
     * Handler function for the click event on the menu item.
@@ -20,6 +21,12 @@ const SingleLeftSideBarMenu: React.FC<menuInterface> = (props) => {
     */
    const clickHandler = () => {
       navigator(props.path);
+      if (
+         pathname.split("/")[2] ===
+         JSON.parse(localStorage.getItem("userInfo") as string)._id
+      ) {
+         window.location.reload();
+      }
    };
 
    return (
